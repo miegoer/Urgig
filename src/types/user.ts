@@ -2,18 +2,18 @@ import { Document } from "mongoose";
 
 export type User = Document & {
   _id: string;
-  typeOfAccount: string; //Myabe a [] later and then refactor to include both?
-  name: string;
   email: string;
-  contactNumber: string;
-  password: string;
-  dateOfBirth: Date;
-  location: String;
-  settings: Settings; //settings like white/black theme and similar...
-  profileDetails: ProfileDetails; //more info about user
-  statistics: Statistics;
-  pastEvents: string[];
-  upcomingEvents: string[];
+  typeOfAccount?: string; //Myabe a [] later and then refactor to include both?
+  name?: string;
+  contactNumber?: string;
+  password?: string;
+  dateOfBirth?: Date;
+  location?: String;
+  settings?: Settings; //settings like white/black theme and similar...
+  profileDetails?: ProfileDetails; //more info about user
+  statistics?: Statistics;
+  pastEvents?: string[];
+  upcomingEvents?: string[];
 };
 
 export type Artist = User & {
