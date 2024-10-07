@@ -11,7 +11,7 @@ const messages = [
 
 export default function Messages() {
     return (
-        <div className="w-[370px] shadow-[0px_0px_0px_#272525] flex ml-2.5 mr-0 mt-5 mb-0 p-5 rounded-[20px] bg-[#252531]">
+        <div className="w-[380px] shadow-[0px_0px_0px_#272525] flex ml-2.5 mr-7 mt-5 mb-0 p-5 rounded-[20px] bg-[#252531]">
             <div id="messages">
             <span className="block text-[11px] tracking-[1px] uppercase ml-2.5 mr-0 mt-[3px] mb-[18px]">Messages</span>
             {messages.map((message) => (

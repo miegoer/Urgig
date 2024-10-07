@@ -1,21 +1,16 @@
 #dashboard-top-content {
-    grid-column: col-start 2 / span 8;
-    grid-row: 2 / span 5;
+    grid-column: col-start 2 / span 10;
+    grid-row: 2 / span 4;
     display: flex;
     flex-direction: row;
-    width: 120%;
-    margin: 0px 10px;
-}
-
-#dashboard-middle-content:first-child {
-    justify-content: flex-start;
+    margin-bottom: 5px
 }
 
 #dashboard-bottom-content {
-    grid-column: col-start 2 / span 6;
-    grid-row: 8 / span 4;
+    grid-column: col-start 2 / span 10;
+    grid-row: 6 / span 4;
+    width: 105%;
     height: 390px;
-    margin-top: 30px;
     display: flex;
     flex-direction: row;
 }

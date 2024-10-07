@@ -12,7 +12,7 @@ const links: MainNavLink[] = [
     { name: 'Dashboard', href: '/dashboard' },
     { name: 'Find Talent', href: '/findtalent' },
     { name: 'Find Gigs', href: '/findgigs' },
-    { name: 'Profile', href: '/myprofile' }
+    { name: 'Profile', href: '/myprofile' },
 ];
 
 export default function MainNavLinks () {
