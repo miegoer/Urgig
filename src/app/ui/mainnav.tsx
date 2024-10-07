@@ -1,13 +1,12 @@
-import Link from 'next/link';
-import MainNavLinks from './mainnavlinks';
+import Link from "next/link";
+import MainNavLinks from "./navBarP";
 
 export default function MainNav() {
   return (
-
     <div className="bg-[#20202a] col-start-1 col-end-[-1] flex flex-row items-center p-[6px_55px] m-[0_0_16px_-20px] grow">
-        <MainNavLinks/>
+      <MainNavLinks />
     </div>
-    
+
     // <div className="flex h-full flex-col px-3 py-4 md:px-2">
     //   <Link
     //     className="mb-2 flex h-20 items-end justify-start rounded-md bg-blue-600 p-4 md:h-40"
