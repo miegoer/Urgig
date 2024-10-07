@@ -1,11 +1,12 @@
 export type Event = {
   _id: string;
   name: string;
+  organiserId: string;
   date: Date;
-  bannerURL: string;
+  bannerURL?: string;
   location: string;
   genre: string[]; //preselected values
-  duration: number;
+  duration: number; //in days
   maxCapacity: number;
   link: string;
 };
