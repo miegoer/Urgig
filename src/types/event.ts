@@ -1,11 +1,14 @@
-export type Event = {
+import { Document } from "mongoose";
+
+export type Event = Document & {
   _id: string;
   name: string;
   date: Date;
-  bannerURL: string;
+  bannerURL?: string;
   location: string;
   genre: string[]; //preselected values
   duration: number;
   maxCapacity: number;
-  link: string;
+  link?: string;
+  organiserId: string;
 };

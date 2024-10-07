@@ -1,8 +1,11 @@
-export type Booking = {
+import { Document } from "mongoose";
+
+// Interface extending mongoose.Document
+export type Booking = Document & {
   _id: string;
   name: string;
-  link: string;
-  bannerURL: string;
+  link?: string;
+  bannerURL?: string;
   location: string;
   offer: number; //cash amount
   sets: Set[];

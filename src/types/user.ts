@@ -1,6 +1,6 @@
-import { Event } from "./event";
+import { Document } from "mongoose";
 
-export type User = {
+export type User = Document & {
   _id: string;
   typeOfAccount: string; //Myabe a [] later and then refactor to include both?
   name: string;
@@ -12,8 +12,8 @@ export type User = {
   settings: Settings; //settings like white/black theme and similar...
   profileDetails: ProfileDetails; //more info about user
   statistics: Statistics;
-  pastEvents: Event[];
-  upcomingEvents: Event[];
+  pastEvents: string[];
+  upcomingEvents: string[];
 };
 
 export type Artist = User & {
@@ -25,22 +25,22 @@ export type Organizer = User & {
 };
 
 export type ProfileDetails = {
-  profilePicture: string; //Either: ID to separate table in Mongo (if we store in DB), URL to any cloud/webdisk API
-  aboutMe: string;
-  selectedVideo: string; //URL to ... youtube?
-  socialLinks: SocialLinks;
-  unAvailableDates: Date[]; //for now
-  bannerPicture: string;
-  genre: [string]; // preselected ones, defined hardcoded into UI! Make a separate file at least...
+  profilePicture?: string; //Either: ID to separate table in Mongo (if we store in DB), URL to any cloud/webdisk API
+  aboutMe?: string;
+  selectedVideo?: string; //URL to ... youtube?
+  socialLinks?: SocialLinks;
+  unAvailableDates?: Date[]; //for now
+  bannerPicture?: string;
+  genre?: [string]; // preselected ones, defined hardcoded into UI! Make a separate file at least...
 };
 
 export type SocialLinks = {
-  twitter: string; //url - we can check if it strats with "https://twitter" or "https://x.com"... and validate it with Zod
-  facebook: string; //https://www.facebook.com/
-  youtube: string; //https://www.youtube.com/@
-  instagram: string; //https://www.instagram.com/
-  spotify: string; // https://open.spotify.com/artist/
-  tiktok: string; // https://www.tiktok.com/@
+  twitter?: string; //url - we can check if it strats with "https://twitter" or "https://x.com"... and validate it with Zod
+  facebook?: string; //https://www.facebook.com/
+  youtube?: string; //https://www.youtube.com/@
+  instagram?: string; //https://www.instagram.com/
+  spotify?: string; // https://open.spotify.com/artist/
+  tiktok?: string; // https://www.tiktok.com/@
 };
 
 export type Settings = {
@@ -49,11 +49,11 @@ export type Settings = {
 
 //calculate statistics on page load...
 export type Statistics = {
-  profileViews: number;
-  offersGot: number;
-  offersAcccepted: number;
-  income: number;
-  avgCapacity: number;
-  totalAtendees: number;
-  totalEvents: number;
+  profileViews?: number;
+  offersGot?: number;
+  offersAcccepted?: number;
+  income?: number;
+  avgCapacity?: number;
+  totalAtendees?: number;
+  totalEvents?: number;
 };
