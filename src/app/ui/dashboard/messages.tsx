@@ -20,7 +20,7 @@ export default function Messages() {
                 src={message.photo} className="object-cover ml-[-15px] mr-5 rounded-[50%]" alt={message.alt} width={45} height={45} key={message.name}/>
             <div className="flex flex-col w-[90%]">
                 <span className="text-[13px] mb-[5px]">{message.name}</span>
-                <span className="message-content">{message.message}</span>
+                <span className="tracking-[1px]">{message.message}</span>
             </div>
         </div>
             ))}

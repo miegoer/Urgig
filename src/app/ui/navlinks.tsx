@@ -8,12 +8,13 @@ interface MainNavLink {
     name: string;
     href: string;
 }
+
 const links: MainNavLink[] = [
     { name: 'Dashboard', href: '/dashboard' },
     { name: 'Find Talent', href: '/findtalent' },
     { name: 'Find Gigs', href: '/findgigs' },
     { name: 'Profile', href: '/myprofile' },
-];
+]; // Links in the global Main Nav at the top of the page
 
 export default function MainNavLinks () {
     const pathname = usePathname();

@@ -10,7 +10,7 @@
     grid-column: col-start 2 / span 10;
     grid-row: 6 / span 4;
     width: 105%;
-    height: 390px;
+    height: 405px;
     display: flex;
     flex-direction: row;
 }
