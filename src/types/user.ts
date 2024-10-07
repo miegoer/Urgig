@@ -31,7 +31,7 @@ export type ProfileDetails = {
   socialLinks?: SocialLinks;
   unAvailableDates?: Date[]; //for now
   bannerPicture?: string;
-  genre?: [string]; // preselected ones, defined hardcoded into UI! Make a separate file at least...
+  genre?: string[]; // preselected ones, defined hardcoded into UI! Make a separate file at least...
 };
 
 export type SocialLinks = {
