@@ -2,7 +2,7 @@ export type Booking = {
   _id: string;
   name: string;
   link: string;
-  bannerURL: string;
+  bannerURL?: string;
   location: string;
   offer: number; //cash amount
   sets: Set[];
