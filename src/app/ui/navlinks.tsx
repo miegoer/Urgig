@@ -21,7 +21,9 @@ export default function MainNavLinks () {
         <>
         {links.map((link: MainNavLink) => (
             <Link key={link.name} href={link.href} className={clsx(
-                'text-[#dcff58] uppercase text-[12px] mx-[30px] my-[10px] tracking-[3px]',{'text-[#ffc037]': pathname === link.href})}>
+                'text-[#dcff58] p-3 uppercase text-[12px] mx-[25px] my-[6px] tracking-[3px] transition-all duration-200',
+                {'text-[#ffc037]': pathname === link.href},
+                'hover:bg-[#5c37eb] hover:rounded-[5px]')}>
                 {link.name}
             </Link>
         ))}

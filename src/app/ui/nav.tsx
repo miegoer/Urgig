@@ -1,10 +1,10 @@
 import Link from 'next/link';
-import MainNavLinks from './mainnavlinks';
+import MainNavLinks from './navlinks';
 
 export default function MainNav() {
   return (
 
-    <div className="bg-[#20202a] col-start-1 col-end-[-1] flex flex-row items-center p-[6px_55px] m-[0_0_16px_-20px] grow">
+    <div className="bg-[#20202a] col-start-1 col-end-[-1] row-[1] flex flex-row items-center p-[6px_55px] m-[5px_0_16px_-20px] h-[50px] grow">
         <MainNavLinks/>
     </div>
     
