@@ -1,6 +1,6 @@
-import { Document } from "mongoose";
+import { Event } from "./event";
 
-export type User = Document & {
+export type User = {
   _id: string;
   typeOfAccount: string; //Myabe a [] later and then refactor to include both?
   name: string;
@@ -9,11 +9,11 @@ export type User = Document & {
   password: string;
   dateOfBirth: Date;
   location: String;
-  settings: Settings; //settings like white/black theme and similar...
+  settings?: Settings; //settings like white/black theme and similar...
   profileDetails: ProfileDetails; //more info about user
   statistics: Statistics;
-  pastEvents: string[];
-  upcomingEvents: string[];
+  pastEvents: Event[];
+  upcomingEvents: Event[];
 };
 
 export type Artist = User & {
@@ -25,13 +25,13 @@ export type Organizer = User & {
 };
 
 export type ProfileDetails = {
-  profilePicture?: string; //Either: ID to separate table in Mongo (if we store in DB), URL to any cloud/webdisk API
-  aboutMe?: string;
-  selectedVideo?: string; //URL to ... youtube?
-  socialLinks?: SocialLinks;
-  unAvailableDates?: Date[]; //for now
-  bannerPicture?: string;
-  genre?: [string]; // preselected ones, defined hardcoded into UI! Make a separate file at least...
+  profilePicture: string; //Either: ID to separate table in Mongo (if we store in DB), URL to any cloud/webdisk API
+  aboutMe: string;
+  selectedVideo: string; //URL to ... youtube?
+  socialLinks: SocialLinks;
+  unAvailableDates: Date[]; //for now
+  bannerPicture: string;
+  genre: [string]; // preselected ones, defined hardcoded into UI! Make a separate file at least...
 };
 
 export type SocialLinks = {
