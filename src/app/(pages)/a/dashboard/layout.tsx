@@ -1,9 +1,10 @@
-import NavBarA from "../../ui/navBarA";
+import NavBarA from "@/app/(components)/ui/navBarA";
+import React from "react";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <NavBarA/>
+      <NavBarA />
       {children}
     </>
   );
