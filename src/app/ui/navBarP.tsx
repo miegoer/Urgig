@@ -9,13 +9,14 @@ interface MainNavLink {
     href: string;
 }
 const links: MainNavLink[] = [
-    { name: 'Dashboard', href: '/dashboard' },
-    { name: 'Find Talent', href: '/findtalent' },
-    { name: 'Find Gigs', href: '/findgigs' },
-    { name: 'Profile', href: '/myprofile' }
+    { name: 'Dashboard', href: '/p/dashboard' },
+    { name: 'Find Talent', href: '/p/dashboard/artists' },
+    { name: 'Find Gigs', href: '/p/dashboard/events' },
+    { name: 'Profile', href: '/p/dashboard/profileSetting' },
+    { name: 'Messages', href: '/p/dashboard/messages' }
 ];
 
-export default function MainNavLinks () {
+export default function NavBarP () {
     const pathname = usePathname();
     return (
         <>
