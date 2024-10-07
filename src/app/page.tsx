@@ -1,4 +1,7 @@
+import '@/app/globals.css';
 import Image from "next/image";
+
+// This should be the front page -- before login and etc.
 
 export default function Home() {
   return (

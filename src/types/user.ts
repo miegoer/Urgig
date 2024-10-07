@@ -1,4 +1,6 @@
-export type User = {
+import { Document } from "mongoose";
+
+export type User = Document & {
   _id: string;
   typeOfAccount: string; //Myabe a [] later and then refactor to include both?
   name: string;
@@ -7,11 +9,11 @@ export type User = {
   password: string;
   dateOfBirth: Date;
   location: String;
-  settings?: Settings; //settings like white/black theme and similar...
+  settings: Settings; //settings like white/black theme and similar...
   profileDetails: ProfileDetails; //more info about user
   statistics: Statistics;
-  pastEvents: String[]; //Event IDs
-  upcomingEvents: String[];
+  pastEvents: string[];
+  upcomingEvents: string[];
 };
 
 export type Artist = User & {
@@ -47,11 +49,11 @@ export type Settings = {
 
 //calculate statistics on page load...
 export type Statistics = {
-  profileViews: number;
-  offersGot: number;
-  offersAcccepted: number;
-  income: number;
-  avgCapacity: number;
-  totalAtendees: number;
-  totalEvents: number;
+  profileViews?: number;
+  offersGot?: number;
+  offersAcccepted?: number;
+  income?: number;
+  avgCapacity?: number;
+  totalAtendees?: number;
+  totalEvents?: number;
 };
