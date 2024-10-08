@@ -1,9 +1,9 @@
-import NavBarP from "../../ui/navBarP";
+import Nav from "../../../ui/nav";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <NavBarP/>
+      <Nav/>
       {children}
     </>
   );
