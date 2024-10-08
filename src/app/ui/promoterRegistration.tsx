@@ -3,21 +3,11 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function ArtistRegistration () {
-  const [form, setForm] = useState({firstName: "", lastName: "", dateOfBirth: "", stageName: "", phoneNumber: "", location: "", aboutYou: ""});
-  const [validity, setvalidity] = useState({firstName: true, lastName: true, dateOfBirth: true, stageName: true, phoneNumber: true, location: true});
+  const [form, setForm] = useState({firstName: "", lastName: "", dateOfBirth: "", phoneNumber: "", location: "", aboutYou: ""});
+  const [validity, setvalidity] = useState({firstName: true, lastName: true, dateOfBirth: true, phoneNumber: true, location: true});
   const [pt1Submitted, setPt1Submitted] = useState(false);
 
   const router = useRouter();
-
-  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-    e.target.type = 'date';
-  };
-
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-      if (!e.target.value) {
-        e.target.type = 'text';
-      }
-  };
 
   const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -55,10 +45,10 @@ export default function ArtistRegistration () {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (validity.firstName && validity.lastName && validity.dateOfBirth && validity.stageName && validity.phoneNumber && validity.location) {
+    if (validity.firstName && validity.lastName && validity.dateOfBirth && validity.phoneNumber && validity.location) {
       // TODO Add server call for user creation
-      setForm({firstName: "", lastName: "", dateOfBirth: "", stageName: "", phoneNumber: "", location: "", aboutYou: ""});
-      setvalidity({firstName: true, lastName: true, dateOfBirth: true, stageName: true, phoneNumber: true, location: true});
+      setForm({firstName: "", lastName: "", dateOfBirth: "", phoneNumber: "", location: "", aboutYou: ""});
+      setvalidity({firstName: true, lastName: true, dateOfBirth: true, phoneNumber: true, location: true});
       router.push("/dashboard");
     }
   }
@@ -78,22 +68,9 @@ export default function ArtistRegistration () {
       {!validity.lastName && (
           <p className="text-red-500 mt-[5px]">Invalid last name.</p>
         )}
-      <input
-        type="text"
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        placeholder="Date of Birth"
-        className="text-black"
-        value={form.dateOfBirth}
-        onChange={(e) => handleDateInput(e)}
-        required
-      />
+      <input type="date" placeholder="Date of Birth" className="text-black" value={form.dateOfBirth} onChange={(e) => handleDateInput(e)} required/>
       {!validity.dateOfBirth && (
           <p className="text-red-500 mt-[5px]">Invalid date.</p>
-        )}
-      <input type="text" placeholder="Stage Name" className="text-black" value={form.stageName} onChange={(e) => handleGenericChange(e, "stageName")}/>
-      {!validity.stageName && (
-          <p className="text-red-500 mt-[5px]">Invalid stage name.</p>
         )}
       <input type="tel" placeholder="Phone Number" className="text-black" value={form.phoneNumber} onChange={(e) => handlePhoneChange(e)} required/>
       {!validity.phoneNumber && (
@@ -108,7 +85,7 @@ export default function ArtistRegistration () {
     )}
     {pt1Submitted && (
       <form className="flex flex-col" onSubmit={handleSubmit}>
-        <textarea placeholder="About you" className="text-black" value={form.aboutYou} onChange={(e) => handleGenericChange(e, "aboutYou")} required/>
+        <textarea placeholder="About you" className="text-black" value={form.aboutYou} onChange={(e) => handleGenericChange(e, "about")}/>
         <button type="submit">Submit</button>
       </form>
     )}
