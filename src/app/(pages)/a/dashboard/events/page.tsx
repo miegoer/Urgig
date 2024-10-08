@@ -1,5 +1,7 @@
+import EventList from "@/app/ui/dashboard/eventList"
+
 export default function Event() {
   return (
-    <div>Event</div>
+    <EventList/>
   )
 }
