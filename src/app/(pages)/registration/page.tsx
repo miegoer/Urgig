@@ -1,7 +1,7 @@
 'use client'
 
-import ArtistRegistration from "@/app/ui/artistRegistration";
-import PromoterRegistration from "@/app/ui/promoterRegistration";
+import ArtistRegistration from "@/app/(pages)/registration/artistRegistration";
+import PromoterRegistration from "@/app/(pages)/registration/promoterRegistration";
 import { useState, useEffect } from "react";
 
 export default function Artist({ children }: { children: React.ReactNode }) {
