@@ -13,6 +13,7 @@ export default function Home() {
       <Link href="/sign-in"> LOGIN </Link>
     </div>
   );
+<<<<<<< HEAD:src/app/(pages)/page.tsx
 }
 
 // import clsx from 'clsx';
@@ -30,3 +31,6 @@ export default function Home() {
 //         </>
 //     )
 // }
+=======
+}
+>>>>>>> main:src/app/page.tsx
