@@ -1,6 +1,6 @@
 import type { Event } from "../../../types/event";
 
-export default function Event(event: Event) {
+export default function EventElement(event: Event) {
   return (
     <div className="m-5 rounded-[5%]">
       <h2 className="text-xl">{event.name}</h2>
