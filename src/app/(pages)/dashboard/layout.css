@@ -1,0 +1,16 @@
+#dashboard-top-content {
+    grid-column: col-start 2 / span 10;
+    grid-row: 2 / span 4;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5px
+}
+
+#dashboard-bottom-content {
+    grid-column: col-start 2 / span 10;
+    grid-row: 6 / span 4;
+    width: 105%;
+    height: 405px;
+    display: flex;
+    flex-direction: row;
+}
