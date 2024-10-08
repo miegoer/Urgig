@@ -12,11 +12,21 @@
   "dependencies": {
     "@clerk/nextjs": "^5.7.1",
     "@clerk/themes": "^2.1.35",
+    "@tailwindcss/typography": "^0.5.15",
+    "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "lucide-react": "^0.451.0",
     "mongoose": "^8.7.0",
     "next": "14.2.14",
     "react": "^18",
+<<<<<<< Updated upstream
     "react-dom": "^18"
+=======
+    "react-dom": "^18",
+    "react-wrap-balancer": "^1.1.1",
+    "tailwind-merge": "^2.5.3",
+    "tailwindcss-animate": "^1.0.7"
+>>>>>>> Stashed changes
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",
