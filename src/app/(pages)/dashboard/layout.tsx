@@ -9,7 +9,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gridTemplateRows: 'auto 1fr' }}>
       <SideNav />
-      <div className="col-[col-start_2_/_span_10] row-[2_/_span_10]">
+      <div className="col-[col-start_2_/_span_10] row-[2_/_span_10] w-[300px]">
           {children}
       </div>
     </div>
