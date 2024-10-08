@@ -1,19 +1,23 @@
-import '@/app/globals.css';
+import SideNav from '@/app/ui/dashboard/sidenav';
 import QuickStats from '@/app/ui/dashboard/quickstats';
+import Notifications from '@/app/ui/dashboard/notifications';
+import Messages from '@/app/ui/dashboard/messages';
+import UserInfo from '@/app/ui/dashboard/userinfo';
+import Upcoming from '@/app/ui/dashboard/upcoming';
 import './layout.css';
 
-export default function Dashboard() {
-    return (
-        <main>
-            {/* <h1 className={`mb-4 text-xl md:text-2xl`}>
-            Dashboard
-            </h1>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                Test
-            </div>
-            <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
-            Test
-            </div> */}
-        </main>
-    )
-  }
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gridTemplateRows: 'auto 1fr' }}>
+    <div id="dashboard-top-content">
+        <QuickStats/>
+        <UserInfo />
+      </div>
+      <div id="dashboard-bottom-content">
+        <Notifications/>
+        <Messages/>
+        <Upcoming/>
+      </div>
+    </div>
+  );
+}
