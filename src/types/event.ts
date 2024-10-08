@@ -11,5 +11,4 @@ export type Event = Document & {
   duration: number; //in days
   maxCapacity: number;
   link?: string;
-  organiserId: string;
 };
