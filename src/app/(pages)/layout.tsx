@@ -1,19 +1,9 @@
-<<<<<<< HEAD
-<<<<<<<< HEAD:src/app/(pages)/layout.tsx
 import type { Metadata } from "next";
 import "./globals.css";
-========
-import type { Metadata } from 'next';
-import './globals.css';
->>>>>>>> main:src/app/layout.tsx
-// Clerk integration
+// Clerk integration kk
 import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 // Clerk themes
-<<<<<<<< HEAD:src/app/(pages)/layout.tsx
 import { dark } from "@clerk/themes";
-========
-import { dark } from '@clerk/themes';
->>>>>>>> main:src/app/layout.tsx
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -43,17 +33,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </body>
       </html>
     </ClerkProvider>
-=======
-import Nav from "@/app/ui/nav";
- 
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="grid grid-cols-12">
-      <Nav/>
-      <div className="col-[col-start_1_/_span_12 row-[2_/_span_8] pb-[35px]">
-        {children}
-      </div>
-    </div>
->>>>>>> main
   );
 }
