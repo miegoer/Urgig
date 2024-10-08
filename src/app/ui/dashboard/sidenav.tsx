@@ -8,6 +8,7 @@ import Payments from '@/public/earnings-icon.png';
 import Settings from '@/public/settings-icon.png';
 import Calendar from '@/public/calendar-icon.png';
 import Analytics from '@/public/analytics-icon.png';
+import Create from '@/public/create-icon.png';
 import Account from '@/public/profile-icon.png';
 import Contracts from '@/public/contracts-icon.png';
 import clsx from 'clsx';
@@ -23,7 +24,7 @@ interface sideNavLink {
 
 const sideNavLinks: sideNavLink[] = [
   { icon: Dashboard, href: `${baseRoute}`, alt: 'Dashboard Icon' },
-  { icon: Calendar, href: `${baseRoute}/create`, alt: 'Create Icon' },
+  { icon: Create, href: `${baseRoute}/create`, alt: 'Create Icon' },
   { icon: Payments, href: `${baseRoute}/payments`, alt: 'Payments Icon' },
   { icon: Analytics, href: `${baseRoute}/analytics`, alt: 'Analytics Icon' },
   { icon: Contracts, href: `${baseRoute}/contracts`, alt: 'Contracts Icon' },
