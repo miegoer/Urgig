@@ -2,7 +2,7 @@ import { Event } from "@/types/event";
 
 // no images included yet
 
-const mockEvents: Event[] = [
+const mockEvents: Partial<Event>[] = [
   {
     _id: "event1",
     name: "Summer Vibes Festival",
@@ -12,7 +12,7 @@ const mockEvents: Event[] = [
     genre: ["Pop", "EDM"],
     duration: 2,
     maxCapacity: 10000,
-    link: "https://summervibesfestival.com"
+    link: "https://summervibesfestival.com",
   },
   {
     _id: "event2",
@@ -23,7 +23,7 @@ const mockEvents: Event[] = [
     genre: ["Rock"],
     duration: 3,
     maxCapacity: 15000,
-    link: "https://rockoutloud.com"
+    link: "https://rockoutloud.com",
   },
   {
     _id: "event3",
@@ -34,7 +34,7 @@ const mockEvents: Event[] = [
     genre: ["Indie", "Alternative"],
     duration: 1,
     maxCapacity: 8000,
-    link: "https://indienights.com"
+    link: "https://indienights.com",
   },
   {
     _id: "event4",
@@ -45,7 +45,7 @@ const mockEvents: Event[] = [
     genre: ["Jazz", "Blues"],
     duration: 2,
     maxCapacity: 12000,
-    link: "https://jazzinthepark.com"
+    link: "https://jazzinthepark.com",
   },
   {
     _id: "event5",
@@ -56,7 +56,7 @@ const mockEvents: Event[] = [
     genre: ["EDM", "House"],
     duration: 3,
     maxCapacity: 20000,
-    link: "https://edmblast.com"
+    link: "https://edmblast.com",
   },
   {
     _id: "event6",
@@ -67,7 +67,7 @@ const mockEvents: Event[] = [
     genre: ["Hip-Hop"],
     duration: 1,
     maxCapacity: 10000,
-    link: "https://hiphopblockparty.com"
+    link: "https://hiphopblockparty.com",
   },
   {
     _id: "event7",
@@ -78,7 +78,7 @@ const mockEvents: Event[] = [
     genre: ["Country"],
     duration: 2,
     maxCapacity: 15000,
-    link: "https://countrymusicjamboree.com"
+    link: "https://countrymusicjamboree.com",
   },
   {
     _id: "event8",
@@ -89,7 +89,7 @@ const mockEvents: Event[] = [
     genre: ["Electronic", "Techno"],
     duration: 3,
     maxCapacity: 18000,
-    link: "https://electronicsoundsfestival.com"
+    link: "https://electronicsoundsfestival.com",
   },
   {
     _id: "event9",
@@ -100,7 +100,7 @@ const mockEvents: Event[] = [
     genre: ["Latin", "Reggaeton"],
     duration: 2,
     maxCapacity: 12000,
-    link: "https://latinmusicextravaganza.com"
+    link: "https://latinmusicextravaganza.com",
   },
   {
     _id: "event10",
@@ -111,9 +111,8 @@ const mockEvents: Event[] = [
     genre: ["Metal", "Hard Rock"],
     duration: 3,
     maxCapacity: 14000,
-    link: "https://metalmayhem.com"
-  }
+    link: "https://metalmayhem.com",
+  },
 ];
-
 
 export default mockEvents;
