@@ -1,5 +1,9 @@
-import mongoose, { Schema } from "mongoose";
-import { Booking } from "@/types/booking";
+import { Schema, model, models, Document } from "mongoose";
+import { Booking, Set } from "@/types/booking";
+
+export interface BookingDoc extends Booking, Document {
+  _id: string;
+}
 
 export const BookingSchema: Schema = new Schema({
   //_id: string; added by mongo itself
@@ -23,7 +27,4 @@ const SetSchema: Schema = new Schema({
   setTimeEnd: { type: String, required: true },
 });
 
-export const BookingModel =
-  mongoose.models.Booking || mongoose.model<Booking>("Booking", BookingSchema);
-
-export const SetModel = mongoose.models.Set || mongoose.model("Set", SetSchema);
+export const BookingModel = models.Booking || model<BookingDoc>("Booking", BookingSchema);
