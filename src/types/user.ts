@@ -1,6 +1,4 @@
-import { Document } from "mongoose";
-
-export type User = Document & {
+export type User = {
   _id: string;
   email: string;
   typeOfAccount?: string; //Myabe a [] later and then refactor to include both?
