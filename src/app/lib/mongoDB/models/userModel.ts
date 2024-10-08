@@ -4,17 +4,17 @@ import { ProfileDetails, Settings, SocialLinks, Statistics, User } from "@/types
 export const UserSchema: Schema = new Schema({
   //_id: string; added by mongo itself
   typeOfAccount: { type: String, required: true },
-  name: { type: String, required: true },
   email: { type: String, required: true },
-  contactNumber: { type: String, required: true },
-  password: { type: String, required: true },
-  dateOfBirth: { type: Date, required: true },
-  location: { type: Date, required: true },
-  settings: { type: [Schema.Types.ObjectId], ref: "Settings", required: true },
-  profileDetails: { type: [Schema.Types.ObjectId], ref: "ProfileDetails", required: true },
-  statistics: { type: [Schema.Types.ObjectId], ref: "Statistics", required: true },
-  pastEvents: { type: [String], required: true }, //preselected values
-  upcomingEvents: { type: [String], required: true }, //preselected values
+  name: { type: String, required: false },
+  contactNumber: { type: String, required: false },
+  password: { type: String, required: false },
+  dateOfBirth: { type: Date, required: false },
+  location: { type: Date, required: false },
+  settings: { type: [Schema.Types.ObjectId], ref: "Settings", required: false },
+  profileDetails: { type: [Schema.Types.ObjectId], ref: "ProfileDetails", required: false },
+  statistics: { type: [Schema.Types.ObjectId], ref: "Statistics", required: false },
+  pastEvents: { type: [String], required: false }, //preselected values
+  upcomingEvents: { type: [String], required: false }, //preselected values
 });
 
 const ProfileSchema: Schema = new Schema({
