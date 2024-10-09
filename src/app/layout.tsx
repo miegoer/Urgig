@@ -1,5 +1,5 @@
-import "./global.css";
-import { Home, PromoterUSP, ArtistUSP, Footer, Navbar, AboutUs, OurMission } from "./(landing-page)/page";
+import "./globals.css";
+import { Home, PromoterUSP, ArtistUSP, Footer, Navbar, AboutUs, OurMission } from "./home/page";
 import {
   ClerkLoaded,
   ClerkLoading,
