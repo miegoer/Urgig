@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link';
+import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
 import Image, { StaticImageData } from "next/image";
 import Dashboard from '@/public/dashboard-icon.png';
@@ -11,7 +12,6 @@ import Analytics from '@/public/analytics-icon.png';
 import Create from '@/public/create-icon.png';
 import Account from '@/public/profile-icon.png';
 import Contracts from '@/public/contracts-icon.png';
-import clsx from 'clsx';
 import './dashboard-ui.css';
 
 const baseRoute = '/dashboard'

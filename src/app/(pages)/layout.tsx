@@ -9,8 +9,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="grid grid-cols-12">
-      {pathname !== '/myprofile' ? <Nav/> : null}
-      <div className="row-[2_/_span_9]">
+      {!pathname.startsWith('/myprofile') ? <Nav /> : null}
+      <div className="row-[2/_span_9]">
         {children}
       </div>
     </div>
