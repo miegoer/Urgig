@@ -1,5 +1,5 @@
-import events from "../../../mockData/events";
-import Event from "./event";
+import events from "@/mockData/events";
+import Event from "./dashboard/event";
 
 export default function EventList() {
   return (
