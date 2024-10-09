@@ -1,25 +1,26 @@
-import "./globals.css";
-import Home, { PromoterUSP, ArtistUSP, Footer } from "./page";
+import type { Metadata } from "next";
+import localFont from "next/font/local";
+import "../globals.css";
+import { Home, PromoterUSP, ArtistUSP, Footer } from "./page";
 // Clerk integration
 import {
-  ClerkLoaded,
-  ClerkLoading,
   ClerkLoaded,
   ClerkLoading,
   ClerkProvider,
   SignInButton,
   SignUpButton,
-  SignUpButton,
   SignedIn,
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
-} from "@clerk/nextjs";
 // Clerk themes
 import { dark } from "@clerk/themes";
-import { dark } from "@clerk/themes";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <ClerkProvider
       appearance={{
@@ -28,16 +29,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <html lang="en">
         <body className="bg-gray-900 text-white">
-          <header></header>
+          <header>
+       
+          </header>
 
           <main>
             <ClerkLoading>
-              <div className="flex items-center justify-center h-full">Loading...</div>
+              <div className="flex items-center justify-center h-full">
+                Loading...
+              </div>
             </ClerkLoading>
 
             <ClerkLoaded>
               {/* Hero Section */}
-              <div className="h-[50vh] flex items-center justify-center">{children}</div>
+              <div className="h-[50vh] flex items-center justify-center">
+                <Home />
+              </div>
 
               {/* Main Content */}
               <div className="max-w-6xl mx-auto px-4 py-8">
@@ -70,6 +77,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <PromoterUSP />
                 </div>
               </div>
+
+              <div className="">{children}</div>
             </ClerkLoaded>
           </main>
 
