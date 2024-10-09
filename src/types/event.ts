@@ -1,6 +1,4 @@
-import { Document } from "mongoose";
-
-export type Event = Document & {
+export type Event = {
   _id: string;
   name: string;
   organiserId: string;
@@ -11,5 +9,4 @@ export type Event = Document & {
   duration: number; //in days
   maxCapacity: number;
   link?: string;
-  organiserId: string;
 };

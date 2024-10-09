@@ -2,7 +2,7 @@ import { Event } from "@/types/event";
 
 // no images included yet
 
-const mockEvents: Partial<Event>[] = [
+const mockEvents: Event[] = [
   {
     _id: "event1",
     name: "Summer Vibes Festival",

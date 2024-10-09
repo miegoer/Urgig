@@ -1,16 +1,15 @@
-import "@/app/globals.css";
+import "@/app/(pages)/globals.css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-// This should be the front page -- before login and etc.
-
+// This should be the front page -- before login and etc. kk
 
 export default function Home() {
   return (
     <div>
       <h1>MAIN PAGE</h1>
       <Link href="/sign-up">CREATE AN ACCOUNT</Link>
-      <br/>
+      <br />
       <Link href="/sign-in"> LOGIN </Link>
     </div>
   );
