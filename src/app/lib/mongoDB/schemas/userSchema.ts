@@ -12,7 +12,14 @@ export interface UserDoc extends User, Document {
 export const UserSchema: Schema = new Schema({
   //_id: string; added by mongo itself
   typeOfAccount: { type: String, required: true },
-  email: { type: String, required: true },
+  email: {
+    type: String,
+    required: true,
+    validate: {
+      validator: (v: string) => /^\S+@\S+\.\S+$/.test(v), // Regex for valid email format
+      message: (props) => `${props.value} is not a valid email!`,
+    },
+  },
   name: { type: String, required: false },
   contactNumber: { type: String, required: false },
   password: { type: String, required: false, select: false }, // Ensure password is excluded by default. You won’t get the password field unless you specifically request it in a query using .select("+password").
