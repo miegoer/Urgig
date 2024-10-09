@@ -2,7 +2,7 @@ import { Booking } from "@/types/booking";
 
 // no images included yet
 
-const mockBookings: Partial<Booking>[] = [
+const mockBookings: Booking[] = [
   {
     _id: "booking1",
     name: "Summer Vibes Festival",

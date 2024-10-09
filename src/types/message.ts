@@ -1,7 +1,4 @@
-import { Document } from "mongoose";
-
-// Interface extending mongoose.Document
-export type Message = Document & {
+export type Message = {
   _id: string;
   senderId: string;
   receiverId: string;

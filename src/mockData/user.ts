@@ -2,7 +2,7 @@ import { User } from "@/types/user";
 
 // no images included yet
 
-const mockUsers: Partial<User>[] = [
+const mockUsers: User[] = [
   {
     _id: "artist1",
     typeOfAccount: "artist",
