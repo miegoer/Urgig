@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import SelectGenre from "./selectGenre";
 
-
 export default function CreateEvent() {
   type EventData = {
     name: string;
@@ -31,27 +30,25 @@ export default function CreateEvent() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-     if (name === "date") {
-      setEventData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    } else {
-      setEventData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    }
+    setEventData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(genres)
     setEventData({
-      ...eventData, 
-      genre : genres} )
-    console.log("Evento creado:", eventData);
-    setEventData(initialState);
+      ...eventData,
+      genre: genres,
+    });
+    setTimeout(() => {
+      console.log("Evento creado:", eventData);
+    }, 0);
+
+    setTimeout(() => {
+      setEventData(initialState);
+    }, 100);
   };
 
   return (
@@ -146,19 +143,7 @@ export default function CreateEvent() {
                 className="mb-2 outline-none bg-[#20202a] border-b-[1px] border-white w-[500px]"
               />
             </div>
-            <SelectGenre setGenres={setGenres} genres={genres}/>
-            {/* <div>
-              <label htmlFor="createEventFormGenre">Genre:</label>
-              <input
-                value={eventData.genre}
-                name="genre"
-                onChange={handleChange}
-                type="text"
-                id="createEventFormGenre"
-                required
-                className="mb-2 outline-none bg-[#20202a] border-b-[1px] border-white w-[500px]"
-              />
-            </div> */}
+            <SelectGenre setGenres={setGenres} genres={genres} />
           </div>
           <button className="w-[150px] h-12 mt-8 bg-blue-500 text-white rounded self-end mr-5 mb-5 ml-[30px]">
             Create Event

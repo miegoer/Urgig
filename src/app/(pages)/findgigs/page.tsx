@@ -26,17 +26,3 @@ export default function FindGigs() {
   );
 }
 
-{
-  /* <!-- Elementos centrados y más largos -->
-  <div className="grid grid-cols-1 gap-6 w-full max-w-4xl px-4">
-    <div className="bg-white p-6 shadow-lg rounded-lg flex justify-center items-center">
-      <p>Element 1</p>
-    </div>
-    <div className="bg-white p-6 shadow-lg rounded-lg flex justify-center items-center">
-      <p>Element 2</p>
-    </div>
-    <div className="bg-white p-6 shadow-lg rounded-lg flex justify-center items-center">
-      <p>Element 3</p>
-    </div>
-</div> */
-}

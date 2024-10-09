@@ -1,5 +1,3 @@
-// import Autocomplete frobm "@mui/material/Autocomplete";
-// import TextField from "@mui/material/TextField";
 import { Autocomplete, TextField } from "@mui/material";
 import { musicGenres } from "@/mockData/musicGenres";
 
@@ -10,12 +8,9 @@ interface SelectGenreProps {
 
 const SelectGenre = ({setGenres,genres} : SelectGenreProps) => {
 
-
-
   return (
     <div>
       <Autocomplete
-        
         multiple
         limitTags={5}
         value={genres}
