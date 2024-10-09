@@ -15,7 +15,7 @@ export const UserSchema: Schema = new Schema({
   email: { type: String, required: true },
   name: { type: String, required: false },
   contactNumber: { type: String, required: false },
-  password: { type: String, required: false },
+  password: { type: String, required: false, select: false }, // Ensure password is excluded by default. You won’t get the password field unless you specifically request it in a query using .select("+password").
   dateOfBirth: { type: Date, required: false },
   location: { type: Date, required: false },
   settings: { type: [SettingsSchema], ref: "Settings", required: false },
