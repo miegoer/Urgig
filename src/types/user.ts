@@ -1,7 +1,7 @@
 export type User = {
   _id: string;
   email: string;
-  typeOfAccount?: string; //Myabe a [] later and then refactor to include both?
+  typeOfAccount: string; //Myabe a [] later and then refactor to include both?
   name?: string;
   contactNumber?: string;
   password?: string;
