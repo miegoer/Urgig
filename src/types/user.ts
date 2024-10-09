@@ -1,6 +1,4 @@
-import { Document } from "mongoose";
-
-export type User = Document & {
+export type User = {
   _id: string;
   email: string;
   typeOfAccount?: string; //Myabe a [] later and then refactor to include both?
@@ -16,11 +14,11 @@ export type User = Document & {
   upcomingEvents?: string[];
 };
 
-export type Artist = User & {
+export type Artist = {
   //Artist specific stuff
 };
 
-export type Organizer = User & {
+export type Organizer = {
   //Organizer specific stuff
 };
 
