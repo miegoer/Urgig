@@ -1,6 +1,6 @@
 import { SignIn } from "@clerk/nextjs";
 import Image from "next/image";
-import "../globals.css";
+import "../global.css";
 
 export default function SignInPage() {
   return (

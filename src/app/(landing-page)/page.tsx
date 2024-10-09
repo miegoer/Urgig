@@ -1,4 +1,5 @@
 import Image from "next/image";
+import "../globals.css";
 
 // Home Component with Hero Image and Overlay
 export function Home() {
