@@ -1,4 +1,4 @@
-import { Document, Schema } from "mongoose";
+import { Document, Schema, ValidatorProps } from "mongoose";
 import { StatisticsSchema } from "./statisticsSchema";
 import { ProfileSchema } from "./profileSchema";
 import { User } from "@/types/user";
@@ -17,7 +17,7 @@ export const UserSchema: Schema = new Schema({
     required: true,
     validate: {
       validator: (v: string) => /^\S+@\S+\.\S+$/.test(v), // Regex for valid email format
-      message: (props) => `${props.value} is not a valid email!`,
+      message: (props: ValidatorProps) => `${props.value} is not a valid email!`,
     },
   },
   name: { type: String, required: false },

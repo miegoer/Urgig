@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { Schema, ValidatorProps } from "mongoose";
 
 export const SocialLinksSchema: Schema = new Schema({
   twitter: {
@@ -6,7 +6,7 @@ export const SocialLinksSchema: Schema = new Schema({
     required: false,
     validate: {
       validator: (v: string) => /^https?:\/\/(www\.)?twitter\.com\/[a-zA-Z0-9_]{1,15}$/.test(v), // Regex for valid Twitter URLs
-      message: (props) => `${props.value} is not a valid Twitter URL!`,
+      message: (props: ValidatorProps) => `${props.value} is not a valid Twitter URL!`,
     },
   },
   facebook: {
@@ -14,7 +14,7 @@ export const SocialLinksSchema: Schema = new Schema({
     required: false,
     validate: {
       validator: (v: string) => /^https?:\/\/(www\.)?facebook\.com\/[a-zA-Z0-9.]{5,50}$/.test(v), // Regex for valid Facebook URLs
-      message: (props) => `${props.value} is not a valid Facebook URL!`,
+      message: (props: ValidatorProps) => `${props.value} is not a valid Facebook URL!`,
     },
   },
   youtube: {
@@ -22,7 +22,7 @@ export const SocialLinksSchema: Schema = new Schema({
     required: false,
     validate: {
       validator: (v: string) => /^https?:\/\/(www\.)?youtube\.com\/[a-zA-Z0-9_-]+$/.test(v), // Regex for valid YouTube URLs
-      message: (props) => `${props.value} is not a valid YouTube URL!`,
+      message: (props: ValidatorProps) => `${props.value} is not a valid YouTube URL!`,
     },
   },
   instagram: {
@@ -30,7 +30,7 @@ export const SocialLinksSchema: Schema = new Schema({
     required: false,
     validate: {
       validator: (v: string) => /^https?:\/\/(www\.)?instagram\.com\/[a-zA-Z0-9_.]+$/.test(v), // Regex for valid Instagram URLs
-      message: (props) => `${props.value} is not a valid Instagram URL!`,
+      message: (props: ValidatorProps) => `${props.value} is not a valid Instagram URL!`,
     },
   },
   spotify: {
@@ -39,7 +39,7 @@ export const SocialLinksSchema: Schema = new Schema({
     validate: {
       validator: (v: string) =>
         /^https?:\/\/(www\.)?open\.spotify\.com\/artist\/[a-zA-Z0-9]+$/.test(v), // Regex for valid Spotify URLs
-      message: (props) => `${props.value} is not a valid Spotify URL!`,
+      message: (props: ValidatorProps) => `${props.value} is not a valid Spotify URL!`,
     },
   },
   tiktok: {
@@ -47,7 +47,7 @@ export const SocialLinksSchema: Schema = new Schema({
     required: false,
     validate: {
       validator: (v: string) => /^https?:\/\/(www\.)?tiktok\.com\/@[a-zA-Z0-9._]{1,24}$/.test(v), // Regex for valid TikTok URLs
-      message: (props) => `${props.value} is not a valid TikTok URL!`,
+      message: (props: ValidatorProps) => `${props.value} is not a valid TikTok URL!`,
     },
   },
 });
