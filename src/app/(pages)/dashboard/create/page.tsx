@@ -21,3 +21,4 @@ export default function Create() {
 // <div className="col-start-2 row-start-2">
 //   <EventList events={events}></EventList>
 // </div>
+

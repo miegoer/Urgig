@@ -1,7 +1,4 @@
-import { Document } from "mongoose";
-
-// Interface extending mongoose.Document
-export type Booking = Document & {
+export type Booking = {
   _id: string;
   name: string;
   link?: string;

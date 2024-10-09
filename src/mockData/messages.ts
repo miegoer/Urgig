@@ -1,6 +1,6 @@
 import { Message } from "@/types/message";
 
-const mockMessages: Partial<Message>[] = [
+const mockMessages: Message[] = [
   {
     _id: "msg1",
     senderId: "organizer1",
