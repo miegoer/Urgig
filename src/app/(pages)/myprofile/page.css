@@ -1,0 +1,14 @@
+.rhombus-container {
+    width: 200px;
+    height: 200px;
+    background-color: #4d34ec; /* Your desired background color */
+    transform: rotate(45deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .content {
+    transform: rotate(-45deg); /* Rotate content back to normal */
+  }
+  

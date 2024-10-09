@@ -6,14 +6,14 @@ const mockUsers: Partial<User>[] = [
   {
     _id: "artist1",
     typeOfAccount: "artist",
-    name: "John Doe",
-    email: "johndoe@gmail.com",
+    name: "DJ Frankenstein",
+    email: "djfrankenstein@gmail.com",
     contactNumber: "+1234567890",
     password: "1234",
     dateOfBirth: new Date("1990-05-10"),
     location: "Los Angeles, CA",
     profileDetails: {
-      aboutMe: "I'm an electronic music artist based in LA, creating unique soundscapes.",
+      aboutMe: "I'm an electronic music artist based in LA, creating unique soundscapes. Also, I'm a literal monster.",
       selectedVideo: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
       socialLinks: {
         twitter: "https://twitter.com/johndoe",
