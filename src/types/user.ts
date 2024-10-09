@@ -14,14 +14,6 @@ export type User = {
   upcomingEvents?: string[];
 };
 
-export type Artist = {
-  //Artist specific stuff
-};
-
-export type Organizer = {
-  //Organizer specific stuff
-};
-
 export type ProfileDetails = {
   profilePicture?: string; //Either: ID to separate table in Mongo (if we store in DB), URL to any cloud/webdisk API
   aboutMe?: string;

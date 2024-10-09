@@ -13,10 +13,11 @@ export async function POST(request: NextRequest) {
   if (!validation.success) return NextResponse.json(validation.error.errors, { status: 400 });
 
   try {
-    const { email, _id } = validation.data;
+    const validateUser = validation.data;
 
     // Attempt to create a new user
-    const newUser = await UserModel.create({ email, _id });
+    const newUser = await UserModel.create(validateUser);
+    console.log("newUser", newUser);
     return NextResponse.json(
       newUser, //{ name: newUser.name, email: newUser.email, id: newUser.id },
       { status: 201 }
@@ -24,6 +25,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     if (error instanceof Error) {
       const mongoError = error as { code?: number }; //casting into mongoError to recognize .code is number code
+      console.log("mongoerror", mongoError);
       if (mongoError.code === 11000) {
         // MongoDB error code for duplicate key
         return NextResponse.json({ error: "Email already in use" }, { status: 409 });

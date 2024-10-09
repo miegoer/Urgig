@@ -41,7 +41,11 @@ export const UserZodSchema = z.object({
   name: z.string().optional(),
   contactNumber: z.string().optional(),
   password: z.string().optional(),
-  dateOfBirth: z.date().optional(),
+  dateOfBirth: z
+    .string()
+    .transform((str) => new Date(str)) // Transform string to Date
+    .refine((date) => !isNaN(date.getTime()), { message: "Invalid date format" })
+    .optional(), // Validate that it's a valid date
   location: z.string().optional(),
   settings: SettingsZodSchema.optional(),
   profileDetails: ProfileDetailsZodSchema.optional(),
