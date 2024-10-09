@@ -47,14 +47,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </div>
                 <span className="text-sm italic -mt-2 text-center ${ubuntu.className}">{mockUsers[0].location}</span>
                 </div>
-                <Link href="#"><Image src={Back} 
-                    alt="Back button" 
-                    className="w-[40px] h-[40px] absolute top-[30px] left-[20px] hover:scale-[1.2] bg-[black] p-2 rounded-[20px]" 
-                    onClick={(e) => {
-                    e.preventDefault();
-                    router.back();
-                    }}/>
-                </Link>
                 <Image src={StartChat} alt="Chat button" className="w-[28px] h-[28px] absolute top-[40px] left-[78%] hover:scale-[1.2]"/>
                 <Image src={Connect} alt="Connect button" className="w-[28px] h-[28px] absolute top-[120px] left-[90%] hover:scale-[1.2]"/>
                 <Image src={Spotify} alt="Spotify button" className="w-[28px] h-[28px] absolute top-[220px] left-[96%] hover:scale-[1.2]"/>
@@ -65,12 +57,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <div style={{ gridColumn: '4 / span 4', gridRow: '1 / span 4' }} className="h-[660px] w-[480px]">
             {children}
             </div>
-            <div style={{ gridColumn: '8 / span 3', gridRow: '2 / span 8' }} className="w-[180px] ml-8">
+            <div style={{ gridColumn: '8 / span 3', gridRow: '2 / span 8' }} className="w-[160px] ml-[70px]">
             {profileLinks.map((link) => (
                 <Link href={link.href}>
                     <div className={clsx(
-                        "w-[100%] my-[55px] p-5 rounded-[2px] text-center tracking-[3px] text-[white] text-l border border-solid border-[white] uppercase",
-                        { 'bg-[white] text-[#20202a]': pathname === link.href },
+                        "w-[100%] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-[white] text-xs border border-solid border-[white] uppercase",
+                        { 'bg-[white] text-[#1b1b25]': pathname === link.href },
                         'hover:bg-[white] hover:text-[black] hover:scale-110'
                         )}>
                     {link.name}
