@@ -1,100 +1,102 @@
-import { User } from "@/types/user";
-import dbConnect from "../dbConnect";
-import { UserModel } from "../models/userModel";
-import { UserZodSchema } from "../../zodSchemas/userSchema";
+//moved to api/(DB)/user/[id]
 
-export async function addUser(user: User) {
-  try {
-    const validatedUser = UserZodSchema.parse(user);
+// import { User } from "@/types/user";
+// import dbConnect from "../dbConnect";
+// import { UserModel } from "../models/userModel";
+// import { UserZodSchema } from "../../zodSchemas/userSchema";
 
-    await dbConnect(); // Ensure database connection is established
+// export async function addUser(user: User) {
+//   try {
+//     const validatedUser = UserZodSchema.parse(user);
 
-    const newUser = await UserModel.create({ ...validatedUser });
-    return newUser;
-  } catch (error) {
-    console.error("Failed to add user:", error);
-    throw new Error("Failed to add user to DB");
-  }
-}
+//     await dbConnect(); // Ensure database connection is established
 
-export async function updateUser(user: User) {
-  try {
-    const validatedUser = UserZodSchema.parse(user);
+//     const newUser = await UserModel.create({ ...validatedUser });
+//     return newUser;
+//   } catch (error) {
+//     console.error("Failed to add user:", error);
+//     throw new Error("Failed to add user to DB");
+//   }
+// }
 
-    await dbConnect(); // Ensure database connection is established
+// export async function updateUser(user: User) {
+//   try {
+//     const validatedUser = UserZodSchema.parse(user);
 
-    const currentUser = await UserModel.findById({ _id: validatedUser._id });
+//     await dbConnect(); // Ensure database connection is established
 
-    if (!currentUser) {
-      throw new Error("User not found");
-    }
+//     const currentUser = await UserModel.findById({ _id: validatedUser._id });
 
-    // Update the fields of the current user with validated data
-    Object.assign(currentUser, validatedUser);
-    await currentUser.save();
+//     if (!currentUser) {
+//       throw new Error("User not found");
+//     }
 
-    return currentUser;
-  } catch (error) {
-    console.error("Failed to update user", error);
-    throw new Error("Failed to update user to DB");
-  }
-}
+//     // Update the fields of the current user with validated data
+//     Object.assign(currentUser, validatedUser);
+//     await currentUser.save();
 
-export async function getUserById(userId: string) {
-  const UserIdZodSchema = UserZodSchema.pick({ _id: true });
-  try {
-    const validatedUserId = UserIdZodSchema.parse({ _id: userId });
+//     return currentUser;
+//   } catch (error) {
+//     console.error("Failed to update user", error);
+//     throw new Error("Failed to update user to DB");
+//   }
+// }
 
-    await dbConnect(); // Ensure database connection is established
+// // export async function getUserById(userId: string) {
+// //   const UserIdZodSchema = UserZodSchema.pick({ _id: true });
+// //   try {
+// //     const validatedUserId = UserIdZodSchema.parse({ _id: userId });
 
-    const currentUser = await UserModel.findOne({ _id: validatedUserId });
+// //     await dbConnect(); // Ensure database connection is established
 
-    if (!currentUser) {
-      throw new Error("User not found");
-    }
+// //     const currentUser = await UserModel.findOne({ _id: validatedUserId });
 
-    return currentUser;
-  } catch (error) {
-    console.error("Failed to get user by id:", error);
-    throw new Error("Failed to get user by id from DB");
-  }
-}
+// //     if (!currentUser) {
+// //       throw new Error("User not found");
+// //     }
 
-export async function getUserByEmail(userEmail: string) {
-  const UserEmailZodSchema = UserZodSchema.pick({ email: true });
-  try {
-    const validatedUserEmail = UserEmailZodSchema.parse({ email: userEmail });
+// //     return currentUser;
+// //   } catch (error) {
+// //     console.error("Failed to get user by id:", error);
+// //     throw new Error("Failed to get user by id from DB");
+// //   }
+// // }
 
-    await dbConnect(); // Ensure database connection is established
+// // export async function getUserByEmail(userEmail: string) {
+// //   const UserEmailZodSchema = UserZodSchema.pick({ email: true });
+// //   try {
+// //     const validatedUserEmail = UserEmailZodSchema.parse({ email: userEmail });
 
-    const currentUser = await UserModel.findOne({ email: validatedUserEmail });
+// //     await dbConnect(); // Ensure database connection is established
 
-    if (!currentUser) {
-      throw new Error("User not found");
-    }
-    return currentUser;
-  } catch (error) {
-    console.error("Failed to get user by email:", error);
-    throw new Error("Failed to get user by email from DB");
-  }
-}
+// //     const currentUser = await UserModel.findOne({ email: validatedUserEmail });
 
-export async function deleteUser(userId: string) {
-  const UserIdZodSchema = UserZodSchema.pick({ _id: true });
-  try {
-    const validatedUserId = UserIdZodSchema.parse({ _id: userId });
+// //     if (!currentUser) {
+// //       throw new Error("User not found");
+// //     }
+// //     return currentUser;
+// //   } catch (error) {
+// //     console.error("Failed to get user by email:", error);
+// //     throw new Error("Failed to get user by email from DB");
+// //   }
+// // }
 
-    await dbConnect(); // Ensure database connection is established
+// export async function deleteUser(userId: string) {
+//   const UserIdZodSchema = UserZodSchema.pick({ _id: true });
+//   try {
+//     const validatedUserId = UserIdZodSchema.parse({ _id: userId });
 
-    const deletedUser = await UserModel.deleteOne({ _id: validatedUserId });
+//     await dbConnect(); // Ensure database connection is established
 
-    if (!deletedUser) {
-      throw new Error("User not found");
-    }
+//     const deletedUser = await UserModel.deleteOne({ _id: validatedUserId });
 
-    return deletedUser;
-  } catch (error) {
-    console.error("Failed to get user by id:", error);
-    throw new Error("Failed to get user by id from DB");
-  }
-}
+//     if (!deletedUser) {
+//       throw new Error("User not found");
+//     }
+
+//     return deletedUser;
+//   } catch (error) {
+//     console.error("Failed to get user by id:", error);
+//     throw new Error("Failed to get user by id from DB");
+//   }
+// }
