@@ -37,7 +37,7 @@ const StatisticsZodSchema = z.object({
 export const UserZodSchema = z.object({
   _id: z.string(),
   email: z.string().email(),
-  typeOfAccount: z.string().optional(),
+  typeOfAccount: z.string(),
   name: z.string().optional(),
   contactNumber: z.string().optional(),
   password: z.string().optional(),

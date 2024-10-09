@@ -8,18 +8,13 @@ export async function POST(request: NextRequest) {
   await dbConnect(); // Ensure database connection is established
   const user = await request.json();
   const validation = UserZodSchema.safeParse(user);
-
   //check if submited data is OK
   if (!validation.success) return NextResponse.json(validation.error.errors, { status: 400 });
-
   try {
-    const validateUser = validation.data;
-
     // Attempt to create a new user
-    const newUser = await UserModel.create(validateUser);
-    console.log("newUser", newUser);
+    const newUser = await UserModel.create(validation.data);
     return NextResponse.json(
-      newUser, //{ name: newUser.name, email: newUser.email, id: newUser.id },
+      newUser, //{ name: newUser.name, email: newUser.email, _id: newUser._id },
       { status: 201 }
     );
   } catch (error) {
@@ -27,8 +22,8 @@ export async function POST(request: NextRequest) {
       const mongoError = error as { code?: number }; //casting into mongoError to recognize .code is number code
       console.log("mongoerror", mongoError);
       if (mongoError.code === 11000) {
-        // MongoDB error code for duplicate key
-        return NextResponse.json({ error: "Email already in use" }, { status: 409 });
+        //MongoDB error code for duplicate key
+        return NextResponse.json({ error: "Duplicate Key!" }, { status: 409 });
       } else {
         // Handle other errors
         console.error("Error creating user:", error);
