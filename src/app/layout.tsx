@@ -1,25 +1,22 @@
 import "./globals.css";
-import Home, { PromoterUSP, ArtistUSP, Footer } from "./page";
-// Clerk integration
+import { Home, PromoterUSP, ArtistUSP, Footer, Navbar, AboutUs, OurMission } from "./(landing-page)/page";
 import {
-  ClerkLoaded,
-  ClerkLoading,
   ClerkLoaded,
   ClerkLoading,
   ClerkProvider,
   SignInButton,
   SignUpButton,
-  SignUpButton,
   SignedIn,
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
-} from "@clerk/nextjs";
-// Clerk themes
-import { dark } from "@clerk/themes";
 import { dark } from "@clerk/themes";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <ClerkProvider
       appearance={{
@@ -28,20 +25,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <html lang="en">
         <body className="bg-gray-900 text-white">
-          <header></header>
+          <header>
+            <Navbar />
+          </header>
 
           <main>
             <ClerkLoading>
-              <div className="flex items-center justify-center h-full">Loading...</div>
+              <div className="flex items-center justify-center h-full">
+                Loading...
+              </div>
             </ClerkLoading>
 
             <ClerkLoaded>
               {/* Hero Section */}
-              <div className="h-[50vh] flex items-center justify-center">{children}</div>
+              <div className="h-[50vh] flex items-center justify-center">
+                <Home />
+              </div>
 
               {/* Main Content */}
               <div className="max-w-6xl mx-auto px-4 py-8">
-                <div className="flex  justify-center space-y-4">
+                <div className="flex justify-center space-y-4">
                   <SignedOut>
                     <div className="flex space-x-4">
                       <SignInButton
@@ -69,6 +72,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <ArtistUSP />
                   <PromoterUSP />
                 </div>
+              </div>
+
+              {/* About Us and Our Mission Sections */}
+              <AboutUs />
+              <OurMission />
+
+              {/* Contact Section */}
+              <div id="contact">
               </div>
             </ClerkLoaded>
           </main>
