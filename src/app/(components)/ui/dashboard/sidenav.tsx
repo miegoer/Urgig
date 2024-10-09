@@ -4,14 +4,13 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
 import Image, { StaticImageData } from "next/image";
-import Dashboard from '@/public/dashboard-icon.png';
-import Payments from '@/public/earnings-icon.png';
-import Settings from '@/public/settings-icon.png';
-import Calendar from '@/public/calendar-icon.png';
-import Analytics from '@/public/analytics-icon.png';
-import Create from '@/public/create-icon.png';
-import Account from '@/public/profile-icon.png';
-import Contracts from '@/public/contracts-icon.png';
+import Dashboard from '@/public/sidenav-icons/dashboard-icon.png';
+import Payments from '@/public/sidenav-icons/earnings-icon.png';
+import Settings from '@/public/sidenav-icons/settings-icon.png';
+import Analytics from '@/public/sidenav-icons/analytics-icon.png';
+import Create from '@/public/sidenav-icons/create-icon.png';
+import Account from '@/public/sidenav-icons/profile-icon.png';
+import Contracts from '@/public/sidenav-icons/contracts-icon.png';
 import './dashboard-ui.css';
 
 const baseRoute = '/dashboard'

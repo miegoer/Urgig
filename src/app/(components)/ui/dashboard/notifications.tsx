@@ -1,9 +1,9 @@
 import './dashboard-ui.css';
-import Review from '@/public/review-notification.png';
-import Request from '@/public/request-notification.png';
-import Complete from '@/public/complete-notification.png';
+import Review from '@/public/notification-icons/review-notification.png';
+import Request from '@/public/notification-icons/request-notification.png';
+import Complete from '@/public/notification-icons/complete-notification.png';
 import Image from "next/image";
-import Tip from '@/public/tip-notification.png';
+import Tip from '@/public/notification-icons/tip-notification.png';
 
 const notifications = [
     { text: 'Bob Meowington just sent you a booking request', time: '10m', type: 'request' },
