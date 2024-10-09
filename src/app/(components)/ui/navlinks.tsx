@@ -28,8 +28,8 @@ export default function NavLinks () {
         <>
         {links.map((link: MainNavLink) => (
             <Link key={link.name} href={link.href} className={clsx(
-                'text-[#dcff58] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px] transition-all duration-200',
-                {'text-[#ffc037]': pathname === link.href},
+                'text-[#b7c4ff] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px] transition-all duration-200',
+                {'text-[#fe841c]': pathname === link.href},
                 'hover:bg-[#3525de] hover:rounded-[5px]')}>
                 {link.name}
             </Link>
