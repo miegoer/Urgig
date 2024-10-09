@@ -188,3 +188,91 @@ describe("User Mongoose Schema validation", () => {
     );
   });
 });
+
+// Helper function to create a user with a specific social link field
+const createUserWithSocialLink = (socialLinkField: string, socialLinkValue: string) => {
+  return new UserModel({
+    _id: new mongoose.Types.ObjectId(),
+    email: "user@example.com",
+    typeOfAccount: "standard",
+    password: "securepassword",
+    profileDetails: [
+      {
+        socialLinks: [
+          {
+            [socialLinkField]: socialLinkValue,
+          },
+        ],
+      },
+    ],
+  });
+};
+
+describe("User Mongoose Schema - SocialLinks validation", () => {
+  // Valid URLs for different social platforms
+  const validUrls = {
+    twitter: "https://twitter.com/johndoe",
+    facebook: "https://facebook.com/johndoe",
+    youtube: "https://youtube.com/johndoe",
+    instagram: "https://instagram.com/johndoe",
+    spotify: "https://open.spotify.com/artist/12345",
+    tiktok: "https://www.tiktok.com/@johndoe",
+  };
+
+  // Invalid URLs for different social platforms
+  const invalidUrls = {
+    twitter: "invalid-twitter-url",
+    facebook: "invalid-facebook-url",
+    youtube: "invalid-youtube-url",
+    instagram: "invalid-instagram-url",
+    spotify: "invalid-spotify-url",
+    tiktok: "invalid-tiktok-url",
+  };
+
+  // Test valid URLs
+  test.each(Object.entries(validUrls))(
+    "should allow valid %s URL",
+    async (socialLinkField, socialLinkValue) => {
+      const validUser = createUserWithSocialLink(socialLinkField, socialLinkValue);
+      const savedUser = await validUser.save();
+      expect(savedUser.profileDetails[0].socialLinks[0][socialLinkField]).toBe(socialLinkValue);
+    }
+  );
+
+  // Test invalid URLs
+  test.each(Object.entries(invalidUrls))(
+    "should throw validation error for invalid %s URL",
+    async (socialLinkField, socialLinkValue) => {
+      const invalidUser = createUserWithSocialLink(socialLinkField, socialLinkValue);
+      await expect(invalidUser.save()).rejects.toThrow(mongoose.Error.ValidationError);
+    }
+  );
+
+  // Test missing social links
+  it("should allow saving user without any social links", async () => {
+    const validUser = new UserModel({
+      _id: new mongoose.Types.ObjectId(),
+      email: "user@example.com",
+      typeOfAccount: "standard",
+      password: "securepassword",
+      profileDetails: [
+        {
+          socialLinks: [{}], // No social links provided
+        },
+      ],
+    });
+
+    const savedUser = await validUser.save();
+    expect(savedUser.profileDetails[0].socialLinks[0].twitter).toBeUndefined();
+    expect(savedUser.profileDetails[0].socialLinks[0].facebook).toBeUndefined();
+  });
+
+  // Test empty string fields
+  test.each(Object.keys(validUrls))(
+    "should throw validation error for empty %s field",
+    async (socialLinkField) => {
+      const invalidUser = createUserWithSocialLink(socialLinkField, "");
+      await expect(invalidUser.save()).rejects.toThrow(mongoose.Error.ValidationError);
+    }
+  );
+});
