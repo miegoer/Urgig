@@ -21,7 +21,7 @@ describe("BookingZodSchema validation", () => {
     bookingArtistId: "artist123",
   };
 
-  const requiredFields = [
+  const requiredFields: (keyof typeof validBooking)[] = [
     "_id",
     "name",
     "location",

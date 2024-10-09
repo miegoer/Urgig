@@ -40,7 +40,7 @@ describe("UserZodSchema validation", () => {
     upcomingEvents: ["event3", "event4"],
   };
 
-  const requiredFields = ["_id", "email", "typeOfAccount"];
+  const requiredFields: (keyof typeof validUser)[] = ["_id", "email", "typeOfAccount"];
 
   requiredFields.forEach((field) => {
     it(`should throw an error if the ${field} field is missing`, () => {
