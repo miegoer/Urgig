@@ -1,4 +1,4 @@
-import '@/app/globals.css';
+import '@/app/(pages)/globals.css';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

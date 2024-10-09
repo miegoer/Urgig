@@ -56,7 +56,25 @@ export default function ArtistRegistration () {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (validity.firstName && validity.lastName && validity.dateOfBirth && validity.stageName && validity.phoneNumber && validity.location) {
-      // TODO Add server call for user creation
+      await fetch('/api/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: (form.firstName + " " + form.lastName),
+          dateOfBirth: new Date(form.dateOfBirth),
+          contactNumber: form.phoneNumber,
+          location: form.location,
+          aboutYou: form.aboutYou,
+          _id: "67040091932dc78d7584bb38",
+          typeOfAccount: "artist",
+          email:"test@test.com",
+          profilleDetails: {
+            aboutMe: form.aboutYou
+          }
+        }),
+      })
       setForm({firstName: "", lastName: "", dateOfBirth: "", stageName: "", phoneNumber: "", location: "", aboutYou: ""});
       setvalidity({firstName: true, lastName: true, dateOfBirth: true, stageName: true, phoneNumber: true, location: true});
       router.push("/dashboard");

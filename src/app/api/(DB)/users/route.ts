@@ -5,20 +5,19 @@ import { NextRequest, NextResponse } from "next/server";
 
 //create new user
 export async function POST(request: NextRequest) {
+
   await dbConnect(); // Ensure database connection is established
   const user = await request.json();
   const validation = UserZodSchema.safeParse(user);
-
   //check if submited data is OK
   if (!validation.success) return NextResponse.json(validation.error.errors, { status: 400 });
-
   try {
-    const { email, _id } = validation.data;
+    const { email, _id } = user;
 
     // Attempt to create a new user
-    const newUser = await UserModel.create({ email, _id });
+    const newUser = await UserModel.create(validation.data);
     return NextResponse.json(
-      newUser, //{ name: newUser.name, email: newUser.email, id: newUser.id },
+      { name: newUser.name, email: newUser.email, _id: newUser._id },
       { status: 201 }
     );
   } catch (error) {
