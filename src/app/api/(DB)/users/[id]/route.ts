@@ -1,6 +1,6 @@
 import dbConnect from "@/app/lib/mongoDB/dbConnect";
 import { UserModel } from "@/app/lib/mongoDB/models/userModel";
-import { UserZodSchema } from "@/app/lib/zodSchemas/userSchema";
+import { UserZodSchema } from "@/app/lib/zodSchemas/userZodSchema";
 import { User } from "@/types/user";
 import { NextRequest, NextResponse } from "next/server";
 
