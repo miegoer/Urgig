@@ -2,8 +2,8 @@ import type { Event } from "../../../types/event";
 
 export default function Event(event: Event) {
   return (
-    <div className="m-5 rounded-[5%]">
-      <h2 className="text-xl">{event.name}</h2>
+    <div className=" max-w-450 m-5 bg rounded-[5%]">
+      <h2 className="text-xl mb-5 ">{event.name}</h2>
       <p>
         <strong>Date:</strong> {event.date.toLocaleDateString()}
       </p>
