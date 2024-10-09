@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.text-neon-green {
+  color: #39ff14;
+}
+.text-neon-blue {
+  color: #00e7ff;
+}
+.bg-neon-pink {
+  background-color: #ff007f;
+}
+.bg-neon-blue {
+  background-color: #1f51ff;
+}

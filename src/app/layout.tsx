@@ -1,4 +1,4 @@
-import "./globals.css";
+import "./global.css";
 import { Home, PromoterUSP, ArtistUSP, Footer, Navbar, AboutUs, OurMission } from "./(landing-page)/page";
 import {
   ClerkLoaded,
