@@ -1,15 +1,13 @@
 import SideNav from '@/app/(components)/ui/dashboard/sidenav';
 import QuickStats from '@/app/(components)/ui/dashboard/quickstats';
-import Notifications from '@/app/(components)/ui/dashboard/notifications';
-import Messages from '@/app/(components)/ui/dashboard/messages';
-import UserInfo from '@/app/(components)/ui/dashboard/userinfo';
-import Upcoming from '@/app/(components)/ui/dashboard/upcoming';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gridTemplateRows: 'auto 1fr' }}>
-      <SideNav />
-      <div className="col-[col-start_2_/_span_10] row-[2_/_span_10]">
+    <div className="grid grid-cols-[repeat(12,[col-start]_1fr)]">
+      <div className="col-[col-start_1_/_span_1] row-[2_/_span_9]">
+        <SideNav />
+      </div>
+      <div className="col-[col-start_2_/_span_9] row-[2_/_span_9]">
           {children}
       </div>
     </div>
