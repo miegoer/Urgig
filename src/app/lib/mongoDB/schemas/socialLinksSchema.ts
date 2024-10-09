@@ -1,7 +1,5 @@
 import { Schema } from "mongoose";
 
-import { Schema } from "mongoose";
-
 export const SocialLinksSchema: Schema = new Schema({
   twitter: {
     type: String,
