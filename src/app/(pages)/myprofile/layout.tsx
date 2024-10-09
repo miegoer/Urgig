@@ -65,11 +65,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <div style={{ gridColumn: '4 / span 4', gridRow: '1 / span 4' }} className="h-[660px] w-[480px]">
             {children}
             </div>
-            <div style={{ gridColumn: '8 / span 3', gridRow: '2 / span 8' }} className="w-[180px] ml-5">
+            <div style={{ gridColumn: '8 / span 3', gridRow: '2 / span 8' }} className="w-[180px] ml-8">
             {profileLinks.map((link) => (
                 <Link href={link.href}>
                     <div className={clsx(
-                        "w-[100%] my-[55px] p-4 rounded-[2px] text-center tracking-[3px] text-[white] text-xl border border-solid border-[white] uppercase",
+                        "w-[100%] my-[55px] p-5 rounded-[2px] text-center tracking-[3px] text-[white] text-l border border-solid border-[white] uppercase",
                         { 'bg-[white] text-[#20202a]': pathname === link.href },
                         'hover:bg-[white] hover:text-[black] hover:scale-110'
                         )}>
