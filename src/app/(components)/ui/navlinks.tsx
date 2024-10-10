@@ -47,7 +47,6 @@ export default function NavLinks() {
         width={20}
         className="ml-8 mr-1"
       />
-      <Image src={Messages} alt="notifications bell" height={20} width={20} className="ml-5 mr-5" />
       <input
         type="text"
         className="text-[white] text-center ml-[30px] mr-2.5 my-0 px-2.5 py-1 rounded-[20px] border-[none] w-[12%] h-[70%] text-xs"
