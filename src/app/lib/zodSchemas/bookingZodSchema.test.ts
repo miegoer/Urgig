@@ -1,3 +1,4 @@
+//TODO! need to add tests for booking: landed, travel expenses
 import { BookingZodSchema, SetZodSchema } from "./bookingZodSchema";
 
 describe("BookingZodSchema validation", () => {
