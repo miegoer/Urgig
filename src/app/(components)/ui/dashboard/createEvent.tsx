@@ -36,23 +36,38 @@ export default function CreateEvent() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  useEffect(() => {
     setEventData({
       ...eventData,
       genre: genres,
     });
-    setTimeout(() => {
-      console.log("Evento creado:", eventData);
-    }, 0);
+  }, [genres]);
 
-    setTimeout(() => {
-      setEventData(initialState);
-    }, 100);
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    await fetch("/api/event", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: eventData.name,
+        location: eventData.location,
+        date: eventData.date,
+        genre: eventData.genre,
+        duration: eventData.duration,
+        maxCapacity: eventData.maxCapacity,
+        bannerURL: eventData.bannerURL,
+        link: eventData.link,
+      }),
+    });
+    
+    setEventData(initialState);
   };
 
   return (
-    <div className="w-[650px] h-[450px] shadow-[0_4px_8px_0_rgba(0,0,0,0.2),0_6px_20px_0_rgba(0,0,0,0.19)] mt-10 rounded-[10px] p-6">
+    <div>
       <h2 className="text-xl mb-5 ">Create event</h2>
       <div>
         <form onSubmit={handleSubmit}>
@@ -143,7 +158,9 @@ export default function CreateEvent() {
                 className="mb-2 outline-none bg-[#20202a] border-b-[1px] border-white w-[500px]"
               />
             </div>
-            <SelectGenre setGenres={setGenres} genres={genres} />
+            <div className="mt-4">
+              <SelectGenre setGenres={setGenres} genres={genres} />
+            </div>
           </div>
           <button className="w-[150px] h-12 mt-8 bg-blue-500 text-white rounded self-end mr-5 mb-5 ml-[30px]">
             Create Event

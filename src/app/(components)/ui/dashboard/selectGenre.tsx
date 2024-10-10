@@ -17,7 +17,6 @@ const SelectGenre = ({setGenres,genres} : SelectGenreProps) => {
         options={musicGenres}
         onChange={(e, newValue: string[]) => {
           e.preventDefault();
-          console.log(newValue);
           setGenres(newValue);
         }}
         getOptionLabel={(option) => option}
