@@ -25,7 +25,7 @@ export default function FindTalent({ children }: { children: React.ReactNode }) 
             style={{ gridColumn: "3 / span 8", gridRow: "2 / span 8" }}
             className="h-[600px] mt-[10px] overflow-scroll">
             {MockArtists.map((artist) => (
-                <ArtistListItem name={artist.name} photo={artist.profilePhoto} tags={artist.tags} key={artist.name} fanBase={artist.fanBase} numberOfEvents={artist.numberOfEvents}/>
+                <ArtistListItem name={artist.name} profilePhoto={artist.profilePhoto} tags={artist.tags} key={artist.name} location={artist.location} fanBase={artist.fanBase} profileDetails={artist.profileDetails} numberOfEvents={artist.numberOfEvents}/>
             ))}
             </div>
         </div>
