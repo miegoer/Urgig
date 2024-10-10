@@ -12,8 +12,8 @@ export default function UserInfo() {
     <div className="w-[38%] shadow-[0px_0px_0px_#272525] rounded-[20px] bg-[#252531] p-6 flex flex-row items-center">
       <Image
         src={PrincessCheeto}
-        height={20}
-        width={20}
+        height={60}
+        width={60}
         alt="mock profile photo"
         className="h-[110px] w-[110px] object-cover m-2.5 rounded-[50%]"
       />
