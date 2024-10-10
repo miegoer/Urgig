@@ -1,4 +1,4 @@
-import type { Event } from "../../../types/event";
+import type { Event } from "@/types/event"
 
 export default function Event(event: Event) {
   return (

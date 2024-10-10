@@ -14,8 +14,8 @@ type ArtistItemProps = {
           <div className="flex flex-col p-2 w-[250px]">
             <span className="block text-[11px] tracking-[1.5px] uppercase mt-[2px] mb-[10px] text-center">{name}</span>
           </div>
-          <div className="flex flex-col border-l-[white] border-l border-solid w-[200px] text-center justify-between py-2 px-4">
-            <Image src='/spotify-icon.png' width={25} height={25} alt="spotify icon" />
+          <div className="flex flex-row border-l-[white] border-l border-solid w-[250px] text-center justify-between py-2 px-4">
+            <Image src='/spotify-icon.png' width={25} height={25} alt="spotify icon" className="object-contain"/>
             <Image src='/youtube-icon.png' width={25} height={25} alt="youtube icon" />
             <Image src='/tiktok-icon.png' width={28} height={28} alt="tiktok icon" />
           </div>
