@@ -5,8 +5,9 @@ import clsx from 'clsx';
 import Notifications from '@/public/notifications-bell.png';
 import Messages from '@/public/messages-icon.png';
 import Image from "next/image";
-import { usePathname } from 'next/navigation';
-import Search from '@/public/search-icon.png'
+import { usePathname } from "next/navigation";
+const Search = "/search-icon.png";
+import React from "react";
 
 interface MainNavLink {
     name: string;

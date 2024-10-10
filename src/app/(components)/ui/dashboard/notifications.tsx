@@ -5,13 +5,15 @@ import Complete from '@/public/complete-notification.png';
 import Image from "next/image";
 import Tip from '@/public/tip-notification.png';
 
-const notifications = [
-    { text: 'Bob Meowington just sent you a booking request', time: '10m', type: 'request' },
-    { text: 'Fluffer the Booker just left you a tip', time: '1h', type: 'tip' },
-    { text: 'Fluffer the Booker just paid you', time: '1h', type: 'payment' },
-    { text: 'Paws the Pub Owner just left you a review', time: '4h', type: 'review' },
-    { text: 'Paws the Pub Owner just paid you', time: '5h', type: 'payment' }
-  ]
+const notificationsMock = [
+  { text: "Bob Meowington just sent you a booking request", time: "10m", type: "request" },
+  { text: "Fluffer the Booker just left you a tip", time: "1h", type: "tip" },
+  { text: "Fluffer the Booker just paid you", time: "1h", type: "payment" },
+  { text: "Paws the Pub Owner just left you a review", time: "4h", type: "review" },
+  { text: "Paws the Pub Owner just paid you", time: "5h", type: "payment" },
+];
+
+const notifications = notificationsMock;
 
 export default function Notifications() {
     return (
