@@ -17,7 +17,7 @@ describe("BookingZodSchema validation", () => {
     expectedGenre: ["Rock", "Jazz"],
     maxCapacity: 500,
     status: "confirmed",
-    bookingOrganizerId: "organizer123",
+    bookingPromoterId: "organizer123",
     bookingArtistId: "artist123",
   };
 
@@ -30,7 +30,7 @@ describe("BookingZodSchema validation", () => {
     "expectedGenre",
     "maxCapacity",
     "status",
-    "bookingOrganizerId",
+    "bookingPromoterId",
     "bookingArtistId",
   ];
 
@@ -76,7 +76,7 @@ describe("BookingZodSchema validation", () => {
       expectedGenre: ["Rock", "Jazz"],
       maxCapacity: 500,
       status: "confirmed",
-      bookingOrganizerId: "organizer123",
+      bookingPromoterId: "organizer123",
       bookingArtistId: "artist123",
     };
 
@@ -101,7 +101,7 @@ describe("BookingZodSchema validation", () => {
       expectedGenre: ["Rock", "Jazz"],
       maxCapacity: 500,
       status: "confirmed",
-      bookingOrganizerId: "organizer123",
+      bookingPromoterId: "organizer123",
       bookingArtistId: "artist123",
       bannerURL: "invalid-url", // Invalid URL
     };

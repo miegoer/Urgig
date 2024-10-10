@@ -15,7 +15,7 @@ const mockBookings: Booking[] = [
     expectedGenre: ["Pop", "EDM"],
     maxCapacity: 10000,
     status: "negotiating",
-    bookingOrganizerId: "organizer1",
+    bookingPromoterId: "organizer1",
     bookingArtistId: "artist1",
   },
   {
@@ -30,7 +30,7 @@ const mockBookings: Booking[] = [
     expectedGenre: ["Rock"],
     maxCapacity: 15000,
     status: "confirmed",
-    bookingOrganizerId: "organizer2",
+    bookingPromoterId: "organizer2",
     bookingArtistId: "artist1",
   },
   {
@@ -45,7 +45,7 @@ const mockBookings: Booking[] = [
     expectedGenre: ["Indie", "Alternative"],
     maxCapacity: 8000,
     status: "negotiating",
-    bookingOrganizerId: "organizer3",
+    bookingPromoterId: "organizer3",
     bookingArtistId: "artist1",
   },
   {
@@ -60,7 +60,7 @@ const mockBookings: Booking[] = [
     expectedGenre: ["Jazz", "Blues"],
     maxCapacity: 12000,
     status: "confirmed",
-    bookingOrganizerId: "organizer1",
+    bookingPromoterId: "organizer1",
     bookingArtistId: "artist1",
   },
   {
@@ -75,7 +75,7 @@ const mockBookings: Booking[] = [
     expectedGenre: ["EDM", "House"],
     maxCapacity: 20000,
     status: "negotiating",
-    bookingOrganizerId: "organizer2",
+    bookingPromoterId: "organizer2",
     bookingArtistId: "artist1",
   },
   {
@@ -90,7 +90,7 @@ const mockBookings: Booking[] = [
     expectedGenre: ["Hip-Hop"],
     maxCapacity: 10000,
     status: "confirmed",
-    bookingOrganizerId: "organizer3",
+    bookingPromoterId: "organizer3",
     bookingArtistId: "artist1",
   },
   {
@@ -105,7 +105,7 @@ const mockBookings: Booking[] = [
     expectedGenre: ["Country"],
     maxCapacity: 15000,
     status: "declined",
-    bookingOrganizerId: "organizer1",
+    bookingPromoterId: "organizer1",
     bookingArtistId: "artist1",
   },
   {
@@ -120,7 +120,7 @@ const mockBookings: Booking[] = [
     expectedGenre: ["Electronic", "Techno"],
     maxCapacity: 18000,
     status: "negotiating",
-    bookingOrganizerId: "organizer2",
+    bookingPromoterId: "organizer2",
     bookingArtistId: "artist1",
   },
   {
@@ -135,7 +135,7 @@ const mockBookings: Booking[] = [
     expectedGenre: ["Latin", "Reggaeton"],
     maxCapacity: 12000,
     status: "confirmed",
-    bookingOrganizerId: "organizer3",
+    bookingPromoterId: "organizer3",
     bookingArtistId: "artist1",
   },
   {
@@ -150,7 +150,7 @@ const mockBookings: Booking[] = [
     expectedGenre: ["Metal", "Hard Rock"],
     maxCapacity: 14000,
     status: "negotiating",
-    bookingOrganizerId: "organizer1",
+    bookingPromoterId: "organizer1",
     bookingArtistId: "artist1",
   },
 ];

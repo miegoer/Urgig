@@ -1,10 +1,9 @@
-import "@/app/globals.css";
+import "@/app/(pages)/globals.css";
 import EventList from "../../../(components)/ui/eventList";
 import mockEvents from "../../../../mockData/events";
 import { Event } from "@/types/event";
 
-
-const events : Event[] = mockEvents;
+const events: Event[] = mockEvents;
 
 export default function FindGigs() {
   return (

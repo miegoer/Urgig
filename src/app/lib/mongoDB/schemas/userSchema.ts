@@ -26,6 +26,7 @@ export const UserSchema: Schema = new Schema({
     },
   },
   stageName: { type: String, required: false },
+  companyName: { type: String, required: false },
   name: { type: String, required: false },
   contactNumber: { type: String, required: false },
   password: { type: String, required: false, select: false }, // Ensure password is excluded by default. You won’t get the password field unless you specifically request it in a query using .select("+password").

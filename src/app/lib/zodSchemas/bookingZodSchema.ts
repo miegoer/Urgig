@@ -18,6 +18,8 @@ export const BookingZodSchema = z.object({
   expectedGenre: z.array(z.string().min(1)), // Array of non-empty strings for genres
   maxCapacity: z.number().int().positive(), // maxCapacity must be a positive integer
   status: z.enum(["negotiation", "confirmed", "declined"]), // Status can be one of the preselected values
-  bookingOrganizerId: z.string().min(1), // Organizer ID must be a non-empty string
+  bookingPromoterId: z.string().min(1), // Organizer ID must be a non-empty string
   bookingArtistId: z.string().min(1), // Artist ID must be a non-empty string
+  landed: z.boolean().optional(),
+  travelExpenses: z.number().positive().optional(),
 });
