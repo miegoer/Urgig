@@ -2,6 +2,7 @@
 import { UserModel } from "@/app/lib/mongoDB/models/userModel";
 import { UserZodSchema } from "@/app/lib/zodSchemas/userZodSchema";
 import { NextRequest, NextResponse } from "next/server";
+import { env } from "process";
 
 //create new user
 export async function POST(request: NextRequest) {
