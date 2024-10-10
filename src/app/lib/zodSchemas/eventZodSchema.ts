@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const EventZodSchema = z.object({
-  _id: z.string().min(1),
+  // _id: z.string().min(1),
   name: z.string().min(1),
   organiserId: z.string().min(1),
   date: z

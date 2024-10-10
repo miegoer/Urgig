@@ -8,10 +8,11 @@ export default function CreateEvent() {
     location: string;
     date: string;
     genre?: string[] | [];
-    duration: number;
-    maxCapacity: number;
+    duration: string;
+    maxCapacity: string;
     bannerURL?: string;
     link: string;
+    organiserId: string
   };
 
   const initialState = {
@@ -20,9 +21,10 @@ export default function CreateEvent() {
     date: Date(),
     genre: [] as string[],
     duration: 0,
-    maxCapacity: 0,
+    maxCapacity: "",
     bannerURL: "",
     link: "",
+    organiserId: ""
   };
 
   const [eventData, setEventData] = useState(initialState);
@@ -33,6 +35,7 @@ export default function CreateEvent() {
     setEventData((prevData) => ({
       ...prevData,
       [name]: value,
+      organiserId:"asadb314aaf"
     }));
   };
 
@@ -41,12 +44,13 @@ export default function CreateEvent() {
       ...eventData,
       genre: genres,
     });
+    console.log( eventData)
   }, [genres]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await fetch("/api/event", {
+    await fetch("/api/events", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -56,10 +60,11 @@ export default function CreateEvent() {
         location: eventData.location,
         date: eventData.date,
         genre: eventData.genre,
-        duration: eventData.duration,
-        maxCapacity: eventData.maxCapacity,
+        duration: Number(eventData.duration),
+        maxCapacity: parseInt(eventData.maxCapacity),
         bannerURL: eventData.bannerURL,
         link: eventData.link,
+        organiserId: eventData.organiserId
       }),
     });
     
@@ -81,7 +86,7 @@ export default function CreateEvent() {
                 type="text"
                 id="createEventFormName"
                 required
-                className="mb-2 outline-none bg-[#20202a] border-b-[1px] border-white w-[500px]"
+                className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full"
               />
             </div>
             <div>
@@ -93,7 +98,7 @@ export default function CreateEvent() {
                 type="text"
                 id="createEventFormLocation"
                 required
-                className="mb-2 outline-none bg-[#20202a] border-b-[1px] border-white w-[500px]"
+                className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full"
               />
             </div>
             <div>
@@ -105,12 +110,12 @@ export default function CreateEvent() {
                 type="date"
                 id="createEventFormName"
                 required
-                className="mb-2 outline-none bg-[#20202a] border-b-[1px] border-white w-[500px]"
+                className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full]"
               />
             </div>
             <div>
               <label htmlFor="createEventFormDuration">
-                Duration (minutes):
+                Duration (days):
               </label>
               <input
                 value={eventData.duration}
@@ -120,7 +125,7 @@ export default function CreateEvent() {
                 step="10"
                 id="createEventFormDuration"
                 required
-                className="mb-2 outline-none bg-[#20202a] border-b-[1px] border-white w-[500px]"
+                className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full"
               />
             </div>
             <div>
@@ -129,11 +134,11 @@ export default function CreateEvent() {
                 value={eventData.maxCapacity}
                 name="maxCapacity"
                 onChange={handleChange}
+                min={0}
                 type="number"
                 step={10}
                 id="createEventFormCapacity"
-                required
-                className="mb-2 outline-none bg-[#20202a] border-b-[1px] border-white w-[500px]"
+                className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full"
               />
             </div>
             <div>
@@ -144,7 +149,7 @@ export default function CreateEvent() {
                 onChange={handleChange}
                 type="text"
                 id="createEventFormBanner"
-                className="mb-2 outline-none bg-[#20202a] border-b-[1px] border-white w-[500px]"
+                className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full"
               />
             </div>
             <div>
@@ -155,7 +160,7 @@ export default function CreateEvent() {
                 onChange={handleChange}
                 type="text"
                 id="createEventFormLink"
-                className="mb-2 outline-none bg-[#20202a] border-b-[1px] border-white w-[500px]"
+                className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full"
               />
             </div>
             <div className="mt-4">
