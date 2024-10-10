@@ -7,8 +7,9 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest) {
   await dbConnect(); // Ensure database connection is established
   const event = await request.json();
+  console.log(event);
   const validation = EventZodSchema.safeParse(event);
-  console.log(validation.error?.errors)
+  console.log(validation.error?.errors);
   //check if submited data is OK
   if (!validation.success) return NextResponse.json(validation.error.errors, { status: 400 });
   try {

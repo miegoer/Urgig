@@ -44,7 +44,9 @@ export const UserZodSchema = z.object({
   dateOfBirth: z
     .string()
     .transform((str) => new Date(str)) // Transform string to Date
-    .refine((date) => !isNaN(date.getTime()), { message: "Invalid date format" })
+    .refine((date) => !isNaN(date.getTime()), {
+      message: "Invalid date format",
+    })
     .optional(), // Validate that it's a valid date
   location: z.string().optional(),
   settings: SettingsZodSchema.optional(),
@@ -52,4 +54,6 @@ export const UserZodSchema = z.object({
   statistics: StatisticsZodSchema.optional(),
   pastEvents: z.array(z.string()).optional(),
   upcomingEvents: z.array(z.string()).optional(),
+  stageName: z.string().optional(),
+  companyName: z.string().optional(),
 });

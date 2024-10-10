@@ -1,3 +1,4 @@
+//TODO! need to add tests for booking: landed, travel expenses
 import { BookingZodSchema, SetZodSchema } from "./bookingZodSchema";
 
 describe("BookingZodSchema validation", () => {
@@ -17,12 +18,11 @@ describe("BookingZodSchema validation", () => {
     expectedGenre: ["Rock", "Jazz"],
     maxCapacity: 500,
     status: "confirmed",
-    bookingOrganizerId: "organizer123",
+    bookingPromoterId: "organizer123",
     bookingArtistId: "artist123",
   };
 
   const requiredFields: (keyof typeof validBooking)[] = [
-    "_id",
     "name",
     "location",
     "offer",
@@ -30,7 +30,7 @@ describe("BookingZodSchema validation", () => {
     "expectedGenre",
     "maxCapacity",
     "status",
-    "bookingOrganizerId",
+    "bookingPromoterId",
     "bookingArtistId",
   ];
 
@@ -76,7 +76,7 @@ describe("BookingZodSchema validation", () => {
       expectedGenre: ["Rock", "Jazz"],
       maxCapacity: 500,
       status: "confirmed",
-      bookingOrganizerId: "organizer123",
+      bookingPromoterId: "organizer123",
       bookingArtistId: "artist123",
     };
 
@@ -101,7 +101,7 @@ describe("BookingZodSchema validation", () => {
       expectedGenre: ["Rock", "Jazz"],
       maxCapacity: 500,
       status: "confirmed",
-      bookingOrganizerId: "organizer123",
+      bookingPromoterId: "organizer123",
       bookingArtistId: "artist123",
       bannerURL: "invalid-url", // Invalid URL
     };

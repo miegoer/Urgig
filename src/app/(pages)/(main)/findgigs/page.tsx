@@ -11,9 +11,6 @@ export default function FindGigs() {
   const [search, setSearch] = useState<string>("");
   const [filteredSearch, setFilteredSearch] = useState<Event[]>(events);
 
-
-
-
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
     if (search.length >= 3) {
@@ -25,7 +22,7 @@ export default function FindGigs() {
     } else {
       setFilteredSearch(events);
     }
-    setSearch('')
+    setSearch("");
   };
 
   return (
@@ -49,7 +46,7 @@ export default function FindGigs() {
         </form>
       </div>
       <div>
-        { filteredSearch.length > 0 ? (
+        {filteredSearch.length > 0 ? (
           <EventList events={filteredSearch} />
         ) : (
           <div>

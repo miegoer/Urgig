@@ -6,7 +6,6 @@ export interface MessageDoc extends Message, Document {
 }
 
 export const MessageSchema: Schema = new Schema({
-  _id: { type: String, required: true },
   senderId: { type: String, required: true },
   receiverId: { type: String, required: true },
   content: { type: String, required: true },
