@@ -1,20 +1,24 @@
-'use client'
-import { useEffect,useState } from "react";
+"use client";
+import { useEffect, useState } from "react";
 import type { Event } from "../../../../types/event";
 
-export default function EventView(event: Event) {
+export default function EventElement(event: Event) {
+  //   const [hasMounted, setHasMounted] = useState(false);
+  //  useEffect(() => {
+  //     setHasMounted(true);
+  //   }, []);
 
-  const [hasMounted, setHasMounted] = useState(false);
- useEffect(() => {
-    setHasMounted(true);
-  }, []);
-
+  const date = new Date(event.date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',  
+    day: 'numeric'
+  });
 
   return (
     <div className=" max-w-450 m-5 bg rounded-[5%]">
       <h2 className="text-xl mb-5 ">{event.name}</h2>
       <p>
-        {/* <strong>Date:</strong> { !hasMounted ? '': event.date.toLocaleDateString() } */}
+        <strong>Date:</strong> {date}
       </p>
       <p>
         <strong>Location:</strong> {event.location}
