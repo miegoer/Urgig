@@ -50,12 +50,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     >
       <div
         style={{ gridColumn: "1 / span 3", gridRow: "2 / span 10" }}
-        className="h-[660px] w-[530px] relative"
+        className="h-[630px] w-[500px] relative"
       >
         <Image
           src={DJFrankenstein}
-          width={250}
-          height={250}
+          width={660}
+          height={530}
           alt="mock profile photo"
           className="h-[100%] w-[100%] shadow-[0_4px_8px_0_rgba(0,0,0,0.2),0_6px_20px_0_rgba(0,0,0,0.19)] -ml-5 rounded-r-[50%]"
         />
@@ -71,45 +71,45 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </div>
         <Image
           src={StartChat}
-          width={25}
-          height={25}
+          width={28}
+          height={28}
           alt="Chat button"
-          className="w-[28px] h-[28px] absolute top-[40px] left-[78%] hover:scale-[1.2]"
+          className="w-[28px] h-[28px] absolute top-[40px] left-[78%] hover:scale-[1.2] transition-all duration-200"
         />
         <Image
           src={Connect}
-          width={25}
-          height={25}
+          width={28}
+          height={28}
           alt="Connect button"
-          className="w-[28px] h-[28px] absolute top-[120px] left-[90%] hover:scale-[1.2]"
+          className="w-[28px] h-[28px] absolute top-[120px] left-[90%] hover:scale-[1.2] transition-all duration-200"
         />
         <Image
           src={Spotify}
-          width={25}
-          height={25}
+          width={28}
+          height={28}
           alt="Spotify button"
-          className="w-[28px] h-[28px] absolute top-[220px] left-[96%] hover:scale-[1.2]"
+          className="w-[28px] h-[28px] absolute top-[220px] left-[96%] hover:scale-[1.2] transition-all duration-200"
         />
         <Image
           src={Instagram}
-          width={25}
-          height={25}
+          width={28}
+          height={28}
           alt="Instagram button"
-          className="w-[28px] h-[28px] absolute top-[330px] left-[98%] hover:scale-[1.2]"
+          className="w-[28px] h-[28px] absolute top-[330px] left-[98%] hover:scale-[1.2] transition-all duration-200"
         />
         <Image
           src={Youtube}
-          width={25}
-          height={25}
+          width={28}
+          height={28}
           alt="YouTube button"
-          className="w-[28px] h-[28px] absolute top-[440px] left-[95%] hover:scale-[1.2]"
+          className="w-[28px] h-[28px] absolute top-[440px] left-[95%] hover:scale-[1.2] transition-all duration-200"
         />
         <Image
           src={Tiktok}
-          width={25}
-          height={25}
+          width={28}
+          height={28}
           alt="Tiktok button"
-          className="w-[30px] h-[30px] absolute top-[545px] left-[85%] hover:scale-[1.2]"
+          className="w-[30px] h-[30px] absolute top-[545px] left-[85%] hover:scale-[1.2] transition-all duration-200"
         />
       </div>
       <div
@@ -126,8 +126,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <Link href={link.href}>
             <div
               className={clsx(
-                "w-[100%] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-[white] text-xs border border-solid border-[white] uppercase",
-                { "bg-[white] text-[#1b1b25]": pathname === link.href },
+                "w-[100%] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-[white] text-xs border border-solid border-[white] uppercase transition-all duration-200",
+                { "bg-[white] text-[#20202d]": pathname === link.href },
                 "hover:bg-[white] hover:text-[black] hover:scale-110"
               )}
             >
