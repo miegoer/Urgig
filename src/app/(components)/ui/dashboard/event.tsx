@@ -1,11 +1,20 @@
-import type { Event } from "@/types/event"
+'use client'
+import { useEffect,useState } from "react";
+import type { Event } from "../../../types/event";
 
-export default function Event(event: Event) {
+export default function EventElement(event: Event) {
+
+  const [hasMounted, setHasMounted] = useState(false);
+ useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+
   return (
-    <div className="m-5 rounded-[5%]">
-      <h2 className="text-xl">{event.name}</h2>
+    <div className=" max-w-450 m-5 bg rounded-[5%]">
+      <h2 className="text-xl mb-5 ">{event.name}</h2>
       <p>
-        <strong>Date:</strong> {event.date.toLocaleDateString()}
+        <strong>Date:</strong> { !hasMounted ? '': event.date.toLocaleDateString() }
       </p>
       <p>
         <strong>Location:</strong> {event.location}

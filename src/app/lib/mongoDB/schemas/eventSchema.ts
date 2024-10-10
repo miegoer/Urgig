@@ -7,7 +7,6 @@ export interface EventDoc extends Event, Document {
 }
 
 export const EventSchema: Schema = new Schema({
-  _id: { type: String, required: true },
   name: { type: String, required: true },
   date: { type: Date, required: true },
   bannerURL: { type: String, required: false },
@@ -16,5 +15,5 @@ export const EventSchema: Schema = new Schema({
   duration: { type: Number, required: true },
   maxCapacity: { type: Number, required: true },
   link: { type: String, required: false },
-  organiserId: { type: String, required: true },
+  promoterId: { type: String, required: true },
 });

@@ -19,7 +19,7 @@ export default function Page({ children }: { children: React.ReactNode }) {
         <Messages/>
         <Upcoming/>
       </div>
-      </>
+    </>
     // </div>
   );
 }

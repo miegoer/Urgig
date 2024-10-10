@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 // Define related ZodSchemas like ProfileDetails, Settings, etc.
-const ProfileDetailsZodSchema = z.object({
+export const ProfileDetailsZodSchema = z.object({
   profilePicture: z.string().optional(),
   aboutMe: z.string().optional(),
   selectedVideo: z.string().optional(),
@@ -20,18 +20,18 @@ const ProfileDetailsZodSchema = z.object({
   genre: z.array(z.string()).optional(),
 });
 
-const SettingsZodSchema = z.object({
+export const SettingsZodSchema = z.object({
   // Add fields for settings
 });
 
-const StatisticsZodSchema = z.object({
-  profileViews: z.number().optional(),
-  offersGot: z.number().optional(),
-  offersAcccepted: z.number().optional(),
+export const StatisticsZodSchema = z.object({
+  profileViews: z.number().int().optional(),
+  offersGot: z.number().int().optional(),
+  offersAcccepted: z.number().int().optional(),
   income: z.number().optional(),
-  avgCapacity: z.number().optional(),
-  totalAtendees: z.number().optional(),
-  totalEvents: z.number().optional(),
+  avgCapacity: z.number().int().optional(),
+  totalAtendees: z.number().int().optional(),
+  totalEvents: z.number().int().optional(),
 });
 
 export const UserZodSchema = z.object({
@@ -44,7 +44,9 @@ export const UserZodSchema = z.object({
   dateOfBirth: z
     .string()
     .transform((str) => new Date(str)) // Transform string to Date
-    .refine((date) => !isNaN(date.getTime()), { message: "Invalid date format" })
+    .refine((date) => !isNaN(date.getTime()), {
+      message: "Invalid date format",
+    })
     .optional(), // Validate that it's a valid date
   location: z.string().optional(),
   settings: SettingsZodSchema.optional(),
@@ -52,4 +54,6 @@ export const UserZodSchema = z.object({
   statistics: StatisticsZodSchema.optional(),
   pastEvents: z.array(z.string()).optional(),
   upcomingEvents: z.array(z.string()).optional(),
+  stageName: z.string().optional(),
+  companyName: z.string().optional(),
 });

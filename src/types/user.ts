@@ -1,7 +1,7 @@
 export type User = {
   _id: string;
   email: string;
-  typeOfAccount?: string; //Myabe a [] later and then refactor to include both?
+  typeOfAccount: string; //Myabe a [] later and then refactor to include both?
   name?: string;
   contactNumber?: string;
   password?: string;
@@ -12,14 +12,8 @@ export type User = {
   statistics?: Statistics;
   pastEvents?: string[];
   upcomingEvents?: string[];
-};
-
-export type Artist = {
-  //Artist specific stuff
-};
-
-export type Organizer = {
-  //Organizer specific stuff
+  stageName?: string;
+  companyName?: string;
 };
 
 export type ProfileDetails = {
