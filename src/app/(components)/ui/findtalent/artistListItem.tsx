@@ -1,18 +1,5 @@
 import Image from "next/image";
-
-type ArtistItemProps = {
-    name: string;
-    photo: string;
-    tags: string[];
-    fanBase: FanBase;
-    numberOfEvents: number;
-  };
-
-  interface FanBase {
-    spotify: string;
-    youtube: string;
-    tiktok: string;
-  }
+import { ArtistItemProps } from "@/mockData/artistList";
 
 const socialIcons = [
   {imageurl: '/spotify-icon.png', alt: 'Spotify Icon'}, {imageurl: '/tiktok-icon.png', alt: 'TikTok Icon'}, {imageurl: '/youtube-icon.png', alt: 'YouTube'}
