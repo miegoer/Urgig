@@ -6,7 +6,7 @@ import Search from '/public/search-icon.png'
 import Image from 'next/image'
 
 const genres = [
-    'Acoustic', 'Alternative', 'Electronic', 'House', 'Jazz', 'Rap', 'RnB', 'Reggae', 'Ska', 'Techno', 'Trance'
+    'Acoustic', 'Alternative', 'EDM', 'Electronic', 'Grunge', 'House', 'Jazz', 'Pop', 'Punk', 'Pop-Punk', 'Rap', 'RnB', 'Reggae', 'Ska', 'Techno', 'Trance'
 ]
 
 export default function TalentSearch() {
@@ -37,7 +37,7 @@ export default function TalentSearch() {
                         ))}
                     </div>
                 </div>
-                <div className="p-3 mt-4">{chosenGenres.length > 0 ? chosenGenres.map((genre) => <span className="z-10 flex flex-wrap inline-flex text-s bg-[black] text-[#ffa01e] rounded-[20px] py-1 px-3 mr-2.5 mb-2.5">{genre}</span>) : <span className="text-xs italic">No genres added</span>}</div>
+                <div className="p-3 mt-4">{chosenGenres.length > 0 ? chosenGenres.map((genre) => <span className="z-10 flex flex-wrap inline-flex text-s bg-[black] text-[#ffa01e] rounded-[20px] py-1 px-3 mr-2.5 mb-2.5 tracking-[1px]">{genre}</span>) : <span className="text-xs italic">No genres added</span>}</div>
             </form>
             <Image src={Search} width={60} height={60} alt="search icon" className="m-auto mb-4 mt-4 rounded-[50%] p-3 opacity-90" style={{background: "rgba(255,160,30,1) 100%" }}/>
         </div>

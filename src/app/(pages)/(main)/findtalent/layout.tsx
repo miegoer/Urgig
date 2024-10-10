@@ -8,11 +8,11 @@ import clsx from "clsx";
 import { usePathname } from "next/navigation";
 
 const mockArtists = [
-    {name: 'Princess Cheeto', profilePhoto: "/mockUsers/princess-cheeto.webp", bio: 'Meow', tags: ['Pop', 'Singer/Songwriter', 'Solo']},
-    {name: 'DJ Pancakes', profilePhoto: '/mockUsers/DJPancakes.png', bio: 'You spin records, I spin pancakes', tags: ['EDM', 'Techno', 'Solo']},
-    {name: 'The Man Bun Orchestra', profilePhoto: '/mockUsers/ManBunOrchestra.png', bio: 'The ultimate bro squad', tags: ['Classical', 'Group']},
-    {name: 'Bathtub Joe', profilePhoto: '/mockUsers/BathtubJoe.png', bio: 'The legend himself, with his bathtub', tags: ['Acoustic', 'Folk', 'Solo', 'Country']},
-    {name: 'Fran', bio: 'I sing, duh', profilePhoto: '/mockUsers/singer.png', tags: ['Pop', 'Solo']}
+    {name: 'Princess Cheeto', profilePhoto: "/mockUsers/princess-cheeto.webp", tags: ['Pop', 'Singer/Songwriter', 'Solo'], fanBase: {spotify: '100k', youtube: '40k', tiktok: '1m'}, numberOfEvents: 9},
+    {name: 'DJ Pancakes', profilePhoto: '/mockUsers/DJPancakes.png', tags: ['EDM', 'Techno', 'Solo'], fanBase: {spotify: '9k', youtube: '11.1k', tiktok: '4.3k'}, numberOfEvents: 64},
+    {name: 'The Man Bun Orchestra', profilePhoto: '/mockUsers/ManBunOrchestra.png', tags: ['Classical', 'Group'], fanBase: {spotify: '20.3k', youtube: '12.3k', tiktok: '19k'}, numberOfEvents: 145},
+    {name: 'Bathtub Joe', profilePhoto: '/mockUsers/BathtubJoe.png', tags: ['Acoustic', 'Folk', 'Solo', 'Country'], fanBase: {spotify: '642', youtube: '195', tiktok: '23'},numberOfEvents: 11},
+    {name: 'Britney Pears', profilePhoto: '/mockUsers/singer.png', tags: ['Pop', 'Solo'], fanBase: {spotify: '5.6k', youtube: '1k', tiktok: '3.2k'}, numberOfEvents: 78}
 ]
 
 
@@ -34,7 +34,7 @@ export default function FindTalent({ children }: { children: React.ReactNode }) 
             style={{ gridColumn: "3 / span 8", gridRow: "2 / span 8" }}
             className="h-[600px] mt-[10px] overflow-scroll">
             {mockArtists.map((artist) => (
-                <ArtistListItem name={artist.name} photo={artist.profilePhoto} tags={artist.tags} key={artist.name}/>
+                <ArtistListItem name={artist.name} photo={artist.profilePhoto} tags={artist.tags} key={artist.name} fanBase={artist.fanBase} numberOfEvents={artist.numberOfEvents}/>
             ))}
             </div>
         </div>
