@@ -1,0 +1,14 @@
+.dropdown-content .list-item {
+    color: black;
+    padding: 8px 2px;
+    text-decoration: none;
+    display: block;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  
+  .dropdown-content .list-item:hover {background-color: #ddd;}
+  
+  .dropdown:hover .dropdown-content {display: block;}
+  
+  .dropdown:hover .dropbtn {background-color: #3e8e41;}

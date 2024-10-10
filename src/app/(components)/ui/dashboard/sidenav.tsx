@@ -35,28 +35,22 @@ const sideNavLinks: sideNavLink[] = [
 export default function SideNav() {
   const pathname = usePathname();
   return (
-    <div className="col-[col-start_1_/_span_1] row-[2_/_span_8] w-[55px] shadow-[0px_0px_0px_#272525] ml-5 mt-0 pl-2.5 pr-0 pt-0 pb-[35px] rounded-[20px]">
+    <div className="col-[col-start_1_/_span_1] row-[2_/_span_8] shadow-[0px_0px_0px_#272525] ml-10 pl-3 pt-0 pb-[35px] rounded-[20px]">
       {sideNavLinks.map((link) => (
         <Link key={link.alt} href={link.href}>
           <Image
             src={link.icon}
             alt={link.alt}
-            width={35}
-            height={35}
+            width={38}
+            height={38}
             className={clsx(
               "my-[42px] p-[5px] transition-all duration-200",
               { "bg-[#3525de] rounded-[10px]": pathname === link.href },
-              "hover:bg-[#3525de] hover:rounded-[10px] hover:h-[35px]"
+              "hover:bg-[#3525de] hover:rounded-[10px] hover:h-[38px]"
             )}
           />
         </Link>
       ))}
-      {/* <Link key={link.name} href={link.href} className={clsx(
-                'text-[#dcff58] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px] transition-all duration-200',
-                {'text-[#ffc037]': pathname === link.href},
-                'hover:bg-[#3525de] hover:rounded-[5px]')}>
-                {link.name}
-            </Link> */}
     </div>
   );
 }
