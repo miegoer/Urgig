@@ -17,7 +17,6 @@ export default function FindGigs() {
         .then((res) => res.json())
         .then((res) => {
           setEvents(res);
-          console.log(res[0].date, typeof res[0].date)
         })
         .catch((error) => console.log(error));
     }
