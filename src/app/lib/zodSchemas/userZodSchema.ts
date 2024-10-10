@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 // Define related ZodSchemas like ProfileDetails, Settings, etc.
 export const ProfileDetailsZodSchema = z.object({
@@ -36,6 +36,7 @@ export const StatisticsZodSchema = z.object({
 
 export const UserZodSchema = z.object({
   _id: z.string(),
+  stageName: z.string().optional(),
   email: z.string().email(),
   typeOfAccount: z.string(),
   name: z.string().optional(),
@@ -44,7 +45,9 @@ export const UserZodSchema = z.object({
   dateOfBirth: z
     .string()
     .transform((str) => new Date(str)) // Transform string to Date
-    .refine((date) => !isNaN(date.getTime()), { message: "Invalid date format" })
+    .refine((date) => !isNaN(date.getTime()), {
+      message: 'Invalid date format',
+    })
     .optional(), // Validate that it's a valid date
   location: z.string().optional(),
   settings: SettingsZodSchema.optional(),
