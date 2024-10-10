@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 // Clerk intergation
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function MainBackLayout({ children }: { children: React.ReactNode }) {
   return (
     <ClerkProvider
       appearance={{
