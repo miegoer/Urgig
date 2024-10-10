@@ -43,8 +43,22 @@ export async function GET(request: NextRequest) {
   await dbConnect(); // Ensure database connection is established
 
   try {
+    // Get search query from the request URL
+    const { searchParams } = new URL(request.url);
+    const searchQuery = searchParams.get("search") || ""; // Get the 'search' query parameter, default to an empty string
+
+    // Filter users by name or email if a search query is provided
+    const query = searchQuery
+      ? {
+          $or: [
+            { name: { $regex: searchQuery, $options: "i" } }, // Case-insensitive search in name
+            { email: { $regex: searchQuery, $options: "i" } }, // Case-insensitive search in email
+          ],
+        }
+      : {}; // If no search query, return all users
+
     // Fetch all users, selecting only the _id, name, and email fields, excluding everything else
-    const users = await UserModel.find().select("_id name email");
+    const users = await UserModel.find(query);
 
     // Return the users with only the selected fields
     return NextResponse.json(users, { status: 200 });

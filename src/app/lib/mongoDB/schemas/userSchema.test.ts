@@ -1,3 +1,6 @@
+//TODO! need to add tests for user: stageName, companyName
+//TODO! need to add tests for booking: landed, travel expenses
+
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 import { UserModel } from "../models/userModel";
