@@ -44,7 +44,6 @@ export default function CreateEvent() {
       ...eventData,
       genre: genres,
     });
-    console.log( eventData)
   }, [genres]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -67,8 +66,9 @@ export default function CreateEvent() {
         organiserId: eventData.organiserId
       }),
     });
-    
+    setGenres([])
     setEventData(initialState);
+
   };
 
   return (
