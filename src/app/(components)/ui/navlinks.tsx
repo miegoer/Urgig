@@ -7,6 +7,7 @@ const Messages = "/messages-icon.png";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 const Search = "/search-icon.png";
+import React from "react";
 
 interface MainNavLink {
   name: string;
