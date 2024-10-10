@@ -99,7 +99,7 @@ export default function MyProfile() {
                 <span className="inline-flex text-[11px] tracking-[1px] uppercase mr-0 mt-[1px] px-4 mb-[16px] rounded-[3px] text-[black] bg-[white]">Genres</span>
                 <div>
                 {genreTags.map((tag) => (
-                <span className="inline-flex bg-[#23d5cd] m-1.5 py-2 px-4 rounded-[15px]" style={{ background: tag.color }}>{tag.name}</span>
+                <span className="inline-flex bg-[#23d5cd] m-1.5 py-2 px-4 rounded-[15px]" style={{ background: tag.color }} key={tag.name}>{tag.name}</span>
             ))}
             </div>
             </div>

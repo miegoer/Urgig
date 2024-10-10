@@ -5,17 +5,16 @@ import Messages from '@/app/(components)/ui/dashboard/messages';
 import Nav from '@/app/(components)/ui/nav';
 import UserInfo from '@/app/(components)/ui/dashboard/userinfo';
 import Upcoming from '@/app/(components)/ui/dashboard/upcoming';
-import './layout.css';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     // <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gridTemplateRows: 'auto 1fr' }}>
     <>
-    <div id="dashboard-top-content">
+    <div className="col-[col-start_2_/_span_10] row-[2_/_span_4] flex flex-row mb-[5px]">
         <QuickStats/>
         <UserInfo />
       </div>
-      <div id="dashboard-bottom-content">
+      <div className="col-[col-start_2_/_span_10] row-[6_/_span_4] w-[105%] h-[405px] flex flex-row">
         <Notifications/>
         <Messages/>
         <Upcoming/>
