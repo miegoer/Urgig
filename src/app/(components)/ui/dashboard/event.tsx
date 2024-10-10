@@ -1,6 +1,6 @@
 'use client'
 import { useEffect,useState } from "react";
-import type { Event } from "../../../types/event";
+import type { Event } from "../../../../types/event";
 
 export default function EventElement(event: Event) {
 
