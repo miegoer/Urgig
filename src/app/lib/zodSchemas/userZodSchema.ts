@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 // Define related ZodSchemas like ProfileDetails, Settings, etc.
-export const ProfileDetailsZodSchema = z.object({
+const ProfileDetailsZodSchema = z.object({
   profilePicture: z.string().optional(),
   aboutMe: z.string().optional(),
   selectedVideo: z.string().optional(),
@@ -20,18 +20,18 @@ export const ProfileDetailsZodSchema = z.object({
   genre: z.array(z.string()).optional(),
 });
 
-export const SettingsZodSchema = z.object({
+const SettingsZodSchema = z.object({
   // Add fields for settings
 });
 
-export const StatisticsZodSchema = z.object({
-  profileViews: z.number().int().optional(),
-  offersGot: z.number().int().optional(),
-  offersAcccepted: z.number().int().optional(),
+const StatisticsZodSchema = z.object({
+  profileViews: z.number().optional(),
+  offersGot: z.number().optional(),
+  offersAcccepted: z.number().optional(),
   income: z.number().optional(),
-  avgCapacity: z.number().int().optional(),
-  totalAtendees: z.number().int().optional(),
-  totalEvents: z.number().int().optional(),
+  avgCapacity: z.number().optional(),
+  totalAtendees: z.number().optional(),
+  totalEvents: z.number().optional(),
 });
 
 export const UserZodSchema = z.object({
