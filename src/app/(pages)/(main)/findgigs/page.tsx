@@ -1,4 +1,4 @@
-import "@/app/globals.css";
+import "/app/globals.css";
 import EventList from "../../../(components)/ui/eventList";
 import mockEvents from "../../../../mockData/events";
 import { Event } from "@/types/event";

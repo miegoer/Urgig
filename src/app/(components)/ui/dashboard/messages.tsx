@@ -1,7 +1,7 @@
 import './dashboard-ui.css';
 import Image from "next/image";
-import NerdCat from '@/public/mockUsers/nerdy-cat.jpg';
-import WhiteCat from '@/public/mockUsers/white-cat.webp';
+import NerdCat from '/public/mockUsers/nerdy-cat.jpg';
+import WhiteCat from '/public/mockUsers/white-cat.webp';
 
 const messages = [
     { name: 'Bob Meowington', message: 'Can you perform this Friday night?', status: 'unread', photo: NerdCat, alt: 'Nerdy cat mock user'},

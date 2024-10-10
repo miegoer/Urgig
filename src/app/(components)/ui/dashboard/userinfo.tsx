@@ -1,5 +1,5 @@
 import Image from "next/image";
-import PrincessCheeto from '@/public/mockUsers/princess-cheeto.webp';
+import PrincessCheeto from '/public/mockUsers/princess-cheeto.webp';
 import {Ubuntu} from 'next/font/google';
 
 const ubuntu = Ubuntu({

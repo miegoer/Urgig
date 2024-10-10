@@ -2,11 +2,12 @@
 
 import Link from 'next/link';
 import clsx from 'clsx';
-import Notifications from '@/public/notifications-bell.png';
-import Messages from '@/public/messages-icon.png';
+import Notifications from '/public/notifications-bell.png';
+import Messages from '/public/messages-icon.png';
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-const Search = "/search-icon.png";
+// const Search = "/search-icon.png";
+import SearchIcon from '/public/search-icon.png';
 import React from "react";
 
 interface MainNavLink {
@@ -39,7 +40,7 @@ export default function NavLinks () {
         <Image src={Messages} alt="notifications bell" height={20} width={20} className="ml-5 mr-5"/>
         <input type="text" className="text-[white] text-center ml-[30px] mr-2.5 my-0 px-2.5 py-1 rounded-[20px] border-[none] w-[12%] h-[70%] text-xs" placeholder="Search" 
         style={{background: 'linear-gradient(11deg, rgba(52, 52, 52, 1) 0%, rgba(100, 100, 100, 1) 100%)'}}/>
-        <Image src={Search} id="search-icon" alt="search icon" className="h-[16px] w-[16px] mr-8"/>
+        <Image src={SearchIcon} id="search-icon" alt="search icon" className="h-[16px] w-[16px] mr-8"/>
         </>
     )
 }

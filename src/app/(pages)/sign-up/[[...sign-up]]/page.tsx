@@ -9,7 +9,7 @@ export default function SignUpPage() {
         path="/sign-up"
         routing="path"
         signInUrl="/sign-in"
-        afterSignUpUrl="/registration" // Redirect after successful signup
+        forceRedirectUrl="/registration" // Redirect after successful signup
         appearance={{
           baseTheme: dark,
           variables: {
