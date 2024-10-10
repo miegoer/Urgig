@@ -1,11 +1,13 @@
-import dbConnect from "@/app/lib/mongoDB/dbConnect";
+// import dbConnect from "@/app/lib/mongoDB/dbConnect";
 import { UserModel } from "@/app/lib/mongoDB/models/userModel";
 import { UserZodSchema } from "@/app/lib/zodSchemas/userZodSchema";
 import { NextRequest, NextResponse } from "next/server";
 
 //create new user
 export async function POST(request: NextRequest) {
+  const dbConnect = (await import("@/app/lib/mongoDB/dbConnect")).default;
   await dbConnect(); // Ensure database connection is established
+
   const user = await request.json();
   const validation = UserZodSchema.safeParse(user);
   //check if submited data is OK
@@ -36,6 +38,8 @@ export async function POST(request: NextRequest) {
 
 //get all users main data (_id, email, name)
 export async function GET(request: NextRequest) {
+  const dbConnect = (await import("@/app/lib/mongoDB/dbConnect")).default;
+
   await dbConnect(); // Ensure database connection is established
 
   try {

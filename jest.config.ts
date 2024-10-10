@@ -202,7 +202,7 @@ const config: Config = {
   // Whether to use watchman for file crawling
   // watchman: true,
 
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"], // Setup file for TypeScript
+  // setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"], // Setup file for TypeScript
 };
 
 export default createJestConfig(config);

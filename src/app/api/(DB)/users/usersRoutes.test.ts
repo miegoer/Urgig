@@ -1,25 +1,9 @@
-import { MongoMemoryServer } from "mongodb-memory-server";
-import mongoose from "mongoose";
-import supertest from "supertest";
 import { POST, GET } from "@/app/api/(DB)/users/route"; // Import your route handlers
 import { NextRequest } from "next/server";
 import { createMocks } from "node-mocks-http"; // For mocking Next.js request/response objects
 import { UserModel } from "@/app/lib/mongoDB/models/userModel";
-
-// MongoMemoryServer setup
-let mongoServer: MongoMemoryServer;
-
-beforeAll(async () => {
-  mongoServer = await MongoMemoryServer.create();
-  const uri = mongoServer.getUri();
-  process.env.MONGODB_URI = uri; // Set the MONGODB_URI to the in-memory MongoDB URI
-  await mongoose.connect(uri);
-});
-
-afterAll(async () => {
-  await mongoose.disconnect();
-  await mongoServer.stop();
-});
+import { MongoMemoryServer } from "mongodb-memory-server";
+import mongoose from "mongoose";
 
 afterEach(async () => {
   // Clean up users after each test
@@ -34,12 +18,15 @@ describe("User API Routes", () => {
     const { req, res } = createMocks({
       method: "POST",
       body: {
+        _id: new mongoose.Types.ObjectId().toString(),
         email: "testuser@example.com",
         typeOfAccount: "standard",
         password: "securepassword",
       },
     });
 
+    // Mock the json() function to return the body for NextRequest
+    req.json = async () => req.body;
     // Call the POST route
     const response = await POST(req as unknown as NextRequest);
 
@@ -53,12 +40,15 @@ describe("User API Routes", () => {
     const { req, res } = createMocks({
       method: "POST",
       body: {
+        _id: new mongoose.Types.ObjectId(),
         email: "invalid-email", // Invalid email
         typeOfAccount: "standard",
         password: "securepassword",
       },
     });
 
+    // Mock the json() function to return the body for NextRequest
+    req.json = async () => req.body;
     // Call the POST route
     const response = await POST(req as unknown as NextRequest);
 
@@ -75,6 +65,7 @@ describe("User API Routes", () => {
   it("should return conflict error for duplicate email (MongoDB error 11000)", async () => {
     // First create a user with the same email
     await UserModel.create({
+      _id: new mongoose.Types.ObjectId().toString(),
       email: "duplicate@example.com",
       typeOfAccount: "standard",
       password: "securepassword",
@@ -83,12 +74,15 @@ describe("User API Routes", () => {
     const { req, res } = createMocks({
       method: "POST",
       body: {
+        _id: new mongoose.Types.ObjectId().toString(),
         email: "duplicate@example.com",
         typeOfAccount: "standard",
         password: "securepassword",
       },
     });
 
+    // Mock the json() function to return the body for NextRequest
+    req.json = async () => req.body;
     // Call the POST route
     const response = await POST(req as unknown as NextRequest);
 
@@ -102,6 +96,7 @@ describe("User API Routes", () => {
     const { req, res } = createMocks({
       method: "POST",
       body: {
+        _id: new mongoose.Types.ObjectId().toString(),
         email: "testuser@example.com",
         typeOfAccount: "standard",
         password: "securepassword",
@@ -113,6 +108,8 @@ describe("User API Routes", () => {
       throw new Error("Simulated MongoDB Error");
     });
 
+    // Mock the json() function to return the body for NextRequest
+    req.json = async () => req.body;
     // Call the POST route
     const response = await POST(req as unknown as NextRequest);
 
@@ -136,6 +133,8 @@ describe("User API Routes", () => {
       method: "GET",
     });
 
+    // Mock the json() function to return the body for NextRequest
+    req.json = async () => req.body;
     // Call the GET route
     const response = await GET(req as unknown as NextRequest);
 
@@ -152,6 +151,8 @@ describe("User API Routes", () => {
       method: "GET",
     });
 
+    // Mock the json() function to return the body for NextRequest
+    req.json = async () => req.body;
     // Call the GET route when no users are present
     const response = await GET(req as unknown as NextRequest);
 
@@ -171,6 +172,8 @@ describe("User API Routes", () => {
       throw new Error("Simulated MongoDB Error");
     });
 
+    // Mock the json() function to return the body for NextRequest
+    req.json = async () => req.body;
     // Call the GET route
     const response = await GET(req as unknown as NextRequest);
 
@@ -178,5 +181,29 @@ describe("User API Routes", () => {
     expect(response.status).toBe(500);
     const jsonResponse = await response.json();
     expect(jsonResponse.error).toBe("Internal Server Error");
+  });
+});
+
+describe("test test", () => {
+  it("should create a new user successfully", async () => {
+    const { req, res } = createMocks({
+      method: "POST",
+      body: {
+        _id: new mongoose.Types.ObjectId().toString(),
+        email: "testuser@example.com",
+        typeOfAccount: "standard",
+        password: "securepassword",
+      },
+    });
+    // Mock the json() function to return the body for NextRequest
+    req.json = async () => req.body;
+
+    // Call the POST route
+    const response = await POST(req as unknown as NextRequest);
+
+    // Check the response status and body
+    expect(response.status).toBe(201); // Expect success status
+    const jsonResponse = await response.json();
+    expect(jsonResponse.email).toBe("testuser@example.com");
   });
 });

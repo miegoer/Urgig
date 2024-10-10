@@ -2,20 +2,6 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 import { UserModel } from "../models/userModel";
 
-// Setup MongoMemoryServer
-let mongoServer: MongoMemoryServer;
-
-beforeAll(async () => {
-  mongoServer = await MongoMemoryServer.create();
-  const uri = mongoServer.getUri();
-  await mongoose.connect(uri);
-});
-
-afterAll(async () => {
-  await mongoose.disconnect();
-  await mongoServer.stop();
-});
-
 describe("User Mongoose Schema validation", () => {
   it("should save a valid user", async () => {
     const validUser = new UserModel({
