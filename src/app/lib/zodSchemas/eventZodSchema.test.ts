@@ -4,7 +4,7 @@ describe("EventZodSchema validation - missing required fields", () => {
   const validEvent = {
     _id: "event123",
     name: "Music Festival",
-    organiserId: "organizer456",
+    promoterId: "organizer456",
     date: "1990-01-01", // Using string format here
     bannerURL: "https://example.com/banner.jpg",
     location: "New York",
@@ -17,7 +17,7 @@ describe("EventZodSchema validation - missing required fields", () => {
   const requiredFields: (keyof typeof validEvent)[] = [
     "_id",
     "name",
-    "organiserId",
+    "promoterId",
     "location",
     "genre",
     "duration",

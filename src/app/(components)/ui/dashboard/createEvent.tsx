@@ -1,30 +1,20 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import SelectGenre from "./selectGenre";
+import { Event } from "@/types/event";
+import { string } from "zod";
 
 export default function CreateEvent() {
-  type EventData = {
-    name: string;
-    location: string;
-    date: string;
-    genre?: string[] | [];
-    duration: string;
-    maxCapacity: string;
-    bannerURL?: string;
-    link: string;
-    organiserId: string
-  };
-
-  const initialState = {
+  const initialState: Event = {
     name: "",
     location: "",
-    date: Date(),
+    date: new Date(),
     genre: [] as string[],
-    duration: 0,
-    maxCapacity: "",
-    bannerURL: "",
-    link: "",
-    organiserId: ""
+    duration: 1,
+    maxCapacity: 100,
+    bannerURL: undefined,
+    link: undefined,
+    promoterId: "asadb314aaf",
   };
 
   const [eventData, setEventData] = useState(initialState);
@@ -32,10 +22,20 @@ export default function CreateEvent() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
+    // Helper function to handle special cases for specific fields
+    const getProcessedValue = (name: string, value: string) => {
+      // For fields that can be empty and should be treated as undefined
+      const fieldsAllowingUndefined = ["bannerURL", "link"];
+      if (fieldsAllowingUndefined.includes(name) && value.trim() === "") {
+        return undefined; // Return undefined for empty strings in certain fields
+      }
+      return value; // Otherwise, return the actual value
+    };
+
     setEventData((prevData) => ({
       ...prevData,
-      [name]: value,
-      organiserId:"asadb314aaf"
+      [name]: getProcessedValue(name, value), // Process the value before updating the state
     }));
   };
 
@@ -44,7 +44,7 @@ export default function CreateEvent() {
       ...eventData,
       genre: genres,
     });
-    console.log( eventData)
+    console.log(eventData);
   }, [genres]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -60,14 +60,14 @@ export default function CreateEvent() {
         location: eventData.location,
         date: eventData.date,
         genre: eventData.genre,
-        duration: Number(eventData.duration),
-        maxCapacity: parseInt(eventData.maxCapacity),
+        duration: eventData.duration,
+        maxCapacity: parseInt(eventData.maxCapacity as string),
         bannerURL: eventData.bannerURL,
         link: eventData.link,
-        organiserId: eventData.organiserId
+        promoterId: eventData.promoterId,
       }),
     });
-    
+
     setEventData(initialState);
   };
 
@@ -114,15 +114,14 @@ export default function CreateEvent() {
               />
             </div>
             <div>
-              <label htmlFor="createEventFormDuration">
-                Duration (days):
-              </label>
+              <label htmlFor="createEventFormDuration">Duration (days):</label>
               <input
                 value={eventData.duration}
                 name="duration"
                 onChange={handleChange}
                 type="number"
-                step="10"
+                min={1}
+                step="1"
                 id="createEventFormDuration"
                 required
                 className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full"
@@ -134,9 +133,8 @@ export default function CreateEvent() {
                 value={eventData.maxCapacity}
                 name="maxCapacity"
                 onChange={handleChange}
-                min={0}
+                min={1}
                 type="number"
-                step={10}
                 id="createEventFormCapacity"
                 className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full"
               />
