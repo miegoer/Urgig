@@ -2,7 +2,7 @@ import Image from "next/image";
 import "../(pages)/globals.css";
 
 // Home Component with Hero Image and Overlay
-export default function Home() {
+export  function Home() {
   return (
     <div className="relative flex items-center justify-center h-full w-full">
       <Image src="/Hero-image.webp" alt="Hero" fill className="object-cover" priority={true} />
