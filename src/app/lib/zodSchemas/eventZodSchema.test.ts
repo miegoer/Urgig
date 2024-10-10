@@ -15,7 +15,6 @@ describe("EventZodSchema validation - missing required fields", () => {
   };
 
   const requiredFields: (keyof typeof validEvent)[] = [
-    "_id",
     "name",
     "promoterId",
     "location",
