@@ -1,7 +1,7 @@
 import events from "@/mockData/events";
 import Event from "./dashboard/event";
 
-export default function EventList() {
+export default function EventList({events}) {
   return (
     <div >
       {events.map((event) => (

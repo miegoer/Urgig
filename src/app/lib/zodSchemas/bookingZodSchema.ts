@@ -1,14 +1,13 @@
 import { z } from "zod";
 
 export const SetZodSchema = z.object({
-  _id: z.string().min(1), // _id must be a non-empty string
   date: z.date(), // Date must be a valid Date object
   setTimeStart: z.string().min(1), // Time start as a non-empty string (e.g., HH:MM format)
   setTimeEnd: z.string().min(1), // Time end as a non-empty string (e.g., HH:MM format)
 });
 
 export const BookingZodSchema = z.object({
-  _id: z.string().min(1), // _id must be a non-empty string
+  _id: z.string().min(1).optional(), // _id must be a non-empty string
   name: z.string().min(1), // name must be a non-empty string
   link: z.string().url().optional(), // Optional URL for link
   bannerURL: z.string().url().optional(), // Optional URL for bannerURL

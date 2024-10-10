@@ -1,3 +1,4 @@
+//TODO! need to add tests for booking: landed, travel expenses
 import { BookingZodSchema, SetZodSchema } from "./bookingZodSchema";
 
 describe("BookingZodSchema validation", () => {
@@ -22,7 +23,6 @@ describe("BookingZodSchema validation", () => {
   };
 
   const requiredFields: (keyof typeof validBooking)[] = [
-    "_id",
     "name",
     "location",
     "offer",

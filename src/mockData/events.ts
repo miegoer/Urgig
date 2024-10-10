@@ -6,7 +6,7 @@ const mockEvents: Event[] = [
   {
     _id: "event1",
     name: "Summer Vibes Festival",
-    organiserId: "organizer1",
+    promoterId: "organizer1",
     date: new Date("2024-07-12"),
     location: "Los Angeles, CA",
     genre: ["Pop", "EDM"],
@@ -17,7 +17,7 @@ const mockEvents: Event[] = [
   {
     _id: "event2",
     name: "Rock Out Loud",
-    organiserId: "organizer2",
+    promoterId: "organizer2",
     date: new Date("2024-09-10"),
     location: "Austin, TX",
     genre: ["Rock"],
@@ -28,7 +28,7 @@ const mockEvents: Event[] = [
   {
     _id: "event3",
     name: "Indie Nights",
-    organiserId: "organizer3",
+    promoterId: "organizer3",
     date: new Date("2024-06-15"),
     location: "New York, NY",
     genre: ["Indie", "Alternative"],
@@ -39,7 +39,7 @@ const mockEvents: Event[] = [
   {
     _id: "event4",
     name: "Jazz in the Park",
-    organiserId: "organizer1",
+    promoterId: "organizer1",
     date: new Date("2024-05-22"),
     location: "Chicago, IL",
     genre: ["Jazz", "Blues"],
@@ -50,7 +50,7 @@ const mockEvents: Event[] = [
   {
     _id: "event5",
     name: "EDM Blast",
-    organiserId: "organizer2",
+    promoterId: "organizer2",
     date: new Date("2024-11-18"),
     location: "Miami, FL",
     genre: ["EDM", "House"],
@@ -61,7 +61,7 @@ const mockEvents: Event[] = [
   {
     _id: "event6",
     name: "Hip-Hop Block Party",
-    organiserId: "organizer3",
+    promoterId: "organizer3",
     date: new Date("2024-08-25"),
     location: "Atlanta, GA",
     genre: ["Hip-Hop"],
@@ -72,7 +72,7 @@ const mockEvents: Event[] = [
   {
     _id: "event7",
     name: "Country Music Jamboree",
-    organiserId: "organizer1",
+    promoterId: "organizer1",
     date: new Date("2024-10-10"),
     location: "Nashville, TN",
     genre: ["Country"],
@@ -83,7 +83,7 @@ const mockEvents: Event[] = [
   {
     _id: "event8",
     name: "Electronic Sounds Festival",
-    organiserId: "organizer2",
+    promoterId: "organizer2",
     date: new Date("2024-12-05"),
     location: "Berlin, Germany",
     genre: ["Electronic", "Techno"],
@@ -94,7 +94,7 @@ const mockEvents: Event[] = [
   {
     _id: "event9",
     name: "Latin Music Extravaganza",
-    organiserId: "organizer3",
+    promoterId: "organizer3",
     date: new Date("2024-06-30"),
     location: "Miami, FL",
     genre: ["Latin", "Reggaeton"],
@@ -105,7 +105,7 @@ const mockEvents: Event[] = [
   {
     _id: "event10",
     name: "Metal Mayhem",
-    organiserId: "organizer1",
+    promoterId: "organizer1",
     date: new Date("2024-03-20"),
     location: "London, UK",
     genre: ["Metal", "Hard Rock"],
