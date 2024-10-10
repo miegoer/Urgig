@@ -9,8 +9,10 @@ export type Booking = {
   expectedGenre: string[]; //preselected values
   maxCapacity: number;
   status: string; //negotiationg, confirmed, declined
-  bookingOrganizerId: string;
+  bookingPromoterId: string;
   bookingArtistId: string;
+  landed?: boolean;
+  travelExpenses?: number;
 };
 
 export type Set = {
