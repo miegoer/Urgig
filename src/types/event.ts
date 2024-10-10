@@ -11,4 +11,6 @@ export type Event = {
   duration: number; //in days
   maxCapacity: number | string;
   link?: string;
+  artistsIds?: string[];
+  artistsBookingIds?: string[];
 };

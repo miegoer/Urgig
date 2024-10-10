@@ -21,7 +21,7 @@ export const SocialLinksSchema: Schema = new Schema({
     type: String,
     required: false,
     validate: {
-      validator: (v: string) => /^https?:\/\/(www\.)?youtube\.com\/[a-zA-Z0-9_-]+$/.test(v), // Regex for valid YouTube URLs
+      validator: (v: string) => /^https?:\/\/www\.youtube\.com\/@[a-zA-Z0-9_-]+$/.test(v), // Regex for valid YouTube URLs
       message: (props: ValidatorProps) => `${props.value} is not a valid YouTube URL!`,
     },
   },

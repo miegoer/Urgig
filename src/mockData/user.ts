@@ -13,7 +13,8 @@ const mockUsers: User[] = [
     dateOfBirth: new Date("1990-05-10"),
     location: "Los Angeles, CA",
     profileDetails: {
-      aboutMe: "I'm an electronic music artist based in LA, creating unique soundscapes. Also, I'm a literal monster.",
+      aboutMe:
+        "I'm an electronic music artist based in LA, creating unique soundscapes. Also, I'm a literal monster.",
       selectedVideo: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
       socialLinks: {
         twitter: "https://twitter.com/johndoe",
@@ -35,8 +36,12 @@ const mockUsers: User[] = [
       totalAtendees: 50000,
       totalEvents: 20,
     },
-    pastEvents: ["event5", "event1"],
-    upcomingEvents: ["event8"],
+    pastEvents: [
+      "67082687765db5728aa9957f",
+      "67082687765db5728aa99581",
+      "67082687765db5728aa99583",
+    ],
+    upcomingEvents: ["67a40091a32dc78d7584bb38"],
   },
 ];
 

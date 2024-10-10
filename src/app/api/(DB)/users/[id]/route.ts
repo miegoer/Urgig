@@ -80,7 +80,6 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
 }
 
 export async function GETHelper(userId: string, field: string) {
-  //in RL fetch data from a db,
   await dbConnect(); // Ensure database connection is established
   const user = await UserModel.findById(userId).select(field).populate(field);
 
