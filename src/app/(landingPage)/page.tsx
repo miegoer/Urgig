@@ -168,18 +168,18 @@ export function OurMission() {
 }
 
 // Call to Action Component
-export function CTA() {
-  return (
-    <div className="flex flex-row justify-center">
-      <button className="rounded-[10px] text-center text-[black] mr-[120px] mt-[35px] z-50 absolute py-2 px-5 bg-[#cefb50] uppercase text-sm">
-        Register
-      </button>
-      <button className="rounded-[10px] text-center text-[black] ml-[120px] mt-[35px] z-50 absolute py-2 px-5 bg-[#cefb50] uppercase text-sm">
-        Log In
-      </button>
-    </div>
-  )
-}
+// export function CTA() {
+//   return (
+//     <div className="flex flex-row justify-center">
+//       <button className="rounded-[10px] text-center text-[black] mr-[120px] mt-[35px] z-50 absolute py-2 px-5 bg-[#cefb50] uppercase text-sm">
+//         Register
+//       </button>
+//       <button className="rounded-[10px] text-center text-[black] ml-[120px] mt-[35px] z-50 absolute py-2 px-5 bg-[#cefb50] uppercase text-sm">
+//         Log In
+//       </button>
+//     </div>
+//   )
+// }
 
 // Footer Component
 export function Footer() {

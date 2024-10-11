@@ -52,11 +52,11 @@ export default function FindTalent({ children }: { children: React.ReactNode }) 
                     dark:[&::-webkit-scrollbar-track]:bg-neutral-700
                     dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500`}
             >
-                {mockArtists.map((artist) => (
+                {MockArtists.map((artist) => (
                     <ArtistListItem
                         key={artist.name}
                         name={artist.name}
-                        photo={artist.profilePhoto}
+                        profilePhoto={artist.profilePhoto}
                         tags={artist.tags}
                         fanBase={artist.fanBase}
                         numberOfEvents={artist.numberOfEvents}

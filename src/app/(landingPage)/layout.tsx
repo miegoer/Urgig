@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import "../(pages)/globals.css";
-import { PromoterUSP, ArtistUSP, Footer, Navbar, AboutUs, OurMission, CTA } from "./page";
+import { PromoterUSP, ArtistUSP, Footer, Navbar, AboutUs, OurMission } from "./page";
 import {
   ClerkLoaded,
   ClerkLoading,
@@ -60,7 +60,6 @@ export default function LandingPageLayout({ children }: { children: React.ReactN
                   <ArtistUSP />
                   <PromoterUSP />
                 </div>
-                {/* <CTA/> */}
               </div>
 
               {/* About Us and Our Mission Sections */}
