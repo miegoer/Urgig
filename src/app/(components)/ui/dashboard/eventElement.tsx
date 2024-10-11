@@ -1,42 +1,45 @@
-"use client";
-import { useEffect, useState } from "react";
-import type { Event } from "../../../../types/event";
+import { Event } from "@/types/event";
 
-export default function EventElement(event: Event) {
+type EventElementProps = {
+  event: Event;
+};
 
-  const date = new Date(event.date).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',  
-    day: 'numeric'
+const EventElement = ({ event }: EventElementProps) => {
+  const {
+    name,
+    date,
+    location,
+    genre,
+    duration,
+    maxCapacity,
+    link,
+  } = event;
+
+  const formattedDate = new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 
-
   return (
-    <div className=" max-w-450 m-5 bg rounded-[5%]">
-      <h2 className="text-xl mb-5 ">{event.name}</h2>
-      <p>
-        <strong>Date:</strong> {  date }
-      </p>
-      <p>
-        <strong>Location:</strong> {event.location}
-      </p>
-      <p>
-        <strong>Genre:</strong> {event.genre}
-      </p>
-      <p>
-        <strong>Duration:</strong> {event.duration}
-      </p>
-      <p>
-        <strong>Max Capacity:</strong> {event.maxCapacity}
-      </p>
-      <p>
-        <strong>Link:</strong>{" "}
-        <a href={event.link} className="text-blue-500 hover:underline">
-          {event.link}
+    <div className="flex flex-col justify-around pr-4 ">
+      <div className="mb-2">
+        <span className="text-lg tracking-wide text-[#e0e7ff] uppercase">
+          {name}
+        </span>
+      </div>
+      <div className="text-xs text-[#a0aec0] space-y-1">
+        <div>Date: {formattedDate}</div>
+        <div>Location: {location}</div>
+        <div>Genre: {genre}</div>
+        <div>Duration: {duration} day(s)</div>
+        <div>Max Capacity: {maxCapacity}</div>
+        <a href={link} className="text-[#7c3aed] underline mt-2">
+          {link}
         </a>
-      </p>
-      
+      </div>
     </div>
   );
 };
 
+export default EventElement;

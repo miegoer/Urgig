@@ -10,6 +10,7 @@ export default function Registration() {
   const userEmail = user?.primaryEmailAddress?.emailAddress;
   const firstName = user?.firstName || '';
   const lastName = user?.lastName || '';
+  // const userRole = user?.publicMetadata?.role || '';
 
   const router = useRouter();
 
@@ -19,6 +20,7 @@ export default function Registration() {
     lastName: lastName,
     dateOfBirth: '',
     stageName: '',
+    companyName: '',
     phoneNumber: '',
     location: '',
     aboutYou: '',
@@ -29,6 +31,7 @@ export default function Registration() {
     lastName: true,
     dateOfBirth: true,
     stageName: true,
+    companyName: true,
     phoneNumber: true,
     location: true,
   });
@@ -37,6 +40,9 @@ export default function Registration() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [isRegistered, setIsRegistered] = useState(false);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isAccountCreated, setIsAccountCreated] = useState(false);
 
   // ceck if the user is registered
   useEffect(() => {
@@ -117,13 +123,21 @@ export default function Registration() {
 
   const handleRoleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedType = event.target.value;
-    setForm((prevForm) => ({ ...prevForm, typeOfAccount: selectedType })); //
+    setForm((prevForm) => ({ ...prevForm, typeOfAccount: selectedType }));
 
     if (selectedType === 'Artist') {
-      setvalidity((prevValidity) => ({ ...prevValidity, stageName: false }));
-    } else {
+      setvalidity((prevValidity) => ({
+        ...prevValidity,
+        stageName: false,
+        companyName: true,
+      }));
+    } else if (selectedType === 'Promoter') {
       setForm((prevForm) => ({ ...prevForm, stageName: '' }));
-      setvalidity((prevValidity) => ({ ...prevValidity, stageName: true })); // no validation needed for promoter
+      setvalidity((prevValidity) => ({
+        ...prevValidity,
+        stageName: true,
+        companyName: false,
+      }));
     }
   };
 
@@ -136,6 +150,7 @@ export default function Registration() {
 
     if (!form.typeOfAccount) {
       alert('Please select your role');
+      setIsSubmitting(false);
       return;
     }
     if (
@@ -143,9 +158,9 @@ export default function Registration() {
       validity.lastName &&
       validity.dateOfBirth &&
       (form.typeOfAccount === 'Promoter' || validity.stageName) &&
+      (form.typeOfAccount === 'Artist' || validity.companyName) &&
       validity.phoneNumber &&
-      validity.location &&
-      (form.typeOfAccount === 'Promoter' || form.stageName)
+      validity.location
     ) {
       await fetch('/api/users', {
         method: 'POST',
@@ -158,6 +173,7 @@ export default function Registration() {
           contactNumber: form.phoneNumber,
           location: form.location,
           stageName: form.stageName,
+          companyName: form.companyName,
           aboutYou: form.aboutYou,
           _id: userId, // using Clerk userId
           typeOfAccount: form.typeOfAccount.toLowerCase(), // artist or promoter
@@ -168,11 +184,23 @@ export default function Registration() {
         }),
       });
 
+      await fetch('/api/updateUser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          role: form.typeOfAccount,
+          userId: userId,
+        }),
+      });
+
       setForm({
         firstName: '',
         lastName: '',
         dateOfBirth: '',
         stageName: '',
+        companyName: '',
         phoneNumber: '',
         location: '',
         aboutYou: '',
@@ -183,6 +211,7 @@ export default function Registration() {
         lastName: true,
         dateOfBirth: true,
         stageName: true,
+        companyName: true,
         phoneNumber: true,
         location: true,
       });
@@ -197,6 +226,8 @@ export default function Registration() {
   if (isRegistered) {
     return null;
   }
+
+  // console.log('User role from token:', userRole);
 
   return (
     <div className="flex flex-col">
@@ -238,16 +269,6 @@ export default function Registration() {
           {!validity.dateOfBirth && (
             <p className="text-red-500 mt-[5px]">Invalid date.</p>
           )}
-          {/* <input
-            type="text"
-            placeholder="Stage Name"
-            className="text-black"
-            value={form.stageName}
-            onChange={(e) => handleGenericChange(e, 'stageName')}
-          />
-          {!validity.stageName && (
-            <p className="text-red-500 mt-[5px]">Invalid stage name.</p>
-          )} */}
           <input
             type="tel"
             placeholder="Phone Number"
@@ -293,8 +314,24 @@ export default function Registration() {
               required
             />
           )}
+
+          {form.typeOfAccount === 'Promoter' && (
+            <input
+              type="text"
+              placeholder="Company Name"
+              className="text-black"
+              value={form.companyName}
+              onChange={(e) => handleGenericChange(e, 'companyName')}
+              required
+            />
+          )}
+
           {!validity.stageName && form.typeOfAccount === 'Artist' && (
             <p className="text-red-500 mt-[5px]">Invalid stage name.</p>
+          )}
+
+          {!validity.companyName && form.typeOfAccount === 'Promoter' && (
+            <p className="text-red-500 mt-[5px]">Invalid companyName name.</p>
           )}
 
           <button type="submit">Submit</button>
