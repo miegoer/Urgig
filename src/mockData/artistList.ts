@@ -1,3 +1,5 @@
+// This will be consolidated and reorganised into the appropriate files
+
 export type ArtistItemProps = {
     name: string;
     location: string;

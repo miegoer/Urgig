@@ -13,6 +13,7 @@ const mockUsers: User[] = [
     dateOfBirth: new Date("1990-05-10"),
     location: "Los Angeles, CA",
     profileDetails: {
+      profilePicture: '/public/mockUsers/DJFrankenstein.png',
       aboutMe: "I'm an electronic music artist based in LA, creating unique soundscapes. Also, I'm a literal monster.",
       selectedVideo: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
       socialLinks: {
@@ -48,6 +49,7 @@ const mockUsers: User[] = [
     dateOfBirth: new Date("1992-05-11"),
     location: "London, UK",
     profileDetails: {
+      profilePicture: '/public/mockUsers/DJPancakes.png',
       aboutMe: "You spin records, I spin pancakes. Whatever that means.",
       selectedVideo: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
       socialLinks: {
@@ -59,7 +61,7 @@ const mockUsers: User[] = [
         tiktok: "https://www.tiktok.com/@johndoe",
       },
       unAvailableDates: [new Date("2024-01-25"), new Date("2024-02-20")],
-      genre: ["EDM", "House"],
+      genre: ["Dark Ambient", "EDM", "Techno"],
     },
     statistics: {
       profileViews: 9000,
