@@ -36,8 +36,12 @@ const mockUsers: User[] = [
       totalAtendees: 50000,
       totalEvents: 20,
     },
-    pastEvents: ["event5", "event1"],
-    upcomingEvents: ["event8"],
+    pastEvents: [
+      "67082687765db5728aa9957f",
+      "67082687765db5728aa99581",
+      "67082687765db5728aa99583",
+    ],
+    upcomingEvents: ["67a40091a32dc78d7584bb38"],
   },
   {
     _id: "artist2",

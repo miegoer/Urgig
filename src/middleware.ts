@@ -1,4 +1,4 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 
 // const isProtectedRoute = createRouteMatcher(['/dashboard(.*)', '/forum(.*)'])
 
@@ -7,7 +7,12 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 // })
 
 // other way around than above
-const isPublicRoute = createRouteMatcher(["/sign-in(.*)", "/sign-up(.*)", "/"]);
+const isPublicRoute = createRouteMatcher([
+  '/sign-in(.*)',
+  '/sign-up(.*)',
+  '/',
+  '/api/(.*)',
+]);
 
 export default clerkMiddleware((auth, request) => {
   if (!isPublicRoute(request)) {
@@ -15,17 +20,58 @@ export default clerkMiddleware((auth, request) => {
   }
 });
 
-// login/reg only
-// export default clerkMiddleware();
-
 export const config = {
   matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
-    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-    // Always run for API routes
-    "/(api|trpc)(.*)",
-    // simplest for testing
-    // '/',
-    // '/(api|trpc)(.*)',
+    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+
+    '/(api|trpc)(.*)',
   ],
 };
+
+// import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
+// import { NextResponse } from 'next/server';
+// import { clerkClient } from '@clerk/nextjs/server'; // To fetch user data
+
+// const isPublicRoute = createRouteMatcher([
+//   '/sign-in(.*)',
+//   '/sign-up(.*)',
+//   '/',
+//   '/api/clerk(.*)',
+// ]);
+
+// export default clerkMiddleware(async (auth, request) => {
+//   if (isPublicRoute(request)) {
+//     return NextResponse.next();
+//   }
+
+//   // userId from auth session
+//   const { userId } = auth();
+
+//   // if no userId, redirect to sign-in
+//   if (!userId) {
+//     return NextResponse.redirect(new URL('/sign-in', request.url));
+//   }
+
+//   // getdata from Clerk
+//   const user = await clerkClient.users.getUser(userId);
+
+//   // get role
+//   const role = user.publicMetadata?.role;
+//   console.log(role);
+
+//   // "role-based access control"
+//   if (role === 'Artist') {
+//     return NextResponse.next();
+//   } else if (role === 'Promoter') {
+//     return NextResponse.redirect(new URL('/hell', request.url));
+//   }
+
+//   return NextResponse.next();
+// });
+
+// export const config = {
+//   matcher: [
+//     '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+//     '/(api|trpc)(.*)',
+//   ],
+// };
