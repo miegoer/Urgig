@@ -5,7 +5,7 @@ import Notifications from "@/app/(components)/ui/dashboard/notifications";
 import Messages from "@/app/(components)/ui/dashboard/messages";
 import Nav from "@/app/(components)/ui/nav";
 import UserInfo from "@/app/(components)/ui/dashboard/userinfo";
-import Upcoming from "@/app/(components)/ui/dashboard/upcoming";
+import EventsList from "@/app/(components)/ui/dashboard/EventsList";
 import { fillOutDB } from "../../../../../zz_dbbkp/fillOutDB";
 import { Button } from "@mui/material";
 
@@ -20,8 +20,9 @@ export default function Page({ children }: { children: React.ReactNode }) {
       <div className="col-[col-start_2_/_span_10] row-[6_/_span_4] w-[105%] h-[405px] flex flex-row">
         <Notifications />
         <Messages />
-        <Upcoming />
+        <EventsList />
       </div>
+      <Button onClick={fillOutDB}>btn</Button>
     </>
     // </div>
   );
