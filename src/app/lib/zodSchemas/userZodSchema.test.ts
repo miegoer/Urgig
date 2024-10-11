@@ -38,8 +38,7 @@ describe("UserZodSchema validation", () => {
       totalAtendees: 1000,
       totalEvents: 10,
     },
-    pastEvents: ["event1", "event2"],
-    upcomingEvents: ["event3", "event4"],
+    events: ["event1", "event2"],
   };
 
   const requiredFields: (keyof typeof validUser)[] = ["_id", "email", "typeOfAccount"];

@@ -39,6 +39,5 @@ export const UserSchema: Schema = new Schema({
     required: false,
   },
   statistics: { type: StatisticsSchema, ref: "Statistics", required: false },
-  pastEvents: { type: [String], ref: "Event", required: false }, //preselected values
-  upcomingEvents: { type: [String], ref: "Event", required: false }, //preselected values
+  events: [{ type: String, ref: "Event", required: false }],
 });

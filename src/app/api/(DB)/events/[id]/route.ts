@@ -5,14 +5,14 @@ import { Event } from "@/types/event";
 import { NextRequest, NextResponse } from "next/server";
 
 //get specific event's all info
-export async function GET(request: NextRequest, { params }: { params: { _id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   const EventIdZodSchema = EventZodSchema.pick({ _id: true });
-  const validatedEventId = EventIdZodSchema.parse({ _id: params._id });
 
   try {
+    const validatedEventId = EventIdZodSchema.parse({ _id: params.id });
     await dbConnect(); // Ensure database connection is established
-    const event = await EventModel.findById(params._id);
-
+    const event = await EventModel.findById(params.id);
+    console.log("event", event);
     //if not found return 404
     if (!event) return NextResponse.json({ error: "Event not found" }, { status: 404 });
     // else return data
