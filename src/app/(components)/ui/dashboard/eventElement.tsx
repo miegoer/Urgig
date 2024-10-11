@@ -3,10 +3,6 @@ import { useEffect, useState } from "react";
 import type { Event } from "../../../../types/event";
 
 export default function EventElement(event: Event) {
-  //   const [hasMounted, setHasMounted] = useState(false);
-  //  useEffect(() => {
-  //     setHasMounted(true);
-  //   }, []);
 
   const date = new Date(event.date).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -14,11 +10,12 @@ export default function EventElement(event: Event) {
     day: 'numeric'
   });
 
+
   return (
     <div className=" max-w-450 m-5 bg rounded-[5%]">
       <h2 className="text-xl mb-5 ">{event.name}</h2>
       <p>
-        <strong>Date:</strong> {date}
+        <strong>Date:</strong> {  date }
       </p>
       <p>
         <strong>Location:</strong> {event.location}
@@ -38,6 +35,8 @@ export default function EventElement(event: Event) {
           {event.link}
         </a>
       </p>
+      
     </div>
   );
-}
+};
+
