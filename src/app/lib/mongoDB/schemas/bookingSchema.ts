@@ -18,6 +18,7 @@ export const BookingSchema: Schema = new Schema({
   status: { type: String, required: true }, //negotiationg, confirmed, declined
   bookingPromoterId: { type: String, required: true },
   bookingArtistId: { type: String, required: true },
+  bookingEventId: { type: String, required: true },
   landed: { type: Boolean, required: false },
   travelExpenses: { type: Number, required: false },
 });
