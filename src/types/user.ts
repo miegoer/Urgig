@@ -12,6 +12,8 @@ export type User = {
   statistics?: Statistics;
   pastEvents?: string[];
   upcomingEvents?: string[];
+  stageName?: string;
+  companyName?: string;
 };
 
 export type ProfileDetails = {

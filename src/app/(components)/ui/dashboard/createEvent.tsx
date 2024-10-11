@@ -1,28 +1,20 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import SelectGenre from "./selectGenre";
+import { Event } from "@/types/event";
+import { string } from "zod";
 
 export default function CreateEvent() {
-  type EventData = {
-    name: string;
-    location: string;
-    date: string;
-    genre?: string[] | [];
-    duration: number;
-    maxCapacity: number;
-    bannerURL?: string;
-    link: string;
-  };
-
-  const initialState = {
+  const initialState: Event = {
     name: "",
     location: "",
-    date: Date(),
+    date: new Date(),
     genre: [] as string[],
-    duration: 0,
-    maxCapacity: 0,
-    bannerURL: "",
-    link: "",
+    duration: 1,
+    maxCapacity: 100,
+    bannerURL: undefined,
+    link: undefined,
+    promoterId: "asadb314aaf",
   };
 
   const [eventData, setEventData] = useState(initialState);
@@ -30,9 +22,20 @@ export default function CreateEvent() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
+    // Helper function to handle special cases for specific fields
+    const getProcessedValue = (name: string, value: string) => {
+      // For fields that can be empty and should be treated as undefined
+      const fieldsAllowingUndefined = ["bannerURL", "link"];
+      if (fieldsAllowingUndefined.includes(name) && value.trim() === "") {
+        return undefined; // Return undefined for empty strings in certain fields
+      }
+      return value; // Otherwise, return the actual value
+    };
+
     setEventData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: getProcessedValue(name, value), // Process the value before updating the state
     }));
   };
 
@@ -41,12 +44,13 @@ export default function CreateEvent() {
       ...eventData,
       genre: genres,
     });
+    console.log(eventData);
   }, [genres]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await fetch("/api/event", {
+    await fetch("/api/events", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -57,12 +61,13 @@ export default function CreateEvent() {
         date: eventData.date,
         genre: eventData.genre,
         duration: eventData.duration,
-        maxCapacity: eventData.maxCapacity,
+        maxCapacity: parseInt(eventData.maxCapacity as string),
         bannerURL: eventData.bannerURL,
         link: eventData.link,
+        promoterId: eventData.promoterId,
       }),
     });
-    
+
     setEventData(initialState);
   };
 
@@ -81,7 +86,7 @@ export default function CreateEvent() {
                 type="text"
                 id="createEventFormName"
                 required
-                className="mb-2 outline-none bg-[#20202a] border-b-[1px] border-white w-[500px]"
+                className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full"
               />
             </div>
             <div>
@@ -93,7 +98,7 @@ export default function CreateEvent() {
                 type="text"
                 id="createEventFormLocation"
                 required
-                className="mb-2 outline-none bg-[#20202a] border-b-[1px] border-white w-[500px]"
+                className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full"
               />
             </div>
             <div>
@@ -105,22 +110,21 @@ export default function CreateEvent() {
                 type="date"
                 id="createEventFormName"
                 required
-                className="mb-2 outline-none bg-[#20202a] border-b-[1px] border-white w-[500px]"
+                className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full]"
               />
             </div>
             <div>
-              <label htmlFor="createEventFormDuration">
-                Duration (minutes):
-              </label>
+              <label htmlFor="createEventFormDuration">Duration (days):</label>
               <input
                 value={eventData.duration}
                 name="duration"
                 onChange={handleChange}
                 type="number"
-                step="10"
+                min={1}
+                step="1"
                 id="createEventFormDuration"
                 required
-                className="mb-2 outline-none bg-[#20202a] border-b-[1px] border-white w-[500px]"
+                className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full"
               />
             </div>
             <div>
@@ -129,11 +133,10 @@ export default function CreateEvent() {
                 value={eventData.maxCapacity}
                 name="maxCapacity"
                 onChange={handleChange}
+                min={1}
                 type="number"
-                step={10}
                 id="createEventFormCapacity"
-                required
-                className="mb-2 outline-none bg-[#20202a] border-b-[1px] border-white w-[500px]"
+                className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full"
               />
             </div>
             <div>
@@ -144,7 +147,7 @@ export default function CreateEvent() {
                 onChange={handleChange}
                 type="text"
                 id="createEventFormBanner"
-                className="mb-2 outline-none bg-[#20202a] border-b-[1px] border-white w-[500px]"
+                className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full"
               />
             </div>
             <div>
@@ -155,7 +158,7 @@ export default function CreateEvent() {
                 onChange={handleChange}
                 type="text"
                 id="createEventFormLink"
-                className="mb-2 outline-none bg-[#20202a] border-b-[1px] border-white w-[500px]"
+                className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full"
               />
             </div>
             <div className="mt-4">
