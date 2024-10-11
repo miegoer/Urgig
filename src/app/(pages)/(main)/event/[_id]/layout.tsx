@@ -94,12 +94,12 @@ export default function Layout  ({ children }: { children: React.ReactNode } ) {
       >
         <Image
           src={festHeroIMG}
-          width={660}
+          width={760}
           height={530}
           alt="mock profile photo"
-          className="h-[100%] w-[100%] shadow-[0_4px_8px_0_rgba(0,0,0,0.2),0_6px_20px_0_rgba(0,0,0,0.19)] -ml-5 rounded-r-[50%]"
+          className="h-[100%] w-[67%] shadow-[0_4px_8px_0_rgba(0,0,0,0.2),0_6px_20px_0_rgba(0,0,0,0.19)] -ml-5 object-cover"
         />
-        <div className="h-[80px] px-5 flex flex-col top-[82%] z-5 absolute bg-[rgba(0,0,0,0.7)]">
+        <div className="bg-gradient-to-l from-black/50 to-black/90  h-[80px] px-5 flex flex-col top-[82%] z-5 absolute ">
           <div
             className={`z-10 py-2.5 rounded-[3px] tracking-[1.5px] text-[white] ${ubuntu.className} text-2xl`}
           >
@@ -114,43 +114,30 @@ export default function Layout  ({ children }: { children: React.ReactNode } ) {
           width={28}
           height={28}
           alt="Chat button"
-          className="w-[28px] h-[28px] absolute top-[40px] left-[78%] hover:scale-[1.2] transition-all duration-200"
+          className="w-[28px] h-[28px] absolute top-[40px] left-[65%] hover:scale-[1.2] transition-all duration-200"
         />
         <Image
           src={Connect}
           width={28}
           height={28}
           alt="Connect button"
-          className="w-[28px] h-[28px] absolute top-[120px] left-[90%] hover:scale-[1.2] transition-all duration-200"
+          className="w-[28px] h-[28px] absolute top-[120px] left-[65%] hover:scale-[1.2] transition-all duration-200"
         />
         <Image
-          src={Spotify}
+          src={Youtube}
           width={28}
           height={28}
           alt="Spotify button"
-          className="w-[28px] h-[28px] absolute top-[220px] left-[96%] hover:scale-[1.2] transition-all duration-200"
+          className="w-[28px] h-[28px] absolute top-[220px] left-[65%] hover:scale-[1.2] transition-all duration-200"
         />
         <Image
           src={Instagram}
           width={28}
           height={28}
           alt="Instagram button"
-          className="w-[28px] h-[28px] absolute top-[330px] left-[98%] hover:scale-[1.2] transition-all duration-200"
+          className="w-[28px] h-[28px] absolute top-[330px] left-[65%] hover:scale-[1.2] transition-all duration-200"
         />
-        <Image
-          src={Youtube}
-          width={28}
-          height={28}
-          alt="YouTube button"
-          className="w-[28px] h-[28px] absolute top-[440px] left-[95%] hover:scale-[1.2] transition-all duration-200"
-        />
-        <Image
-          src={Tiktok}
-          width={28}
-          height={28}
-          alt="Tiktok button"
-          className="w-[30px] h-[30px] absolute top-[545px] left-[85%] hover:scale-[1.2] transition-all duration-200"
-        />
+    
       </div>
       <div
         style={{ gridColumn: "4 / span 4", gridRow: "1 / span 4" }}
