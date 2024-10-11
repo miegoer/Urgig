@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth, useUser } from '@clerk/nextjs'; // Get Clerk token
+import './registration.css';
 
 export default function Registration() {
   // getting stuff from the token
@@ -230,14 +231,14 @@ export default function Registration() {
   // console.log('User role from token:', userRole);
 
   return (
-    <div className="flex flex-col">
+    <div className="inputList">
       <h1 className={`mb-4 text-xl md:text-2xl`}>Registration</h1>
       {!pt1Submitted && (
         <form className="flex flex-col" onSubmit={formPt2}>
           <input
             type="text"
             placeholder="First Name"
-            className="text-black"
+            className="input"
             value={form.firstName}
             onChange={(e) => handleNameChange(e, 'firstName')}
             required
@@ -248,7 +249,7 @@ export default function Registration() {
           <input
             type="text"
             placeholder="Last Name"
-            className="text-black"
+            className="input"
             value={form.lastName}
             onChange={(e) => handleNameChange(e, 'lastName')}
             required
@@ -261,7 +262,7 @@ export default function Registration() {
             onFocus={handleFocus}
             onBlur={handleBlur}
             placeholder="Date of Birth"
-            className="text-black"
+            className="input"
             value={form.dateOfBirth}
             onChange={(e) => handleDateInput(e)}
             required
@@ -272,7 +273,7 @@ export default function Registration() {
           <input
             type="tel"
             placeholder="Phone Number"
-            className="text-black"
+            className="input"
             value={form.phoneNumber}
             onChange={(e) => handlePhoneChange(e)}
             required
@@ -285,7 +286,7 @@ export default function Registration() {
           <input
             type="text"
             placeholder="Location"
-            className="text-black"
+            className="input"
             value={form.location}
             onChange={(e) => handleGenericChange(e, 'location')}
             required
@@ -295,7 +296,7 @@ export default function Registration() {
           )}
 
           <select
-            className="text-black"
+            className="input"
             value={form.typeOfAccount}
             onChange={handleRoleChange}
           >
@@ -308,7 +309,7 @@ export default function Registration() {
             <input
               type="text"
               placeholder="Stage Name"
-              className="text-black"
+              className="input"
               value={form.stageName}
               onChange={(e) => handleGenericChange(e, 'stageName')}
               required
@@ -319,7 +320,7 @@ export default function Registration() {
             <input
               type="text"
               placeholder="Company Name"
-              className="text-black"
+              className="input"
               value={form.companyName}
               onChange={(e) => handleGenericChange(e, 'companyName')}
               required
@@ -334,19 +335,19 @@ export default function Registration() {
             <p className="text-red-500 mt-[5px]">Invalid companyName name.</p>
           )}
 
-          <button type="submit">Submit</button>
+          <button className="submit" type="submit">Submit</button>
         </form>
       )}
       {pt1Submitted && (
         <form className="flex flex-col" onSubmit={handleSubmit}>
           <textarea
             placeholder="About you"
-            className="text-black"
+            className="input"
             value={form.aboutYou}
             onChange={(e) => handleGenericChange(e, 'aboutYou')}
             required
           />
-          <button type="submit">Submit</button>
+          <button className='submit' type="submit">Submit</button>
         </form>
       )}
     </div>
