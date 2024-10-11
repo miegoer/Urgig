@@ -81,11 +81,11 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
 
 export async function GETHelper(userId: string, field: string) {
   await dbConnect(); // Ensure database connection is established
-  const user = await UserModel.findById(userId).select(field).populate(field);
+  const user = await UserModel.findById(userId).select(field);
 
   //if not found return 404
   // else return data
   if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 });
 
-  return NextResponse.json(user, { status: 200 });
+  return NextResponse.json(user[field], { status: 200 });
 }
