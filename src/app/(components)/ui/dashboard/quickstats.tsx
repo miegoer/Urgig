@@ -7,7 +7,7 @@ import "./dashboard-ui.css";
 
 // Must be refactored later to work with data properties
 
-const userStats = [{ requests: 3 }, { bookings: 2 }, { views: 15 }];
+const userStats = [{ requests: 3 }, { bookings: 1 }, { views: 15 }];
 
 export default function QuickStats() {
   return (

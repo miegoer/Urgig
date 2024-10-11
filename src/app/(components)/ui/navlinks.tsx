@@ -45,7 +45,7 @@ export default function NavLinks() {
         alt="notifications bell"
         height={20}
         width={20}
-        className="ml-8 mr-1"
+        className="ml-5 mr-6"
       />
       <input
         type="text"
