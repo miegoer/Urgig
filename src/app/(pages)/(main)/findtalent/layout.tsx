@@ -46,9 +46,9 @@ export default function FindTalent({ children }: { children: React.ReactNode }) 
                 className={`h-[600px] mt-[10px] overflow-y-auto
                     [&::-webkit-scrollbar]:w-2
                     [&::-webkit-scrollbar-track]:rounded-full
-                    [&::-webkit-scrollbar-track]:bg-gray-100
+                    [&::-webkit-scrollbar-track]:bg-black-100
                     [&::-webkit-scrollbar-thumb]:rounded-full
-                    [&::-webkit-scrollbar-thumb]:bg-gray-300
+                    [&::-webkit-scrollbar-thumb]:bg-[#332960]
                     dark:[&::-webkit-scrollbar-track]:bg-neutral-700
                     dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500`}
             >
