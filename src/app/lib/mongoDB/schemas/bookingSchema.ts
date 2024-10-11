@@ -7,7 +7,6 @@ export interface BookingDoc extends Booking, Document {
 }
 
 export const BookingSchema: Schema = new Schema({
-  _id: { type: String, required: true },
   name: { type: String, required: true },
   link: { type: String, required: false },
   bannerURL: { type: String, required: false },
@@ -19,6 +18,7 @@ export const BookingSchema: Schema = new Schema({
   status: { type: String, required: true }, //negotiationg, confirmed, declined
   bookingPromoterId: { type: String, required: true },
   bookingArtistId: { type: String, required: true },
+  bookingEventId: { type: String, required: true },
   landed: { type: Boolean, required: false },
   travelExpenses: { type: Number, required: false },
 });

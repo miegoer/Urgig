@@ -2,6 +2,7 @@
 import { UserModel } from "@/app/lib/mongoDB/models/userModel";
 import { UserZodSchema } from "@/app/lib/zodSchemas/userZodSchema";
 import { NextRequest, NextResponse } from "next/server";
+import { env } from "process";
 
 //create new user
 export async function POST(request: NextRequest) {
@@ -11,7 +12,11 @@ export async function POST(request: NextRequest) {
   const user = await request.json();
   const validation = UserZodSchema.safeParse(user);
   //check if submited data is OK
-  if (!validation.success) return NextResponse.json(validation.error.errors, { status: 400 });
+
+  if (!validation.success) {
+    console.log("ZOD ERROR:", validation.error.errors);
+    return NextResponse.json(validation.error.errors, { status: 400 });
+  }
   try {
     // Attempt to create a new user
     const newUser = await UserModel.create(validation.data);
@@ -43,8 +48,22 @@ export async function GET(request: NextRequest) {
   await dbConnect(); // Ensure database connection is established
 
   try {
+    // Get search query from the request URL
+    const { searchParams } = new URL(request.url);
+    const searchQuery = searchParams.get("search") || ""; // Get the 'search' query parameter, default to an empty string
+
+    // Filter users by name or email if a search query is provided
+    const query = searchQuery
+      ? {
+          $or: [
+            { name: { $regex: searchQuery, $options: "i" } }, // Case-insensitive search in name
+            { email: { $regex: searchQuery, $options: "i" } }, // Case-insensitive search in email
+          ],
+        }
+      : {}; // If no search query, return all users
+
     // Fetch all users, selecting only the _id, name, and email fields, excluding everything else
-    const users = await UserModel.find().select("_id name email");
+    const users = await UserModel.find(query);
 
     // Return the users with only the selected fields
     return NextResponse.json(users, { status: 200 });

@@ -1,9 +1,11 @@
 import { z } from "zod";
 
 export const EventZodSchema = z.object({
-  _id: z.string().min(1),
+  _id: z.string().min(1).optional(),
   name: z.string().min(1),
-  organiserId: z.string().min(1),
+  promoterId: z.string().min(1),
+  artistsIds: z.array(z.string().min(1)).optional(),
+  artistsBookingIds: z.array(z.string().min(1)).optional(),
   date: z
     .string()
     .transform((str) => new Date(str)) // Transform string to Date

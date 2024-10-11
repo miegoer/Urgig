@@ -1,14 +1,17 @@
 import { z } from "zod";
 
 export const SetZodSchema = z.object({
-  _id: z.string().min(1), // _id must be a non-empty string
-  date: z.date(), // Date must be a valid Date object
+  date: z
+    .string()
+    .transform((str) => new Date(str)) // Transform string to Date
+    .refine((date) => !isNaN(date.getTime()), { message: "Invalid date format" })
+    .optional(), // Validate that it's a valid date, // Date must be a valid Date object
   setTimeStart: z.string().min(1), // Time start as a non-empty string (e.g., HH:MM format)
   setTimeEnd: z.string().min(1), // Time end as a non-empty string (e.g., HH:MM format)
 });
 
 export const BookingZodSchema = z.object({
-  _id: z.string().min(1), // _id must be a non-empty string
+  _id: z.string().min(1).optional(), // _id must be a non-empty string
   name: z.string().min(1), // name must be a non-empty string
   link: z.string().url().optional(), // Optional URL for link
   bannerURL: z.string().url().optional(), // Optional URL for bannerURL
@@ -20,6 +23,7 @@ export const BookingZodSchema = z.object({
   status: z.enum(["negotiation", "confirmed", "declined"]), // Status can be one of the preselected values
   bookingPromoterId: z.string().min(1), // Organizer ID must be a non-empty string
   bookingArtistId: z.string().min(1), // Artist ID must be a non-empty string
+  bookingEventId: z.string().min(1),
   landed: z.boolean().optional(),
   travelExpenses: z.number().positive().optional(),
 });
