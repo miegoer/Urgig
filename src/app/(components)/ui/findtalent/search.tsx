@@ -12,6 +12,7 @@ const genres = [
 export default function TalentSearch() {
 
     let [chosenGenres, setChosenGenres] = useState<Genre[]>([]);
+    const [locationSearch, setLocationSearch] = useState<string>('');
     
     type Genre = string;
 
@@ -27,7 +28,7 @@ export default function TalentSearch() {
         <div style={{background: "linear-gradient(355deg, rgba(32,33,54,1) 0%, rgba(52,41,98,1) 100%)"}} className="mt-[40px] rounded-[20px] text-center bg-[#252531] shadow-[0px_0px_0px_#272525] p-4">
              <form>
                 <span className="block text-[11px] tracking-[1px] uppercase ml-2.5 mr-0 mt-[7px] mb-[10px]">Location</span>
-                <input type="text" className="rounded-[20px]"/>
+                <input type="text" onChange={(e) => setLocationSearch(e.target.value)} value={locationSearch} className="rounded-[20px] text-[black] text-center py-[5px] px-[10px] text-sm"/>
                 <span className="block text-[11px] tracking-[1px] uppercase ml-2.5 mr-0 mt-[20px] mb-[10px]">Genres</span>
                 <div className="dropdown relative block">
                     <button className="dropbtn bg-[#ccff69] text-[black] text-xs px-4 py-2 border-[none] rounded-[20px]">Choose Genre Tags</button>

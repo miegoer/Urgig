@@ -22,7 +22,7 @@ export default function LandingPageLayout({ children }: { children: React.ReactN
       }}
     >
       <html lang="en">
-        <body className="bg-gray-900 text-white">
+        <body className="bg-[#12102a] text-white">
           <header>
             <Navbar />
           </header>
@@ -41,10 +41,10 @@ export default function LandingPageLayout({ children }: { children: React.ReactN
                 <div className="flex justify-center space-y-4">
                   <SignedOut>
                     <div className="flex space-x-4">
-                      <div className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-6 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700">
+                      <div className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-6 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700" style={{ zIndex: 10000}}>
                         <SignInButton mode="redirect">Sign in</SignInButton>
                       </div>
-                      <div className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-6 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700">
+                      <div className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-6 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700" style={{ zIndex: 10000}}>
                         <SignUpButton mode="redirect">Sign up</SignUpButton>
                       </div>
                     </div>
@@ -56,7 +56,7 @@ export default function LandingPageLayout({ children }: { children: React.ReactN
                 </div>
 
                 {/* USP Components */}
-                <div className="flex flex-col md:flex-row items-center justify-center md:space-x-4 space-y-4 md:space-y-0 mt-8">
+                <div className="flex flex-row md:flex-row items-center justify-center md:space-x-5 space-y-4 md:space-y-0 mt-8">
                   <ArtistUSP />
                   <PromoterUSP />
                 </div>
