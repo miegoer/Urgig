@@ -20,7 +20,7 @@ const messages = [
   },
   {
     name: "Paws the Pub Owner",
-    message: "You're the best, Princess Cheeto.",
+    message: "You're the best, DJ Frankenstein.",
     status: "read",
     photo: WhiteCat,
     alt: "Diva cat mock user",

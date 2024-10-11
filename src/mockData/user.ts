@@ -13,8 +13,8 @@ const mockUsers: User[] = [
     dateOfBirth: new Date("1990-05-10"),
     location: "Los Angeles, CA",
     profileDetails: {
-      aboutMe:
-        "I'm an electronic music artist based in LA, creating unique soundscapes. Also, I'm a literal monster.",
+      profilePicture: '/public/mockUsers/DJFrankenstein.png',
+      aboutMe: "I'm an electronic music artist based in LA, creating unique soundscapes. Also, I'm a literal monster.",
       selectedVideo: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
       socialLinks: {
         twitter: "https://twitter.com/johndoe",
@@ -36,13 +36,45 @@ const mockUsers: User[] = [
       totalAtendees: 50000,
       totalEvents: 20,
     },
-    pastEvents: [
-      "67082687765db5728aa9957f",
-      "67082687765db5728aa99581",
-      "67082687765db5728aa99583",
-    ],
-    upcomingEvents: ["67a40091a32dc78d7584bb38"],
+    pastEvents: ["event5", "event1"],
+    upcomingEvents: ["event8"],
   },
+  {
+    _id: "artist2",
+    typeOfAccount: "artist",
+    name: "DJ Pancakes",
+    email: "djpancakes@gmail.com",
+    contactNumber: "+1234567891",
+    password: "1234",
+    dateOfBirth: new Date("1992-05-11"),
+    location: "London, UK",
+    profileDetails: {
+      profilePicture: '/public/mockUsers/DJPancakes.png',
+      aboutMe: "You spin records, I spin pancakes. Whatever that means.",
+      selectedVideo: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      socialLinks: {
+        twitter: "https://twitter.com/johndoe",
+        facebook: "https://www.facebook.com/johndoe",
+        youtube: "https://www.youtube.com/@johndoe",
+        instagram: "https://www.instagram.com/johndoe",
+        spotify: "https://open.spotify.com/artist/1A2b3C4d5E6F7G8H",
+        tiktok: "https://www.tiktok.com/@johndoe",
+      },
+      unAvailableDates: [new Date("2024-01-25"), new Date("2024-02-20")],
+      genre: ["Dark Ambient", "EDM", "Techno"],
+    },
+    statistics: {
+      profileViews: 9000,
+      offersGot: 50,
+      offersAcccepted: 30,
+      income: 150000,
+      avgCapacity: 8000,
+      totalAtendees: 50000,
+      totalEvents: 20,
+    },
+    pastEvents: ["event5", "event1"],
+    upcomingEvents: ["event8"],
+  }
 ];
 
 export default mockUsers;

@@ -12,7 +12,7 @@ export interface UserDoc extends User, Document {
 export const UserSchema: Schema = new Schema({
   // changed, to be able to use clerk id
   // _id: string; added by mongo itself
-  // _id: { type: String, required: true },
+  _id: { type: String, required: true },
   typeOfAccount: { type: String, required: true },
   // added stageName
   email: {
