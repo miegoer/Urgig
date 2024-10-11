@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import "../(pages)/globals.css";
-import { PromoterUSP, ArtistUSP, Footer, Navbar, AboutUs, OurMission } from "./page";
+import { PromoterUSP, ArtistUSP, Footer, Navbar, AboutUs, OurMission, CTA } from "./page";
 import {
   ClerkLoaded,
   ClerkLoading,
@@ -22,7 +22,7 @@ export default function LandingPageLayout({ children }: { children: React.ReactN
       }}
     >
       <html lang="en">
-        <body className="bg-gray-900 text-white">
+        <body className="bg-[#12102a] text-white">
           <header>
             <Navbar />
           </header>
@@ -56,10 +56,11 @@ export default function LandingPageLayout({ children }: { children: React.ReactN
                 </div>
 
                 {/* USP Components */}
-                <div className="flex flex-col md:flex-row items-center justify-center md:space-x-4 space-y-4 md:space-y-0 mt-8">
+                <div className="flex flex-row md:flex-row items-center justify-center md:space-x-5 space-y-4 md:space-y-0 mt-8">
                   <ArtistUSP />
                   <PromoterUSP />
                 </div>
+                {/* <CTA/> */}
               </div>
 
               {/* About Us and Our Mission Sections */}
