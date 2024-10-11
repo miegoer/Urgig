@@ -7,14 +7,6 @@ import Link from "next/link";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
 
-const mockArtists = [
-    {name: 'Princess Cheeto', profilePhoto: "/mockUsers/princess-cheeto.webp", tags: ['Pop', 'Singer/Songwriter', 'Solo'], fanBase: {spotify: '100k', youtube: '40k', tiktok: '1m'}, numberOfEvents: 9},
-    {name: 'DJ Pancakes', profilePhoto: '/mockUsers/DJPancakes.png', tags: ['EDM', 'Techno', 'Solo'], fanBase: {spotify: '9k', youtube: '11.1k', tiktok: '4.3k'}, numberOfEvents: 64},
-    {name: 'The Man Bun Orchestra', profilePhoto: '/mockUsers/ManBunOrchestra.png', tags: ['Classical', 'Group'], fanBase: {spotify: '20.3k', youtube: '12.3k', tiktok: '19k'}, numberOfEvents: 145},
-    {name: 'Bathtub Joe', profilePhoto: '/mockUsers/BathtubJoe.png', tags: ['Acoustic', 'Folk', 'Solo', 'Country'], fanBase: {spotify: '642', youtube: '195', tiktok: '23'},numberOfEvents: 11},
-    {name: 'Britney Pears', profilePhoto: '/mockUsers/singer.png', tags: ['Pop', 'Solo'], fanBase: {spotify: '5.6k', youtube: '1k', tiktok: '3.2k'}, numberOfEvents: 78}
-]
-
 export default function FindTalent({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     return (
