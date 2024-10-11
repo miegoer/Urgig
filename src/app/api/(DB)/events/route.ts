@@ -7,7 +7,6 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest) {
   await dbConnect(); // Ensure database connection is established
   const event = await request.json();
-  console.log(event);
   const validation = EventZodSchema.safeParse(event);
   console.log(validation.error?.errors);
   //check if submited data is OK
@@ -40,11 +39,9 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   //we need request here to prevent caching data
   await dbConnect(); // Ensure database connection is established
-
   try {
     // Fetch all events
     const events = await EventModel.find();
-
     // Return the events with only the selected fields
     return NextResponse.json(events, { status: 200 });
   } catch (error) {

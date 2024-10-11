@@ -3,10 +3,12 @@ import { musicGenres } from "@/mockData/musicGenres";
 
 interface SelectGenreProps {
   setGenres : (genres : string[])=> void,
-  genres : string[]
+  genres : string[],
+  isSent : boolean,
+
 }
 
-const SelectGenre = ({setGenres,genres} : SelectGenreProps) => {
+const SelectGenre = ({setGenres,genres,isSent} : SelectGenreProps) => {
 
   return (
     <div>
