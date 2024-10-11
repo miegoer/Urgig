@@ -1,3 +1,5 @@
+'use client';
+
 import SideNav from '@/app/(components)/ui/dashboard/sidenav';
 import QuickStats from '@/app/(components)/ui/dashboard/quickstats';
 import Notifications from '@/app/(components)/ui/dashboard/notifications';
