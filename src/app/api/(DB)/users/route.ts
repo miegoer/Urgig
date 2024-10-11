@@ -2,6 +2,7 @@
 import { UserModel } from "@/app/lib/mongoDB/models/userModel";
 import { UserZodSchema } from "@/app/lib/zodSchemas/userZodSchema";
 import { NextRequest, NextResponse } from "next/server";
+import { env } from "process";
 
 //create new user
 export async function POST(request: NextRequest) {
@@ -11,7 +12,11 @@ export async function POST(request: NextRequest) {
   const user = await request.json();
   const validation = UserZodSchema.safeParse(user);
   //check if submited data is OK
-  if (!validation.success) return NextResponse.json(validation.error.errors, { status: 400 });
+
+  if (!validation.success) {
+    console.log("ZOD ERROR:", validation.error.errors);
+    return NextResponse.json(validation.error.errors, { status: 400 });
+  }
   try {
     // Attempt to create a new user
     const newUser = await UserModel.create(validation.data);
