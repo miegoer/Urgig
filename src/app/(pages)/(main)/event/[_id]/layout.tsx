@@ -34,20 +34,17 @@ interface profileLink {
 }
 
 const profileLinks: profileLink[] = [
-  { name: "Artists", href: `${baseRoute}` },
-  { name: "Reviews", href: `${baseRoute}/fanbase` },
+  { name: "Promoter", href: `${baseRoute}` },
   { name: "Oficial Site", href: `${baseRoute}/events` },
   { name: "Info", href: `${baseRoute}/media` },
-  { name: "Q&A", href: `${baseRoute}/qa` },
+ 
 ];
 
 
-interface LayoutProps {
-  children : (props: {event:Event})=> React.ReactNode
-}
 
 
-export default function Layout  ({ children } : LayoutProps) {
+
+export default function Layout  ({ children }: { children: React.ReactNode } ) {
 
   const router = useRouter();
   const pathname = usePathname();
@@ -69,7 +66,7 @@ export default function Layout  ({ children } : LayoutProps) {
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
       try {
-        const response = await fetch(`/api/events/${params.id}`);
+        const response = await fetch(`/api/events/${params._id}`);
         const data = await response.json();
         setEvent(data);
       } catch (error) {
@@ -159,7 +156,7 @@ export default function Layout  ({ children } : LayoutProps) {
         style={{ gridColumn: "4 / span 4", gridRow: "1 / span 4" }}
         className="h-[660px] w-[480px]"
       >
-        {children(event)}
+        {children}
       </div>
       <div
         style={{ gridColumn: "8 / span 3", gridRow: "2 / span 8" }}

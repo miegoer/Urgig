@@ -1,17 +1,11 @@
 "use client";
-
-
-import { Ubuntu } from "next/font/google";
 import "./page.css";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Ubuntu } from "next/font/google";
 import { Event } from "@/types/event";
-const Back = "/back-icon.png";
-const StartChat = "/startchat-icon.png";
-const Connect = "/connect-icon.png";
-const Spotify = "/spotify-icon.png";
-const Instagram = "/ig-icon.png";
-const Tiktok = "/tiktok-icon.png";
-const Youtube = "/youtube-icon.png";
-const Location = "/location-icon.png";
+
+
 
 interface userTag {
   name: string;
@@ -23,6 +17,11 @@ const ubuntu = Ubuntu({
   subsets: ["latin"],
 });
 
+interface genreTag {
+  name: string;
+  color: string;
+}
+
 
 
 
@@ -31,7 +30,37 @@ type eventProps = {
 } 
 
 
-export default function EventProfile({event} : eventProps) {
+export default function EventProfile( ) {
+
+  const params = useParams();
+
+  const [event, setEvent] = useState<Event>({
+    name: "",
+    location: "",
+    date: new Date(),
+    genre: [] as string[],
+    duration: 1,
+    maxCapacity: 100,
+    bannerURL: undefined,
+    link: undefined,
+    promoterId: "",
+  })
+
+  useEffect(() => {
+    const fetchData = async (): Promise<void> => {
+      try {
+        const response = await fetch(`/api/events/${params._id}`);
+        const data = await response.json();
+        data.genre = data.expectedGenre
+        setEvent(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [params]);
+
     return (
         <>
             <div className={`z-10 w-[100%] mt-1 p-8 rounded-[2px] text-center tracking-[1.5px] text-[white] text-sm`}>
@@ -45,10 +74,10 @@ export default function EventProfile({event} : eventProps) {
             <div className={`z-10 w-[100%] mt-1 p-8 rounded-[2px] text-center tracking-[1.5px] text-[white] text-sm`}>
                 <span className="inline-flex text-[11px] tracking-[1px] uppercase px-4 mr-0 mb-[18px] rounded-[3px] text-[black] bg-[white]">Details</span>
                 <table className={`${ubuntu.className} m-auto`}><tbody>
-                    <tr><td>DJs</td><td>32</td></tr>
-                    <tr><td>Bands</td><td>56</td></tr>
-                    <tr><td>Days</td><td>3</td></tr>
+                    <tr><td>Artists</td><td>32</td></tr>
+                    <tr><td>Event Duration</td><td>3</td></tr>
                     <tr><td>Editions</td><td>12</td></tr>
+                    <tr><td>Location</td><td>Berlin</td></tr>
                 </tbody></table>
             </div>
             <div className="ml-[90px] text-center border-t-[white] border-t w-[300px]"></div>
@@ -56,9 +85,10 @@ export default function EventProfile({event} : eventProps) {
             {/* {mockUsers[0].profileDetails.aboutMe} */}
                 <span className="inline-flex text-[11px] tracking-[1px] uppercase mr-0 mt-[1px] px-4 mb-[16px] rounded-[3px] text-[black] bg-[white]">Genres</span>
                 <div>
-                {event.genre.map((tag) => (
-                <span className="inline-flex bg-[#23d5cd] m-1.5 py-2 px-4 rounded-[15px]" style={{ background: tag.color }} key={tag.name}>{tag.name}</span>
-            ))}
+                {/* {event.genre.map((genre, index) => (
+                <span className="inline-flex bg-[#23d5cd] m-1.5 py-2 px-4 rounded-[15px]" style={{ background: tag.color }} key={genre[index]}>{genre[index]}</span>
+            ))} */}
+            
             </div>
             </div>
         </>
