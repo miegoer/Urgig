@@ -1,26 +1,40 @@
 "use client";
 // import "@/app/globals.css";
 import EventList from "../../../(components)/ui/eventList";
-import mockEvents from "../../../../mockData/events";
 import { Event } from "@/types/event";
 import { useEffect, useState } from "react";
 
-let events: Event[] = mockEvents; //mock to be deleted
-
 export default function FindGigs() {
   const [search, setSearch] = useState<string>("");
-  const [filteredSearch, setFilteredSearch] = useState<Event[]>(events);
+  const [events, setEvents] = useState<Event[]>([]);
+  const [filteredSearch, setFilteredSearch] = useState<Event[]>([]);
+  const [searchFlag, setSearchFlag] = useState<boolean>(false);
+  const [lastSearch, setLastSearch] = useState<string>('')
+
+  useEffect(() => {
+    const fetchData = async (): Promise<Event[] | void> => {
+      fetch("/api/events")
+        .then((res) => res.json())
+        .then((res) => {
+          setEvents(res);
+        })
+        .catch((error) => console.log(error));
+    }
+    fetchData();
+  }, []);
+
 
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
+    setSearchFlag(true);
+    setLastSearch(search);
     if (search.length >= 3) {
       const filteredResults: Event[] = events.filter((event: Event) =>
         event.name.toLowerCase().includes(search.trim().toLowerCase())
       );
       setFilteredSearch(filteredResults);
-      console.log(filteredResults);
     } else {
-      setFilteredSearch(events);
+      setFilteredSearch([]);
     }
     setSearch("");
   };
@@ -46,42 +60,12 @@ export default function FindGigs() {
         </form>
       </div>
       <div>
-        {filteredSearch.length > 0 ? (
-          <EventList events={filteredSearch} />
+        {searchFlag && filteredSearch.length === 0 && lastSearch.length >= 3 ? (  
+          <p>No events found for "{lastSearch}"</p>
         ) : (
-          <div>
-            <p>No events found for "{search}"</p>
-            <EventList events={events} />
-          </div>
+          <EventList events={filteredSearch.length > 0 ? filteredSearch : events} /> 
         )}
       </div>
     </>
   );
-}
-
-// const filterEvents = () => {
-//   if (search.length >= 3) {
-//     const filteredResults: Event[] = events.filter((event: Event) =>
-//       event.name.toLowerCase().includes(search.trim().toLowerCase())
-//     );
-//     setFilteredSearch(filteredResults)
-//   }else {
-//     setFilteredSearch(events)
-//   }
-// };
-
-// useEffect(()=> filterEvents(),[search])
-
-// const handleSubmit = (e:React.FormEvent) => {
-//   e.preventDefault();
-//   filterEvents()
-
-{
-  /* <div>
-        {filteredSearch.length > 0 ? (
-          <EventList events={filteredSearch} />
-        ) : (
-          <p>No events found for "{search}"</p>
-        )}
-      </div> */
 }
