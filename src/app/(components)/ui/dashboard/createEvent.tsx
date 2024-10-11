@@ -19,6 +19,8 @@ export default function CreateEvent() {
 
   const [eventData, setEventData] = useState(initialState);
   const [genres, setGenres] = useState<string[]>([]);
+  const [isSent, setIsSent] = useState<boolean>(false);
+  const [isWrong, setIsWrong] = useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -44,12 +46,11 @@ export default function CreateEvent() {
       ...eventData,
       genre: genres,
     });
-    console.log(eventData);
   }, [genres]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    setIsSent(!isSent);
     await fetch("/api/events", {
       method: "POST",
       headers: {
@@ -60,15 +61,26 @@ export default function CreateEvent() {
         location: eventData.location,
         date: eventData.date,
         genre: eventData.genre,
-        duration: eventData.duration,
+        duration: Number(eventData.durtion),
         maxCapacity: parseInt(eventData.maxCapacity as string),
         bannerURL: eventData.bannerURL,
         link: eventData.link,
-        promoterId: eventData.promoterId,
+        promoterId: eventData.promoterId, //we will have to fetch the url from the cookie?
       }),
+    }).then((response) => {
+      if (response.ok) {
+        setEventData(initialState);
+        setGenres([]);
+        window.location.reload(); //NEXT::::navigate to the event page
+      } else if (!response.ok) {
+        setIsWrong(!isWrong);
+        console.log(
+          "Unsucceded post request.Status Text:",
+          response.statusText,
+          response.status
+        );
+      }
     });
-
-    setEventData(initialState);
   };
 
   return (
@@ -145,7 +157,7 @@ export default function CreateEvent() {
                 value={eventData.bannerURL}
                 name="bannerURL"
                 onChange={handleChange}
-                type="text"
+                type="url"
                 id="createEventFormBanner"
                 className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full"
               />
@@ -156,15 +168,20 @@ export default function CreateEvent() {
                 value={eventData.link}
                 name="link"
                 onChange={handleChange}
-                type="text"
+                type="url"
                 id="createEventFormLink"
                 className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full"
               />
             </div>
             <div className="mt-4">
-              <SelectGenre setGenres={setGenres} genres={genres} />
+              <SelectGenre
+                setGenres={setGenres}
+                genres={genres}
+                isSent={isSent}
+              />
             </div>
           </div>
+          {isWrong && <p>Something went wrong, try again</p>}
           <button className="w-[150px] h-12 mt-8 bg-blue-500 text-white rounded self-end mr-5 mb-5 ml-[30px]">
             Create Event
           </button>

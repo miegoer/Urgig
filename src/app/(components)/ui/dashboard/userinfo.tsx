@@ -1,5 +1,6 @@
 import Image from "next/image";
 const PrincessCheeto = "/mockUsers/princess-cheeto.webp";
+const DJFrankenstein = "/mockUsers/DJFrankenstein.png";
 import { Ubuntu } from "next/font/google";
 
 const ubuntu = Ubuntu({
@@ -11,7 +12,7 @@ export default function UserInfo() {
   return (
     <div className="w-[38%] shadow-[0px_0px_0px_#272525] rounded-[20px] bg-[#252531] p-6 flex flex-row items-center">
       <Image
-        src={PrincessCheeto}
+        src={DJFrankenstein}
         height={60}
         width={60}
         alt="mock profile photo"
@@ -19,7 +20,7 @@ export default function UserInfo() {
       />
       <div className="flex flex-col justify-center ml-12">
         <div className={`text-l tracking-[2px] text-center mb-2.5 ${ubuntu.className}`}>
-          Princess Cheeto
+          DJ Frankenstein
         </div>
         <span className="block text-[14px] tracking-[2px] mb-2.5 text-center">10 Connections</span>
         <div

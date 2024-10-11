@@ -1,28 +1,22 @@
 import Image from "next/image";
-
-type ArtistItemProps = {
-    name: string;
-    photo: string;
-    tags: string[];
-    fanBase: FanBase;
-    numberOfEvents: number;
-  };
-
-  interface FanBase {
-    spotify: string;
-    youtube: string;
-    tiktok: string;
-  }
+import Link from "next/link";
+import { ArtistItemProps } from "@/mockData/artistList";
+import { MockArtists } from "@/mockData/artistList";
 
 const socialIcons = [
   {imageurl: '/spotify-icon.png', alt: 'Spotify Icon'}, {imageurl: '/tiktok-icon.png', alt: 'TikTok Icon'}, {imageurl: '/youtube-icon.png', alt: 'YouTube'}
 ]
   
-  const ArtistListItem: React.FC<ArtistItemProps> = ({ name, photo, tags, fanBase, numberOfEvents}) => {
+// Individual artist list item on the find talent page
+  
+  const ArtistListItem: React.FC<ArtistItemProps> = ({ name, profilePhoto, tags, fanBase, numberOfEvents}) => {
+    
     return (
       <>
         <div className="shadow-[0px_4px_5px_#191922] h-[130px] flex flex-row rounded-[20px] bg-[#252531] mb-[20px] p-3">
-          <Image src={photo} width={100} height={100} key={name} alt="Profile photo" className="rounded-[5px] shadow-[2px_4px_4px_#191922] object-cover" />
+        <Link key={name} href={`/a/profile/${name}`}>
+          <Image src={profilePhoto} width={100} height={100} alt="Profile photo" className="rounded-[5px] shadow-[2px_4px_4px_#191922] object-cover" />
+        </Link>
           <div className="flex flex-col p-2 w-[300px]">
             <span className="block text-[11px] tracking-[1.5px] uppercase mt-[1px] mb-[8px] text-center">{name}</span>
             <div className="flex flex-wrap p-2 justify-center">
