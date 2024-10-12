@@ -51,7 +51,9 @@ export default function LandingPageLayout({ children }: { children: React.ReactN
                   </SignedOut>
 
                   <SignedIn>
-                    <UserButton />
+                    <div style={{ zIndex: 10000 }}>
+                    <UserButton/>
+                    </div>
                   </SignedIn>
                 </div>
 
