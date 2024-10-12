@@ -41,12 +41,6 @@ const genreTags: userTag[] = [
 
 export default function MyProfile() {
 
-  // const [text, setText] = useState(mockUsers[0].profileDetails.aboutMe);
-
-  // const handleInput = (event) => {
-  //   setText(event.target.innerText);
-  // };
-
     return (
         <>
             <div className={`z-10 relative w-[100%] mt-1 p-8 rounded-[2px] text-center tracking-[1.5px] text-[white] text-sm`}>
@@ -54,7 +48,6 @@ export default function MyProfile() {
                 <span className="block rounded-[10px]">
                 {mockUsers[0].profileDetails.aboutMe}
                 </span>
-                {/* <Image src={Edit} alt="edit icon" width={20} height={20} className="absolute right-0 top-24 w-4 h-4 cursor-pointer"/> */}
             </div>
             <div className="ml-[90px] text-center border-t-[white] border-t w-[300px]"></div>
             <div className={`z-10 w-[100%] mt-1 p-8 rounded-[2px] text-center tracking-[1.5px] text-[white] text-sm`}>

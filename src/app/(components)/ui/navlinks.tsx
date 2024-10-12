@@ -41,7 +41,7 @@ export default function NavLinks() {
           href={link.href}
           className={clsx(
             "text-[#b7c4ff] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px] transition-all duration-200",
-            { "text-[#fe841c]": pathname === link.href },
+            { "text-[#ccff69]": pathname === link.href },
             "hover:bg-[#3525de] hover:rounded-[5px]"
           )}
         >
@@ -51,26 +51,26 @@ export default function NavLinks() {
       <Dropdown><DropdownTrigger>
       <span className={clsx(
             "text-[#b7c4ff] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px] transition-all duration-200 cursor-pointer",
-            { "text-[#fe841c]": pathname === '/myprofile' },
+            { "text-[#ccff69]": pathname === '/myprofile' || pathname === '/editprofile'},
             "hover:bg-[#3525de] hover:rounded-[5px]")}>
           Profile
         </span>
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">
-        <DropdownItem key="View" className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] shadow-[0px_4px_5px_#191922]">
+        <DropdownItem key="View" className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] shadow-[0px_4px_5px_#191922] transition-all duration-200">
         <Link key='viewprofile' href='/myprofile'
           className={clsx(
-            "text-[#ccff69] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px] transition-all duration-200",
-            { "text-[#fe841c]": pathname === '/myprofile' },
+            "text-[#b7c4ff] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px] transition-all duration-200",
+            { "text-[#ccff69]": pathname === '/myprofile' },
             "hover:rounded-[5px]")}>
           View
         </Link>
         </DropdownItem>
-        <DropdownItem key="Edit" className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] rounded-[0px_0px_20px_20px] shadow-[0px_4px_5px_#191922]">
+        <DropdownItem key="Edit" className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] rounded-[0px_0px_20px_20px] shadow-[0px_4px_5px_#191922] transition-all duration-200 ">
           <Link key='editprofile' href='/editprofile'
             className={clsx(
-              "text-[#ccff69] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px] transition-all duration-200",
-              { "text-[#fe841c]": pathname === '/editprofile' },
+              "text-[#b7c4ff] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px]",
+              { "text-[#ccff69]": pathname === '/editprofile' },
               "hover:rounded-[5px]")}>
             Edit
           </Link>
