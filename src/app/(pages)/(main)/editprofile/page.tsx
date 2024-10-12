@@ -19,7 +19,7 @@ export default function EditProfile () {
     return (
     <div className="flex flex-row">
         <div className="flex flex-col w-[29%] p-3 justify-center">
-            <div className="shadow-[0px_0px_0px_#272525] mx-[30px] my-0 py-[18px] px-2.5 rounded-[20px] text-center bg-[#2f2753]">
+            <div className=" shadow-[0px_4px_5px_#191922] mx-[30px] my-0 py-[18px] px-2.5 rounded-[20px] text-center bg-[#2f2753]">
                 <span className="block text-[11px] text-[#ccff69] tracking-[1px] uppercase mt-[7px] mb-[10px]">
                     Artist Name
                 </span>
@@ -27,7 +27,7 @@ export default function EditProfile () {
                     <input type="text" className="text-center rounded-[20px] p-2 w-[80%]" value={artistName} onChange={(event) => handleNameInput(event)}/>
                 </div>
             </div>
-            <div className="shadow-[0px_0px_0px_#272525] mx-[30px] mt-[30px] my-0 py-[18px] px-2.5 rounded-[20px] bg-[#2f2753] text-center">
+            <div className="shadow-[0px_4px_5px_#191922] mx-[30px] mt-[30px] my-0 py-[18px] px-2.5 rounded-[20px] bg-[#2f2753] text-center">
                 <span className="block text-[11px] text-[#ccff69] tracking-[1px] uppercase mt-[7px] mb-[10px]">
                     Location
                 </span>
@@ -35,7 +35,7 @@ export default function EditProfile () {
                     <input type="text" className="text-center rounded-[20px] p-2 w-[80%]" value={artistLocation} onChange={(event) => handleLocationInput(event)}/>
                 </div>
             </div>
-            <div className="shadow-[0px_0px_0px_#272525] mx-[30px] mt-[30px] py-[18px] px-2.5 rounded-[20px] bg-[#2f2753]">
+            <div className="shadow-[0px_4px_5px_#191922] mx-[30px] mt-[30px] py-[18px] px-2.5 rounded-[20px] bg-[#2f2753]">
                 <span className="block text-center text-[#ccff69] text-[11px] tracking-[1px] uppercase mt-[7px] mb-[15px]">
                     Profile Photo
                 </span>
