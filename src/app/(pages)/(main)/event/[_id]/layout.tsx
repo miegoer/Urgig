@@ -1,23 +1,18 @@
 "use client";
 
 import { useParams } from "next/navigation";
-const festHeroIMG = "/festHeroIMG.png";
+import { useTalkSession } from '@/app/(context)/TalkSessionContext';
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Event } from "@/types/event";
 
-import mockUsers from "@/mockData/user";
 import Image from "next/image";
-const Back = "/back-icon.png";
+const festHeroIMG = "/festHeroIMG.png";
 const StartChat = "/startchat-icon.png";
 const Connect = "/connect-icon.png";
-const Spotify = "/spotify-icon.png";
 const Instagram = "/ig-icon.png";
-const Tiktok = "/tiktok-icon.png";
 const Youtube = "/youtube-icon.png";
-const Location = "/location-icon.png";
 import { Ubuntu } from "next/font/google";
 import clsx from "clsx";
 
@@ -25,31 +20,18 @@ const ubuntu = Ubuntu({
   weight: "400",
   subsets: ["latin"],
 });
-
-const baseRoute = "/myprofile";
-
 interface profileLink {
   name: string;
   href: string;
 }
 
-const profileLinks: profileLink[] = [
-  { name: "Promoter", href: `${baseRoute}` },
-  { name: "Oficial Site", href: `${baseRoute}/events` },
-  { name: "Info", href: `${baseRoute}/media` },
- 
-];
-
-
-
-
-
 export default function Layout  ({ children }: { children: React.ReactNode } ) {
 
-  const router = useRouter();
   const pathname = usePathname();
   const params = useParams();
- 
+  const { userId }  = useTalkSession();
+  const _id = userId? userId.slice(5): '';
+
 
   const [event, setEvent] = useState<Event>({
     name: "",
@@ -73,11 +55,18 @@ export default function Layout  ({ children }: { children: React.ReactNode } ) {
         console.error(error);
       }
     };
-
     fetchData();
   }, [params]);
 
- 
+const baseRoute = `/event/${event._id}`;
+
+const profileLinks: profileLink[] = [
+  { name: "Event", href: `${baseRoute}`},
+  { name: "Promoter", href: `${baseRoute}/promoter/${event.promoterId}` },
+  { name: "Oficial Site", href: `${event.link}` },
+  { name: "Info", href: `${baseRoute}/info` },
+  { name: "Details", href: `${baseRoute}/details` }, 
+];
 
 
   return (
@@ -140,7 +129,7 @@ export default function Layout  ({ children }: { children: React.ReactNode } ) {
     
       </div>
       <div
-        style={{ gridColumn: "4 / span 4", gridRow: "1 / span 4" }}
+        style={{ gridColumn: "3 / span 4", gridRow: "1 / span 4" }}
         className="h-[660px] w-[480px]"
       >
         {children}
@@ -148,20 +137,43 @@ export default function Layout  ({ children }: { children: React.ReactNode } ) {
       <div
         style={{ gridColumn: "8 / span 3", gridRow: "2 / span 8" }}
         className="w-[160px] ml-[70px]"
-      >
-        {profileLinks.map((link) => (
+      >{event.promoterId === _id?
+        profileLinks.map((link) => (
           <Link href={link.href} key={link.name}>
             <div
-              className={clsx(
-                "w-[100%] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-[white] text-xs border border-solid border-[white] uppercase transition-all duration-200",
-                { "bg-[white] text-[#20202d]": pathname === link.href },
-                "hover:bg-[white] hover:text-[black] hover:scale-110"
-              )}
+                className={clsx(
+                  "w-[100%] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-xs border border-solid border-[white] uppercase transition-all duration-200",
+                  { 
+                    "bg-[white] text-[#20202d] font-bold ": pathname === link.href, 
+                    "text-[white]": pathname !== link.href 
+                  },
+                  "hover:bg-[white] hover:text-[black] hover:scale-110"
+                )}
             >
               {link.name}
             </div>
           </Link>
-        ))}
+        ))
+        :
+        profileLinks.slice(0, -1).map((link) => (
+          <Link href={link.href} key={link.name}>
+            <div
+                className={clsx(
+                  "w-[100%] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-xs border border-solid border-[white] uppercase transition-all duration-200",
+                  { 
+                    "bg-[white] text-[#20202d] font-bold ": pathname === link.href, 
+                    "text-[white]": pathname !== link.href 
+                  },
+                  "hover:bg-[white] hover:text-[black] hover:scale-110"
+                )}
+            >
+              {link.name}
+            </div>
+          </Link>
+        ))
+
+
+      }
       </div>
     </div>
   );

@@ -125,11 +125,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         {profileLinks.map((link) => (
           <Link href={link.href}>
             <div
-              className={clsx(
-                "w-[100%] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-[white] text-xs border border-solid border-[white] uppercase transition-all duration-200",
-                { "bg-[white] text-[#20202d]": pathname === link.href },
-                "hover:bg-[white] hover:text-[black] hover:scale-110"
-              )}
+             className={clsx(
+              "w-[100%] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-xs border border-solid border-[white] uppercase transition-all duration-200",
+              { 
+                "bg-[white] text-[#20202d] font-bold ": pathname === link.href, 
+                "text-[white]": pathname !== link.href 
+              },
+              "hover:bg-[white] hover:text-[black] hover:scale-110"
+            )}
             >
               {link.name}
             </div>
