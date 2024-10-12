@@ -22,29 +22,27 @@ export default function Promoter() {
           console.error(error);
         });
     };
-  
+
     fetchPromoter();
-  }, []); 
-  
+  }, []);
+
   useEffect(() => {
     if (promoter && promoter.events) {
       const fetchPromoterEvents = () => {
-        const eventsFetched :any= [];
-        promoter.events.forEach((eventId : string, index:number) => {
+        const eventsFetched: any = [];
+        promoter.events.forEach((eventId: string, index: number) => {
           fetch(`/api/events/${eventId}`)
             .then((response) => response.json())
             .then((eventJSON) => {
-              eventsFetched.push(eventJSON);
-              if (index === promoter.events.length - 1) {
-                setEvents((prevEvents :any) => [...prevEvents, ...eventsFetched]);
-              }
+              setEvents((prevEvents: any) => [...prevEvents, eventJSON]);
+              console.log(eventJSON);
             })
             .catch((error) => {
               console.log(error);
             });
         });
       };
-  
+
       fetchPromoterEvents();
     }
   }, [promoter]);
@@ -91,11 +89,11 @@ export default function Promoter() {
             </Link>
             <p className="text-xs text-[#a0aec0] mt-8">Events: </p>
             {events.map((event: any) => (
-              
               <div key={event._id}>
-                
-                {event.name && <p className="text-xs text-[#a0aec0] mt-2">{event.name}: </p>}
-                {event.link &&<Link href={`${event.link}`}>{event.link}</Link>}
+                {event.name && (
+                  <p className="text-xs text-[#a0aec0] mt-2">{event.name}: </p>
+                )}
+                {event.link && <Link href={`${event.link}`}>{event.link}</Link>}
               </div>
             ))}
           </div>

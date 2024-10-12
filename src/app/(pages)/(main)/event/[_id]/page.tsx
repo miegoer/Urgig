@@ -81,7 +81,7 @@ export default function EventProfile() {
         <div
           className={`z-10 mt-1 py-8 text-center tracking-[1.5px] text-[white] text-sm`}
         >
-          <span className="inline-flex text-[11px] tracking-[1px] uppercase  mt-[1px] px-4 mb-[18px] rounded-[3px] text-[black] bg-[white]">
+          <span className="inline-flex text-[11px] tracking-[1px] uppercase px-4 mb-[18px] rounded-[3px] text-[black] bg-[white]">
             About
           </span>
           <span className="block">
@@ -95,9 +95,9 @@ export default function EventProfile() {
             an epic journey you won't want to miss!
           </span>
         </div>
-        <div className="mx-auto border-t-[white] border-t w-[100]"></div>
+        <div className="border-t w-[300px] h-0 self-center mt-4"></div>
         <div
-          className={`z-10 p-8 rounded-[2px] text-center text-[white] text-sm`}
+          className={`z-10 mt-4 rounded-[2px] text-center text-[white] text-sm`}
         >
           <span className="inline-flex text-[11px] tracking-[1px] uppercase px-4  mb-[18px] rounded-[3px] text-[black] bg-[white]">
             Details
@@ -123,12 +123,12 @@ export default function EventProfile() {
             </tbody>
           </table>
         </div>
-        <div className="mx-auto border-t-[white] border-t w-[100%]"></div>
+        <div className="border-t w-[300px] h-0 self-center mt-4"></div>
         <div
-          className={`z-10 mx-[20%] mt-1 p-8  rounded-[2px] text-center tracking-[1.5px] text-[white] text-sm`}
+          className={`z-10 mx-[20%] rounded-[2px] text-center tracking-[1.5px] text-[white] text-sm`}
         >
           {/* {mockUsers[0].profileDetails.aboutMe} */}
-          <span className="inline-flex text-[11px] tracking-[1px] uppercase mt-[1px] px-4 mb-[16px] rounded-[3px] text-[black] bg-[white]">
+          <span className="inline-flex mt-4 text-[11px] tracking-[1px] uppercase px-4 mb-[16px] rounded-[3px] text-[black] bg-[white]">
             Genres
           </span>
           <div>
