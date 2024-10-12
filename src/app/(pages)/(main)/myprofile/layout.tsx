@@ -109,7 +109,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           width={28}
           height={28}
           alt="Tiktok button"
-          className="w-[30px] h-[30px] absolute top-[545px] left-[85%] hover:scale-[1.2] transition-all duration-200"
+          className="w-[30px] h-[30px] absolute top-[545px] left-[82%] hover:scale-[1.2] transition-all duration-200"
         />
       </div>
       <div
