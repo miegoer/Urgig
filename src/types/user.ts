@@ -10,8 +10,7 @@ export type User = {
   settings?: Settings; //settings like white/black theme and similar...
   profileDetails?: ProfileDetails; //more info about user
   statistics?: Statistics;
-  pastEvents?: string[];
-  upcomingEvents?: string[];
+  events?: string[];
   stageName?: string;
   companyName?: string;
 };

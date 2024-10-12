@@ -17,4 +17,5 @@ export const EventZodSchema = z.object({
   duration: z.number().positive(), // duration must be a positive number (in days)
   maxCapacity: z.number().int().positive(), // maxCapacity must be a positive integer
   link: z.string().url().optional(), // Optional URL for link
+  description: z.string().optional(), // Optional URL for link
 });
