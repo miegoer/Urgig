@@ -41,17 +41,19 @@ export default function LandingPageLayout({ children }: { children: React.ReactN
                 <div className="flex justify-center space-y-4">
                   <SignedOut>
                     <div className="flex space-x-4">
-                      <div className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-6 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700">
+                      <div className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-6 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700" style={{ zIndex: 10000}}>
                         <SignInButton mode="redirect">Sign in</SignInButton>
                       </div>
-                      <div className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-6 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700">
+                      <div className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-6 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700" style={{ zIndex: 10000}}>
                         <SignUpButton mode="redirect">Sign up</SignUpButton>
                       </div>
                     </div>
                   </SignedOut>
 
                   <SignedIn>
-                    <UserButton />
+                    <div style={{ zIndex: 10000 }}>
+                    <UserButton/>
+                    </div>
                   </SignedIn>
                 </div>
 
