@@ -51,13 +51,13 @@ export default function EditProfile () {
                 <div className="m-3 tracking-[1px] text-sm text-[black]">
                     <input type="text" className="text-center rounded-[20px] p-2 w-[80%]" value={artistName} onChange={(event) => handleNameInput(event)}/>
                 </div>
-                <span className="block text-[11px] text-[#ccff69] tracking-[1px] uppercase mt-[60px] mb-[10px]">
+                <span className="block text-[11px] text-[#ccff69] tracking-[1px] uppercase mt-[50px] mb-[10px]">
                     Location
                 </span>
                 <div className="m-3 tracking-[1px] text-sm text-[black]">
                     <input type="text" className="text-center rounded-[20px] p-2 w-[80%]" value={artistLocation} onChange={(event) => handleLocationInput(event)}/>
                 </div>
-                <span className="block text-center text-[#ccff69] text-[11px] tracking-[1px] uppercase mt-[60px] mb-[10px]">
+                <span className="block text-center text-[#ccff69] text-[11px] tracking-[1px] uppercase mt-[50px] mb-[10px]">
                     Profile Photo
                 </span>
                 <div className="my-3 flex flex-row justify-center rounded-[20px] hover:bg-[#1a1725] transition-all duration-200 cursor-pointer p-3">
@@ -102,13 +102,13 @@ export default function EditProfile () {
         </div>
         <div className="flex flex-col w-[10%] p-3 justify-start ml-[30px]">
             <div className="shadow-[0px_4px_5px_#191922] my-0 py-[18px] px-2.5 rounded-[20px] text-center" style={{background: "linear-gradient(355deg, rgba(32,33,54,1) 0%, rgba(52,41,98,1) 100%)"}}>
-                <span className="block text-[11px] text-[#ccff69] tracking-[1px] uppercase mt-[7px] mb-[20px]">
+                <span className="block text-[11px] text-[#ccff69] tracking-[1px] uppercase mt-[7px] mb-[30px]">
                     Social
                 </span>
                 <Image src={Spotify} alt="Spotify Icon" height={40} width={40} className="m-auto"/>
-                <Image src={TikTok} alt="TikTok Icon" height={43} width={43} className="m-auto mt-8"/>
-                <Image src={Instagram} alt="Instagram Icon" height={40} width={40} className="m-auto mt-8"/>
-                <Image src={Youtube} alt="YouTube Icon" height={40} width={40} className="m-auto mt-8 mb-3"/>
+                <Image src={TikTok} alt="TikTok Icon" height={43} width={43} className="m-auto mt-10"/>
+                <Image src={Instagram} alt="Instagram Icon" height={40} width={40} className="m-auto mt-10"/>
+                <Image src={Youtube} alt="YouTube Icon" height={40} width={40} className="m-auto mt-10 mb-3"/>
             </div>
         </div>
     </div>

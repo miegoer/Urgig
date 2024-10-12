@@ -25,7 +25,7 @@ const genreTags: userTag[] = [
     name: "Electronic",
     color: "linear-gradient(214deg, rgba(180,0,245,1) 0%, rgba(89,32,195,1) 100%)",
   },
-  { name: "DJ", color: "linear-gradient(214deg, rgba(102,32,207,1) 0%, rgba(27,7,179,1) 100%)" },
+  { name: "Trip-Hop", color: "linear-gradient(214deg, rgba(102,32,207,1) 0%, rgba(27,7,179,1) 100%)" },
   {
     name: "Trance",
     color: "linear-gradient(214deg, rgba(22,189,217,1) 0%, rgba(5,136,199,1) 100%)",
@@ -37,7 +37,7 @@ const genreTags: userTag[] = [
   { name: "EDM", color: "linear-gradient(214deg, rgba(6,106,175,1) 0%, rgba(61,135,118,1) 100%)" },
 ];
 
-// TO DO: refactor to minimise repetitive, change back button routing, create function to find placement of icons depending on how many social accounts linked.
+// TO DO: refactor to minimise repetitive, create function to find placement of icons depending on how many social accounts linked.
 
 export default function MyProfile() {
 
@@ -61,11 +61,10 @@ export default function MyProfile() {
             </div>
             <div className="ml-[90px] text-center border-t-[white] border-t w-[300px]"></div>
             <div className={`z-10 w-[90%] mt-1 p-8 ml-6 rounded-[2px] text-center tracking-[1.5px] text-[white] text-sm`}>
-            {/* {mockUsers[0].profileDetails.aboutMe} */}
                 <span className="inline-flex text-[11px] tracking-[1px] uppercase mr-0 mt-[1px] px-4 mb-[16px] rounded-[3px] text-[black] bg-[white]">Genres</span>
                 <div>
                 {genreTags.map((tag) => (
-                <span className="inline-flex bg-[#23d5cd] m-1.5 py-2 px-4 rounded-[15px]" style={{ background: tag.color }} key={tag.name}>{tag.name}</span>
+                <span className="inline-flex bg-[#23d5cd] m-1.5 py-2 px-4 rounded-[15px] bg-[black]" key={tag.name}>{tag.name}</span>
             ))}
             </div>
             </div>

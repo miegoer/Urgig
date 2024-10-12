@@ -34,7 +34,6 @@ const profileLinks: profileLink[] = [
   { name: "Fan Base", href: `${baseRoute}/fanbase` },
   { name: "Events", href: `${baseRoute}/events` },
   { name: "Media", href: `${baseRoute}/media` },
-  { name: "Q&A", href: `${baseRoute}/qa` },
 ];
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -122,11 +121,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         style={{ gridColumn: "8 / span 3", gridRow: "2 / span 8" }}
         className="z-10 w-[160px] ml-[70px]"
       >
+        <Link href="/booknow">
+        <div className=
+            "w-[100%] bg-[#20202A] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-[#ccff69] text-xs border-2 border-solid border-[#ccff69] uppercase transition-all duration-200 pulse-button">
+              Book Now
+            </div>
+        </Link>
         {profileLinks.map((link) => (
           <Link href={link.href}>
             <div
               className={clsx(
-                "z-15 w-[100%] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-[white] text-xs border border-solid border-[white] uppercase transition-all duration-200",
+                "z-15 w-[100%] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-xs border border-solid border-[white] uppercase transition-all duration-200",
                 { "z-100 bg-[white] text-[#20202d]": pathname === link.href },
                 "hover:bg-[white] hover:text-[black] hover:scale-110"
               )}
