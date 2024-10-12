@@ -14,7 +14,7 @@ const BookingItem: React.FC<{booking: Booking}> = ({booking}) => {
       <h2>{booking.location}</h2>
       {booking.sets.map((set) => (
         <div key={set._id}>
-          <h3>{set.date.toLocaleDateString()}</h3>
+          <h3>{new Date(set.date).toDateString()}</h3>
           <p>{set.setTimeStart} - {set.setTimeEnd}</p>
         </div>
       ))}
