@@ -6,7 +6,6 @@ import Messages from "@/app/(components)/ui/dashboard/messages";
 import Nav from "@/app/(components)/ui/nav";
 import UserInfo from "@/app/(components)/ui/dashboard/userinfo";
 import EventsList from "@/app/(components)/ui/dashboard/EventsList";
-import { fillOutDB } from "../../../../../zz_dbbkp/fillOutDB";
 import { Button } from "@mui/material";
 
 export default function Page({ children }: { children: React.ReactNode }) {
@@ -22,7 +21,6 @@ export default function Page({ children }: { children: React.ReactNode }) {
         <Messages />
         <EventsList />
       </div>
-      <Button onClick={fillOutDB}>btn</Button>
     </>
     // </div>
   );
