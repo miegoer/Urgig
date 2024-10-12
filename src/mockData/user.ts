@@ -14,7 +14,7 @@ const mockUsers: User[] = [
     location: "Los Angeles, CA",
     profileDetails: {
       profilePicture: '/public/mockUsers/DJFrankenstein.png',
-      aboutMe: "I'm an electronic music artist based in LA, creating unique soundscapes. Also, I'm a literal monster.",
+      aboutMe: "DJ Frankenstein is the best DJ you've never heard of. He was constructed with the remains of five legendary DJs across the world, who all perished under mysterious circumstances. All hail the Undead!",
       selectedVideo: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
       socialLinks: {
         twitter: "https://twitter.com/johndoe",

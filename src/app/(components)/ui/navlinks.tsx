@@ -9,6 +9,14 @@ import { usePathname } from "next/navigation";
 const Search = "/search-icon.png";
 import React from "react";
 
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownSection,
+  DropdownItem
+} from "@nextui-org/dropdown";
+
 interface MainNavLink {
   name: string;
   href: string;
@@ -20,7 +28,7 @@ const links: MainNavLink[] = [
   { name: "Find Talent", href: "/findtalent", forUser: "promoter" },
   { name: "Find Gigs", href: "/findgigs", forUser: "artist" },
   { name: "Spotlight", href: "/spotlight", forUser: "all" },
-  { name: "Profile", href: "/myprofile", forUser: "all" },
+  // { name: "Profile", href: "/myprofile", forUser: "all" },
 ]; // Links in the global Main Nav at the top of the page
 
 export default function NavLinks() {
@@ -40,6 +48,34 @@ export default function NavLinks() {
           {link.name}
         </Link>
       ))}
+      <Dropdown><DropdownTrigger>
+      <span className={clsx(
+            "text-[#b7c4ff] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px] transition-all duration-200 cursor-pointer",
+            { "text-[#fe841c]": pathname === '/myprofile' },
+            "hover:bg-[#3525de] hover:rounded-[5px]")}>
+          Profile
+        </span>
+      </DropdownTrigger>
+      <DropdownMenu aria-label="Static Actions">
+        <DropdownItem key="View" className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] shadow-[0px_4px_5px_#191922]">
+        <Link key='viewprofile' href='/myprofile'
+          className={clsx(
+            "text-[#ccff69] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px] transition-all duration-200",
+            { "text-[#fe841c]": pathname === '/myprofile' },
+            "hover:rounded-[5px]")}>
+          View
+        </Link>
+        </DropdownItem>
+        <DropdownItem key="Edit" className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] rounded-[0px_0px_20px_20px] shadow-[0px_4px_5px_#191922]">
+          <Link key='editprofile' href='/editprofile'
+            className={clsx(
+              "text-[#ccff69] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px] transition-all duration-200",
+              { "text-[#fe841c]": pathname === '/editprofile' },
+              "hover:rounded-[5px]")}>
+            Edit
+          </Link>
+        </DropdownItem>
+      </DropdownMenu></Dropdown>
       <Image
         src={Notifications}
         alt="notifications bell"

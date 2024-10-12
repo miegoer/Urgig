@@ -4,16 +4,10 @@ import mockUsers from "@/mockData/user";
 import Link from "next/link";
 const DJFrankenstein = "/mockUsers/DJFrankenstein.png";
 import Image from "next/image";
-const Back = "/back-icon.png";
-const StartChat = "/startchat-icon.png";
-const Connect = "/connect-icon.png";
-const Spotify = "/spotify-icon.png";
-const Instagram = "/ig-icon.png";
-const Tiktok = "/tiktok-icon.png";
-const Youtube = "/youtube-icon.png";
-const Location = "/location-icon.png";
+import Edit from "/public/edit-content-icon.png";
 import { Ubuntu } from "next/font/google";
 import { useRouter } from "next/navigation";
+import { useState } from 'react';
 import "./page.css";
 
 const ubuntu = Ubuntu({
@@ -46,14 +40,21 @@ const genreTags: userTag[] = [
 // TO DO: refactor to minimise repetitive, change back button routing, create function to find placement of icons depending on how many social accounts linked.
 
 export default function MyProfile() {
+
+  // const [text, setText] = useState(mockUsers[0].profileDetails.aboutMe);
+
+  // const handleInput = (event) => {
+  //   setText(event.target.innerText);
+  // };
+
     return (
         <>
-            <div className={`z-10 w-[100%] mt-1 p-8 rounded-[2px] text-center tracking-[1.5px] text-[white] text-sm`}>
-            {/* {mockUsers[0].profileDetails.aboutMe} */}
+            <div className={`z-10 relative w-[100%] mt-1 p-8 rounded-[2px] text-center tracking-[1.5px] text-[white] text-sm`}>
                 <span className="inline-flex text-[11px] tracking-[1px] uppercase mr-0 mt-[1px] px-4 mb-[18px] rounded-[3px] text-[black] bg-[white]">About</span>
-                <span className="block">
-                DJ Frankenstein is the best DJ you've never heard of. He was constructed with the remains of five legendary DJs across the world, who all perished under mysterious circumstances. All hail the Undead!
+                <span className="block rounded-[10px]">
+                {mockUsers[0].profileDetails.aboutMe}
                 </span>
+                {/* <Image src={Edit} alt="edit icon" width={20} height={20} className="absolute right-0 top-24 w-4 h-4 cursor-pointer"/> */}
             </div>
             <div className="ml-[90px] text-center border-t-[white] border-t w-[300px]"></div>
             <div className={`z-10 w-[100%] mt-1 p-8 rounded-[2px] text-center tracking-[1.5px] text-[white] text-sm`}>

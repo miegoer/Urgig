@@ -120,14 +120,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </div>
       <div
         style={{ gridColumn: "8 / span 3", gridRow: "2 / span 8" }}
-        className="w-[160px] ml-[70px]"
+        className="z-10 w-[160px] ml-[70px]"
       >
         {profileLinks.map((link) => (
           <Link href={link.href}>
             <div
               className={clsx(
-                "w-[100%] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-[white] text-xs border border-solid border-[white] uppercase transition-all duration-200",
-                { "bg-[white] text-[#20202d]": pathname === link.href },
+                "z-15 w-[100%] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-[white] text-xs border border-solid border-[white] uppercase transition-all duration-200",
+                { "z-100 bg-[white] text-[#20202d]": pathname === link.href },
                 "hover:bg-[white] hover:text-[black] hover:scale-110"
               )}
             >
