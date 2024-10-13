@@ -8,7 +8,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(request: NextRequest, { params }: { params: { _id: string } }) {
   const EventIdZodSchema = EventZodSchema.pick({ _id: true });
   const validatedEventId = EventIdZodSchema.parse({ _id: params._id });
-  const {_id }  = params;
+  const { _id } = params;
   try {
     await dbConnect(); // Ensure database connection is established
     const event = await EventModel.findById(_id);
