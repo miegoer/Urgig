@@ -64,7 +64,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     { name: "Promoter", href: `${baseRoute}/promoter/${event.promoterId}` },
     {
       name: "Oficial Site",
-      href: event.link ? event.link : `https://${event.name}com`,
+      href: event.link ? event.link : `https://${event.name}.com`,
     }, //placeholder
     { name: "Info", href: `${baseRoute}/eventInfo` },
     { name: "Details", href: `${baseRoute}/details` },
