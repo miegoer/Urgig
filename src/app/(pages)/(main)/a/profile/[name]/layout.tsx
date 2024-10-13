@@ -18,6 +18,8 @@ import { Ubuntu } from "next/font/google";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
+import { BookNow } from "@/app/(components)/ui/a/booknow";
+import { useState } from 'react';
 import './animation.css';
 
 const ubuntu = Ubuntu({
@@ -44,6 +46,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
   const decodedUrl = decodeURIComponent(pathname);
+
+  const [openBooking, setOpenBooking] = useState<boolean>(false);
   
   const artistName = decodedUrl.split('/').pop();
 
@@ -53,14 +57,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     return <h1>Artist not found!</h1>;
   }
 
+  const handleBack = () => {
+    router.back();
+  }
+
   return (
     <div
       style={{
         display: "grid",
         gridTemplateColumns: "repeat(12, 1fr)",
         gridTemplateRows: "auto 1fr",
-      }}
-    >
+      }}>
       <div
         style={{ gridColumn: "1 / span 3", gridRow: "2 / span 10" }}
         className="h-[630px] w-[500px] relative"
@@ -127,20 +134,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </div>
       <div
         style={{ gridColumn: "4 / span 4", gridRow: "1 / span 4" }}
-        className="h-[660px] w-[480px]"
+        className="h-[660px] w-[480px] relative"
       >
         {children}
+          {openBooking && <div className="fixed w-full h-full flex items-center justify-center z-[1000] backdrop-blur-[8px] left-0 top-0" style={{background: 'rgba(0, 0, 0, 0.7)'}}><BookNow setOpenBooking={setOpenBooking}/></div>}
       </div>
       <div
         style={{ gridColumn: "8 / span 3", gridRow: "2 / span 8" }}
         className="w-[160px] ml-[70px]"
       >
-        <Link href="/booknow">
-        <div className=
-            "w-[100%] bg-[#20202A] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-[#ccff69] text-xs border-2 border-solid border-[#ccff69] uppercase transition-all duration-200 pulse-button">
-              Book Now
-            </div>
-        </Link>
+        <button onClick={() => setOpenBooking(true)} className=
+          "w-[100%] bg-[#20202A] mt-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-[#ccff69] text-xs border-2 border-solid border-[#ccff69] uppercase transition-all duration-200 pulse-button">
+            Book Now
+        </button>
         {profileLinks.map((link) => (
           <Link href={link.href}>
             <div
