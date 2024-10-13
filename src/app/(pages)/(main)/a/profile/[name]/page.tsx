@@ -85,15 +85,11 @@ export default function ArtistProfile({ children }: { children: React.ReactNode 
             {/* {mockUsers[0].profileDetails.aboutMe} */}
                 <span className="inline-flex text-[11px] tracking-[1px] uppercase mr-0 mt-[1px] px-4 mb-[16px] rounded-[3px] text-[black] bg-[white]">Genres</span>
                 <div>
-                {artist.tags.map((tag) => {
-                    const tagData = genreTags.find((genreTag) => genreTag.name === tag);
-                    const color = tagData ? tagData.color : 'linear-gradient(214deg, #23d5cd, #23d5cd)'; // Default color if not found
-                    return (
-                    <span className="inline-flex m-1.5 py-2 px-4 rounded-[15px]"
-                    style={{ background: color }} key={tag}>
+                {artist.tags.map((tag) => (
+                    <span className="inline-flex m-1.5 py-2 px-4 rounded-[15px] bg-[black]" key={tag}>
                         {tag}
-                    </span>);
-                    })}
+                    </span>)
+                    )}
                 </div>
             </div>
         </>
