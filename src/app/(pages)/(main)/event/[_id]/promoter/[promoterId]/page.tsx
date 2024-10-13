@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { User } from "../../../../../../../types/user";
 import Link from "next/link";
 import { ArtistEvent } from "@/types/interfaces.ts/artistEvent";
 import { fetchAndTransformEvents } from "@/app/utils/eventsUtils";

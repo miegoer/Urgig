@@ -67,7 +67,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       href: event.link ? event.link : `https://${event.name}.com`,
     }, //placeholder
     { name: "Info", href: `${baseRoute}/eventInfo` },
-    { name: "Details", href: `${baseRoute}/details` },
+    { name: "Edit", href: `${baseRoute}/edit` },
   ];
 
   return (

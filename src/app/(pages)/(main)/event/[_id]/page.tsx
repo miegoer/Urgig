@@ -16,30 +16,6 @@ const ubuntu = Ubuntu({
   subsets: ["latin"],
 });
 
-const colors: string[] = [
-  "linear-gradient(214deg, rgba(180,0,245,1) 0%, rgba(89,32,195,1) 100%)",
-  "linear-gradient(214deg, rgba(102,32,207,1) 0%, rgba(27,7,179,1) 100%)",
-  "linear-gradient(214deg, rgba(22,189,217,1) 0%, rgba(5,136,199,1) 100%)",
-  "linear-gradient(214deg, rgba(22,217,179,1) 0%, rgba(5,199,148,1) 100%)",
-  "linear-gradient(214deg, rgba(6,106,175,1) 0%, rgba(61,135,118,1)",
-];
-
-interface genreTag {
-  genre: string;
-  color: string;
-}
-
-const genreTags = (event: Event): genreTag[] => {
-  const genreTagsArray: genreTag[] = [];
-  for (let i = 0; i < event.genre.length; i++) {
-    genreTagsArray[i] = {
-      genre: event.genre[i],
-      color: colors[Math.floor(Math.random() * colors.length)],
-    };
-  }
-  return genreTagsArray;
-};
-
 type eventProps = {
   event: Event;
 };
@@ -127,18 +103,16 @@ export default function EventProfile() {
         <div
           className={`z-10 mx-[20%] rounded-[2px] text-center tracking-[1.5px] text-[white] text-sm`}
         >
-          {/* {mockUsers[0].profileDetails.aboutMe} */}
           <span className="inline-flex mt-4 text-[11px] tracking-[1px] uppercase px-4 mb-[16px] rounded-[3px] text-[black] bg-[white]">
             Genres
           </span>
           <div>
-            {genreTags(event).map((tag) => (
+            {event.genre.map((tag) => (
               <span
-                className="inline-flex bg-[#23d5cd] m-1.5 py-2 px-4 rounded-[15px]"
-                style={{ background: tag.color }}
-                key={tag.color}
-              >
-                {tag.genre}
+              className="inline-flex m-1.5 py-2 px-4 rounded-[30px] bg-[black]"
+              key={tag}
+            >
+                {tag}
               </span>
             ))}
           </div>
