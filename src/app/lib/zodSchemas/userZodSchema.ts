@@ -61,8 +61,7 @@ export const UserZodSchema = z.object({
   settings: SettingsZodSchema.optional(),
   profileDetails: ProfileDetailsZodSchema.optional(),
   statistics: StatisticsZodSchema.optional(),
-  pastEvents: z.array(z.string()).optional(),
-  upcomingEvents: z.array(z.string()).optional(),
+  events: z.array(z.string()).optional(),
   stageName: z.string().optional(),
   companyName: z.string().optional(),
 });

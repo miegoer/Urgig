@@ -13,4 +13,5 @@ export type Event = {
   link?: string;
   artistsIds?: string[];
   artistsBookingIds?: string[];
+  description?: string;
 };
