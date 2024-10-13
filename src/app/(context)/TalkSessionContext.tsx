@@ -19,7 +19,6 @@ export const TalkSessionProvider: React.FC<{ children: React.ReactNode }> = ({ c
   useEffect(() => {
     if(isLoaded && user) {
       setUserId(user.id);
-      console.log(user);
       Talk.ready.then(() => {
         const mainUser = new Talk.User({
           id: user?.id ?? '',

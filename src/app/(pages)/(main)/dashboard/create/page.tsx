@@ -7,7 +7,7 @@ import SelectGenre from "@/app/(components)/ui/dashboard/selectGenre";
 export default function CreateEvent() {
 
   const { userId }  = useTalkSession();
-  const _id = userId? userId.slice(5): '';
+  // const _id = userId? userId.slice(5): '';
 
   const initialState: Event = {
     name: "",
@@ -50,7 +50,8 @@ export default function CreateEvent() {
     setEventData({
       ...eventData,
       genre: genres,
-      promoterId: _id
+      // promoterId: _id
+      promoterId: userId as string
       
     });
   }, [genres]);
@@ -124,7 +125,7 @@ export default function CreateEvent() {
             <div>
               <label htmlFor="createEventFormName">Date:</label>
               <input
-                value={eventData.date}
+                value={eventData.date as any}
                 name="date"
                 onChange={handleChange}
                 type="date"

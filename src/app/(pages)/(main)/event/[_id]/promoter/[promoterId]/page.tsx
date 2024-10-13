@@ -3,17 +3,30 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { User } from "../../../../../../../types/user";
 import Link from "next/link";
+import { ArtistEvent } from "@/types/interfaces.ts/artistEvent";
+import { fetchAndTransformEvents } from "@/app/utils/eventsUtils";
 
 export default function Promoter() {
   const { promoterId } = useParams();
 
+  const [promoter_id, setPromoter_id] = useState<string>("");
   const [promoter, setPromoter] = useState<any>({});
-  const [events, setEvents] = useState<any>([]);
+  const [artistUpcomingEvents, setUpcomingArtistEvents] = useState<
+    ArtistEvent[]
+  >([]);
+  const [artistPastEvents, setPastArtistEvents] = useState<ArtistEvent[]>([]);
 
   useEffect(() => {
-    // Primer fetch para obtener el promotor
+    // geting promoter_id from params when mounting
+    if (typeof promoterId === "string") {
+      setPromoter_id(promoterId);
+    }
+  }, []);
+
+  useEffect(() => {
     const fetchPromoter = () => {
-      fetch(`/api/users/67082b9e4e2febe0103240ff`)
+      //fetching promoter when promoter_id
+      fetch(`/api/users/${promoter_id}`)
         .then((response) => response.json())
         .then((data) => {
           setPromoter(data);
@@ -22,33 +35,29 @@ export default function Promoter() {
           console.error(error);
         });
     };
-
-    fetchPromoter();
-  }, []);
+    if (promoter_id) {
+      fetchPromoter();
+    }
+  }, [promoter_id]);
 
   useEffect(() => {
-    if (promoter && promoter.events) {
-      const fetchPromoterEvents = () => {
-        const eventsFetched: any = [];
-        promoter.events.forEach((eventId: string, index: number) => {
-          fetch(`/api/events/${eventId}`)
-            .then((response) => response.json())
-            .then((eventJSON) => {
-              setEvents((prevEvents: any) => [...prevEvents, eventJSON]);
-              console.log(eventJSON);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        });
+    //fetching events when promoter
+    if (promoter_id && promoter) {
+      const fetchEvents = async () => {
+        try {
+          const [upcomingEvents, pastEvents]: [ArtistEvent[], ArtistEvent[]] =
+            await fetchAndTransformEvents(promoter_id as string);
+
+          setUpcomingArtistEvents(upcomingEvents);
+          setPastArtistEvents(pastEvents);
+          console.log(upcomingEvents, pastEvents);
+        } catch (error) {
+          console.error("Error fetching events:", error);
+        }
       };
-
-      fetchPromoterEvents();
+      fetchEvents();
     }
-  }, [promoter]);
-
-  // useEffect(() => {
-  // }, [promoter]);
+  }, [promoter, promoter_id]);
 
   return (
     <>
@@ -87,78 +96,45 @@ export default function Promoter() {
                 </span>{" "}
               </p>
             </Link>
-            <p className="text-xs text-[#a0aec0] mt-8">Events: </p>
-            {events.map((event: any) => (
+          </div>
+
+          <div className="border-t w-[300px] h-0 self-center mt-4"></div>
+
+          <div className="mt-4 text-[white] text-sm space-y-1 text-center tracking-[1.5px] ">
+            <p className="text-xs text-[#a0aec0] ">Upcoming events: </p>
+            {artistUpcomingEvents.map((event: any, index: number) => (
               <div key={event._id}>
-                {event.name && (
-                  <p className="text-xs text-[#a0aec0] mt-2">{event.name}: </p>
-                )}
-                {event.link && <Link href={`${event.link}`}>{event.link}</Link>}
+                <div>
+                  {event.name && (
+                    <Link href={`/event/${promoter.events[index]}`}>
+                      {" "}
+                      <p>
+                        {event.name}{" "}
+                        <span className="text-xs text-[#a0aec0] ">
+                        {"       "} {event.dateD} of {event.dateM}
+                        </span>
+                      </p>
+                    </Link>
+                  )}
+                </div>
               </div>
             ))}
+
+            {/* <p className="text-xs text-[#a0aec0] ">Past events: </p>
+            {artistPastEvents.map((event: any, index: number) => (
+              <div key={event._id}>
+                {event.name && (
+                  <Link href={`/event/${promoter.events[index]}`}>
+                    {" "}
+                    <p>{event.name}</p>
+                  </Link>
+                )}
+                {event.link && <Link href={event.link}>{event.link}</Link>}
+              </div>
+            ))} */}
           </div>
         </div>
       </div>
     </>
   );
 }
-
-// {
-//   "_id": "670830001234567890abcdef",
-//   "typeOfAccount": "promoter",
-//   "email": "events@megapromotions.com",
-//   "name": "Mega Promotions Ltd.",
-//   "contactNumber": "+18005551234",
-//   "dateOfBirth": {
-//     "$date": "2000-05-10T00:00:00Z"
-//   },
-//   "location": "New York, NY",
-//   "profileDetails": {
-//     "aboutMe": "Mega Promotions is a global event management company that specializes in large-scale concerts and festivals.",
-//     "selectedVideo": "https://www.youtube.com/watch?v=exampleVideo1",
-//     "socialLinks": [
-//       {
-//         "twitter": "https://twitter.com/megapromotions",
-//         "facebook": "https://www.facebook.com/megapromotions",
-//         "youtube": "https://www.youtube.com/@megapromotions",
-//         "instagram": "https://www.instagram.com/megapromotions",
-//         "_id": {
-//           "$oid": "67096fd94bf4d37af458da0d"
-//         }
-//       }
-//     ],
-//     "unAvailableDates": [
-//       {
-//         "$date": "2024-01-01T00:00:00Z"
-//       }
-//     ],
-//     "genre": [
-//       "All Genres"
-//     ],
-//     "_id": {
-//       "$oid": "67096fd94bf4d37af458da0c"
-//     }
-//   },
-//   "statistics": {
-//     "profileViews": 50000,
-//     "offersGot": 150,
-//     "offersAcccepted": 130,
-//     "income": 1000000,
-//     "avgCapacity": 50000,
-//     "totalAtendees": 300000,
-//     "totalEvents": 50,
-//     "_id": {
-//       "$oid": "67096fd94bf4d37af458da0e"
-//     }
-//   },
-//   "events": [
-//     "67082687765db5728aa99587",
-//     "67082687765db5728aa99588",
-//     "67082687765db5728aa99589",
-//     "67082687765db5728aa99590",
-//     "67a40091a32dc78d7584bb41",
-//     "67a40091a32dc78d7584bb42",
-//     "67a40091a32dc78d7584bb43"
-//   ],
-//   "__v": 0
-// }

@@ -12,7 +12,6 @@ export async function GET(request: NextRequest, { params }: { params: { _id: str
   try {
     await dbConnect(); // Ensure database connection is established
     const user = await UserModel.findById(_id).select("-password");
-
     //if not found return 404
     if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 });
     // else return data
@@ -22,7 +21,6 @@ export async function GET(request: NextRequest, { params }: { params: { _id: str
     throw new Error("Failed to get user by id from DB");
   }
 }
-//2n7HX5WitOxzv0sLukEycp3FGWm
 
 export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
   try {

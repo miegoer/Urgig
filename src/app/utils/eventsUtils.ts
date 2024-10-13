@@ -5,8 +5,8 @@ import { ArtistEvent } from "@/types/interfaces.ts/artistEvent";
 export const fetchAndTransformEvents = async (
   artistId: string | undefined
 ): Promise<[ArtistEvent[], ArtistEvent[]]> => {
-  artistId = "670830301234567890abcdef";
-
+  //not needed
+  //artistId = "670830301234567890abcdef";
   try {
     const response = await fetch(`/api/users/${artistId}/events`); // Adjust the API route if necessary
     const events: Event[] = await response.json();

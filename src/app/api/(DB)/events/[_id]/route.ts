@@ -12,7 +12,6 @@ export async function GET(request: NextRequest, { params }: { params: { _id: str
   try {
     await dbConnect(); // Ensure database connection is established
     const event = await EventModel.findById(_id);
-    console.log(event,'-------------event-----------------')
     //if not found return 404
     if (!event) return NextResponse.json({ error: "Event not found" }, { status: 404 });
     // else return data

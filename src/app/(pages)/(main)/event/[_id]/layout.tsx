@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useTalkSession } from '@/app/(context)/TalkSessionContext';
+import { useTalkSession } from "@/app/(context)/TalkSessionContext";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -15,6 +15,7 @@ const Instagram = "/ig-icon.png";
 const Youtube = "/youtube-icon.png";
 import { Ubuntu } from "next/font/google";
 import clsx from "clsx";
+import { randomBytes } from "crypto";
 
 const ubuntu = Ubuntu({
   weight: "400",
@@ -25,13 +26,11 @@ interface profileLink {
   href: string;
 }
 
-export default function Layout  ({ children }: { children: React.ReactNode } ) {
-
+export default function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const params = useParams();
-  const { userId }  = useTalkSession();
-  const _id = userId? userId.slice(5): '';
-
+  const { userId } = useTalkSession();
+  const _id = userId ? userId.slice(5) : "";
 
   const [event, setEvent] = useState<Event>({
     name: "",
@@ -43,7 +42,7 @@ export default function Layout  ({ children }: { children: React.ReactNode } ) {
     bannerURL: undefined,
     link: undefined,
     promoterId: "",
-  })
+  });
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
@@ -58,16 +57,18 @@ export default function Layout  ({ children }: { children: React.ReactNode } ) {
     fetchData();
   }, [params]);
 
-const baseRoute = `/event/${event._id}`;
+  const baseRoute = `/event/${event._id}`;
 
-const profileLinks: profileLink[] = [
-  { name: "Event", href: `${baseRoute}`},
-  { name: "Promoter", href: `${baseRoute}/promoter/${event.promoterId}` },
-  { name: "Oficial Site", href: `${event.link}` },
-  { name: "Info", href: `${baseRoute}/info` },
-  { name: "Details", href: `${baseRoute}/details` }, 
-];
-
+  const profileLinks: profileLink[] = [
+    { name: "Event", href: `${baseRoute}` },
+    { name: "Promoter", href: `${baseRoute}/promoter/${event.promoterId}` },
+    {
+      name: "Oficial Site",
+      href: event.link ? event.link : `https://${event.name}com`,
+    }, //placeholder
+    { name: "Info", href: `${baseRoute}/eventInfo` },
+    { name: "Details", href: `${baseRoute}/details` },
+  ];
 
   return (
     <div
@@ -126,7 +127,6 @@ const profileLinks: profileLink[] = [
           alt="Instagram button"
           className="w-[28px] h-[28px] absolute top-[330px] left-[65%] hover:scale-[1.2] transition-all duration-200"
         />
-    
       </div>
       <div
         style={{ gridColumn: "3 / span 4", gridRow: "1 / span 4" }}
@@ -137,43 +137,42 @@ const profileLinks: profileLink[] = [
       <div
         style={{ gridColumn: "8 / span 3", gridRow: "2 / span 8" }}
         className="w-[160px] ml-[70px]"
-      >{event.promoterId === _id?
-        profileLinks.map((link) => (
-          <Link href={link.href} key={link.name}>
-            <div
-                className={clsx(
-                  "w-[100%] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-xs border border-solid border-[white] uppercase transition-all duration-200",
-                  { 
-                    "bg-[white] text-[#20202d] font-bold ": pathname === link.href, 
-                    "text-[white]": pathname !== link.href 
-                  },
-                  "hover:bg-[white] hover:text-[black] hover:scale-110"
-                )}
-            >
-              {link.name}
-            </div>
-          </Link>
-        ))
-        :
-        profileLinks.slice(0, -1).map((link) => (
-          <Link href={link.href} key={link.name}>
-            <div
-                className={clsx(
-                  "w-[100%] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-xs border border-solid border-[white] uppercase transition-all duration-200",
-                  { 
-                    "bg-[white] text-[#20202d] font-bold ": pathname === link.href, 
-                    "text-[white]": pathname !== link.href 
-                  },
-                  "hover:bg-[white] hover:text-[black] hover:scale-110"
-                )}
-            >
-              {link.name}
-            </div>
-          </Link>
-        ))
-
-
-      }
+      >
+        {event.promoterId === _id
+          ? profileLinks.map((link) => (
+              <Link href={link.href} key={link.name}>
+                <div
+                  className={clsx(
+                    "w-[100%] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-xs border border-solid border-[white] uppercase transition-all duration-200",
+                    {
+                      "bg-[white] text-[#20202d] font-bold ":
+                        pathname === link.href,
+                      "text-[white]": pathname !== link.href,
+                    },
+                    "hover:bg-[white] hover:text-[black] hover:scale-110"
+                  )}
+                >
+                  {link.name}
+                </div>
+              </Link>
+            ))
+          : profileLinks.slice(0, -1).map((link) => (
+              <Link href={link.href} key={link.name}>
+                <div
+                  className={clsx(
+                    "w-[100%] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-xs border border-solid border-[white] uppercase transition-all duration-200",
+                    {
+                      "bg-[white] text-[#20202d] font-bold ":
+                        pathname === link.href,
+                      "text-[white]": pathname !== link.href,
+                    },
+                    "hover:bg-[white] hover:text-[black] hover:scale-110"
+                  )}
+                >
+                  {link.name}
+                </div>
+              </Link>
+            ))}
       </div>
     </div>
   );
