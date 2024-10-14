@@ -1,14 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Event } from "@/types/event";
-import { useTalkSession } from '@/app/(context)/TalkSessionContext';
+import { useTalkSession } from "@/app/(context)/TalkSessionContext";
 import SelectGenre from "@/app/(components)/ui/dashboard/selectGenre";
 import Link from "next/link";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 export default function CreateEvent() {
-
-  const { userId }  = useTalkSession();
+  const { userId } = useTalkSession();
   const router = useRouter();
   // const _id = userId? userId.slice(5): '';
 
@@ -28,7 +27,7 @@ export default function CreateEvent() {
   const [genres, setGenres] = useState<string[]>([]);
   const [isSent, setIsSent] = useState<boolean>(false);
   const [isWrong, setIsWrong] = useState<boolean>(false);
-  const [isCreated, setIsCreated] =  useState<boolean>(false);
+  const [isCreated, setIsCreated] = useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -53,7 +52,7 @@ export default function CreateEvent() {
     setEventData({
       ...eventData,
       genre: genres,
-      promoterId: userId as string
+      promoterId: userId as string,
     });
   }, [genres]);
 
@@ -81,9 +80,9 @@ export default function CreateEvent() {
         setEventData(initialState);
         setGenres([]);
         setIsCreated(true);
-        setTimeout(()=>{
-           router.push('/dashboard');
-        },500)
+        setTimeout(() => {
+          router.push("/dashboard");
+        }, 500);
         // window.location.reload(); //NEXT::::navigate to the event page
       } else if (!response.ok) {
         setIsWrong(!isWrong);
@@ -97,8 +96,7 @@ export default function CreateEvent() {
   };
 
   return (
-    <div 
-    className="w-[58%] flex flex-col justify-center shadow-[0px_0px_0px_#272525] mx-[30px] my-0 pt-2.5 pb-[35px] px-2.5 rounded-[20px] bg-[#252531]">
+    <div className="w-[58%] flex flex-col justify-center shadow-[0px_0px_0px_#272525] mx-[30px] my-0 pt-2.5 pb-[35px] px-2.5 rounded-[20px] bg-[#252531]">
       <h2 className="text-xl mb-5 ">Create event</h2>
       <div>
         <form onSubmit={handleSubmit}>
@@ -207,5 +205,3 @@ export default function CreateEvent() {
     </div>
   );
 }
-
-  
