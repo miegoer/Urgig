@@ -21,7 +21,7 @@ export default function EventsList() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        console.log({ userId });
+        console.log("userID, useEffect fu", userId);
         const [upcomingEvents, pastEvents]: [ArtistEvent[], ArtistEvent[]] =
           await fetchAndTransformEvents(userId as string);
 
@@ -33,11 +33,11 @@ export default function EventsList() {
     };
 
     fetchEvents();
-  }, []); // Empty dependency array to run this only on mount
+  }, [userId]); // Dependency array uses userId to load only after context is loaded (and userId doesn't change so it's just once)
 
   const eventList = (events: ArtistEvent[]) => {
     return events.map((event: ArtistEvent) => {
-      console.log(event._id); // Check if _id is valid
+      // console.log(event._id); // Check if _id is valid
       return (
         <div
           key={event._id}

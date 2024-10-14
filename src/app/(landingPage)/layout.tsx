@@ -14,6 +14,7 @@ import {
 } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 
+
 export default function LandingPageLayout({ children }: { children: React.ReactNode }) {
   return (
     <ClerkProvider

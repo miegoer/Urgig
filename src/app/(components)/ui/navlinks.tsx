@@ -14,7 +14,7 @@ import {
   DropdownTrigger,
   DropdownMenu,
   DropdownSection,
-  DropdownItem
+  DropdownItem,
 } from "@nextui-org/dropdown";
 
 interface MainNavLink {
@@ -40,7 +40,7 @@ export default function NavLinks() {
           key={link.name}
           href={link.href}
           className={clsx(
-            "text-[#b7c4ff] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px] transition-all duration-200",
+            "text-[#b7c4ff] p-3 uppercase text-[11px] mx-[20px] my-[6px] tracking-[3px] transition-all duration-200",
             { "text-[#ccff69]": pathname === link.href },
             "hover:bg-[#3525de] hover:rounded-[5px]"
           )}
@@ -88,7 +88,8 @@ export default function NavLinks() {
         className="text-[white] text-center ml-[30px] mr-2.5 my-0 px-2.5 py-1 rounded-[20px] border-[none] w-[12%] h-[70%] text-xs"
         placeholder="Search"
         style={{
-          background: "linear-gradient(11deg, rgba(52, 52, 52, 1) 0%, rgba(100, 100, 100, 1) 100%)",
+          background:
+            "linear-gradient(11deg, rgba(52, 52, 52, 1) 0%, rgba(100, 100, 100, 1) 100%)",
         }}
       />
       <Image

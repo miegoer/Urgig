@@ -5,7 +5,13 @@ import { ArtistEvent } from "@/types/interfaces.ts/artistEvent";
 export const fetchAndTransformEvents = async (
   artistId: string | undefined
 ): Promise<[ArtistEvent[], ArtistEvent[]]> => {
-  artistId = "670830301234567890abcdef";
+  // if (!artistId) {
+  //   console.log("userID not loaded yet...");
+  //   return [];
+  // }
+  //if mocking:
+
+  artistId = "67082cc74e2febe010324134";
 
   try {
     const response = await fetch(`/api/users/${artistId}/events`); // Adjust the API route if necessary
