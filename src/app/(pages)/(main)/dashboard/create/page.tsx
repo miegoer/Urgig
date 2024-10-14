@@ -3,10 +3,13 @@ import React, { useEffect, useState } from "react";
 import { Event } from "@/types/event";
 import { useTalkSession } from '@/app/(context)/TalkSessionContext';
 import SelectGenre from "@/app/(components)/ui/dashboard/selectGenre";
+import Link from "next/link";
+import { useRouter } from 'next/navigation';
 
 export default function CreateEvent() {
 
   const { userId }  = useTalkSession();
+  const router = useRouter();
   // const _id = userId? userId.slice(5): '';
 
   const initialState: Event = {
@@ -25,6 +28,7 @@ export default function CreateEvent() {
   const [genres, setGenres] = useState<string[]>([]);
   const [isSent, setIsSent] = useState<boolean>(false);
   const [isWrong, setIsWrong] = useState<boolean>(false);
+  const [isCreated, setIsCreated] =  useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -46,13 +50,10 @@ export default function CreateEvent() {
   };
 
   useEffect(() => {
-    
     setEventData({
       ...eventData,
       genre: genres,
-      // promoterId: _id
       promoterId: userId as string
-      
     });
   }, [genres]);
 
@@ -73,13 +74,17 @@ export default function CreateEvent() {
         maxCapacity: parseInt(eventData.maxCapacity as string),
         bannerURL: eventData.bannerURL,
         link: eventData.link,
-        promoterId: eventData.promoterId, //we will have to fetch the url from the cookie?
+        promoterId: eventData.promoterId,
       }),
     }).then((response) => {
       if (response.ok) {
         setEventData(initialState);
         setGenres([]);
-        window.location.reload(); //NEXT::::navigate to the event page
+        setIsCreated(true);
+        setTimeout(()=>{
+           router.push('/dashboard');
+        },500)
+        // window.location.reload(); //NEXT::::navigate to the event page
       } else if (!response.ok) {
         setIsWrong(!isWrong);
         console.log(
@@ -191,9 +196,12 @@ export default function CreateEvent() {
             </div>
           </div>
           {isWrong && <p>Something went wrong, try again</p>}
+          {isSent && <p>Your new event was created succesfully!!</p>}
+          {/* <Link href={'/dashboard'}>   */}
           <button className="w-[150px] h-12 mt-8 bg-blue-500 text-white rounded self-end mr-5 mb-5 ml-[30px]">
             Create Event
           </button>
+          {/* </Link> */}
         </form>
       </div>
     </div>
