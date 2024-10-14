@@ -37,4 +37,4 @@ yarn-error.log*
 next-env.d.ts
 
 # zz db bkp
-/zz_dbbkp
+#/zz_dbbkp

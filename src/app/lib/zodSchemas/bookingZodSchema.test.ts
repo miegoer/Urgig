@@ -10,7 +10,7 @@ describe("BookingZodSchema validation", () => {
     sets: [
       {
         _id: "set1",
-        date: new Date("2024-06-15"),
+        date: "2024-06-15",
         setTimeStart: "18:00",
         setTimeEnd: "20:00",
       },
@@ -20,6 +20,7 @@ describe("BookingZodSchema validation", () => {
     status: "confirmed",
     bookingPromoterId: "organizer123",
     bookingArtistId: "artist123",
+    bookingEventId: "event123",
   };
 
   const requiredFields: (keyof typeof validBooking)[] = [
@@ -32,6 +33,7 @@ describe("BookingZodSchema validation", () => {
     "status",
     "bookingPromoterId",
     "bookingArtistId",
+    "bookingEventId",
   ];
 
   // Test for valid data
@@ -115,7 +117,7 @@ describe("SetZodSchema validation", () => {
   it("should validate a correct set object", () => {
     const validSet = {
       _id: "set1",
-      date: new Date("2024-06-15"),
+      date: "2024-06-15",
       setTimeStart: "18:00",
       setTimeEnd: "20:00",
     };
