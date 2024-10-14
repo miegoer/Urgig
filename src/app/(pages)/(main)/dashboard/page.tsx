@@ -12,7 +12,7 @@ export default function Page({ children }: { children: React.ReactNode }) {
   return (
     // <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gridTemplateRows: 'auto 1fr' }}>
     <>
-      <div className="col-[col-start_2_/_span_10] row-[2_/_span_4] w-[101%] flex flex-row mb-[5px]">
+      <div className="col-[col-start_2_/_span_10] row-[2_/_span_4] w-[105%] flex flex-row mb-[5px]">
         <QuickStats />
         <UserInfo />
       </div>

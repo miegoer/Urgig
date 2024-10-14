@@ -9,7 +9,7 @@ import {
 import Select from 'react-select';
 import mockBookings from "@/mockData/bookings";
 import { Booking } from "@/types/booking";
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 
 interface BookNowProps {
     setOpenBooking: React.Dispatch<React.SetStateAction<boolean>>;
@@ -25,6 +25,11 @@ interface SelectedEvent {
     label: string,
 }
 
+interface SelectedDate {
+    value: Date,
+    label: string,
+}
+
 const noOptionsMessage = () => 'No Event Attached';
 
 export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
@@ -32,15 +37,16 @@ export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
     const [offer, setOffer] = useState<number>(0);
     const [payType, setPayType] = useState<string>('');
     const [selectedEvent, setSelectedEvent] = useState<SelectedEvent | null>(null);
+    const [selectedDate, setSelectedDate] = useState<SelectedDate | null>(null);
+
     const [dates, setDates] = useState<{ value: string; label: string }[]>([]);
-    // const [eventDate, setEventDate] = useState<string>('');
 
     const bookings:SelectedEvent[] = mockBookings.map((event) => ({
         value: event,
         label: event.name,
       }));
  
-      const chooseEvent = (event: SelectedEvent) => {
+    const chooseEvent = (event: SelectedEvent) => {
         setSelectedEvent(event);
         const uniqueDates = new Set(event.value.sets.map((set) => set.date.toISOString().split('T')[0])); // Filters unique dates from the list of set dates
         const formattedDates = Array.from(uniqueDates).map((date) => ({
@@ -48,6 +54,18 @@ export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
           label: new Date(date).toDateString(),
         }));
         setDates(formattedDates);
+    }
+
+    const chooseDate = (date: SelectedDate) => {
+        setSelectedDate(date);
+    }
+
+    const handleOfferInput = (event:ChangeEvent<HTMLInputElement>) => {
+        setOffer(Number(event.target.value))
+    }
+
+    const handleOfferTypeInput = (event:ChangeEvent<HTMLInputElement>, val:string) => {
+        setPayType(val)
     }
 
     return (
@@ -71,6 +89,7 @@ export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
                         classNamePrefix="select"
                         name="date"
                         options={dates}
+                        onChange={(e) => chooseDate(e)}
                         noOptionsMessage={noOptionsMessage}/>
                 </div>
             </div>
@@ -81,15 +100,15 @@ export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
                     <div className="flex flex-row justify-center border-b-[#434352] border-b border-solid">
                         <div className="flex flex-row mb-[18px] items-center">
                             <span className="rounded-[5px] w-[120px] text-center text-xs p-3 tracking-[1.5px] lowercase mt-[1px] italic ml-[-15px]">Start Time:</span>
-                            <input type="time" className="rounded-[5px] p-2 h-[75%] w-[20%]"/>
+                            <input type="time" className="text-[black] rounded-[5px] p-2 h-[75%] w-[22%]"/>
                             <span className="rounded-[5px] w-[120px] text-center text-xs p-3 tracking-[1.5px] lowercase mt-[1px] italic ml-[30px]">End Time:</span>
-                            <input type="time" className="rounded-[5px] p-2 h-[75%] w-[20%]"/>
+                            <input type="time" className="text-[black] rounded-[5px] p-2 h-[75%] w-[22%]"/>
                         </div>
                     </div>
                     <div className="flex flex-row justify-center">
                         <div className="flex flex-row mt-[20px] mb-[23px] items-center">
                             <span className="rounded-[5px] text-center text-xs p-3 tracking-[1.5px] lowercase mt-[1px] italic ml-[5%] mr-[10px]">Pay Amount:</span>
-                            <input type="text" className="rounded-[5px] p-2 w-[19%] h-[80%]"/>
+                            <input type="number" value={offer} onChange={handleOfferInput} className="rounded-[5px] p-2 w-[19%] h-[80%]"/>
                             <span className="rounded-[5px] ml-[30px] w-[95px] text-center text-xs p-3 tracking-[1.5px] lowercase mt-[1px] italic">Pay Type:</span>
                             <Dropdown><DropdownTrigger>
                                 <span className="z-15 bg-[black] text-[white] py-3 uppercase text-[12px] px-[24px] rounded-[10px] tracking-[3px] transition-all duration-200 cursor-pointer">

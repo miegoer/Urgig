@@ -4,14 +4,6 @@ import Link from "next/link";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
 import Image, { StaticImageData } from "next/image";
-// import Dashboard from "/dashboard-icon.png";
-// import Payments from "/earnings-icon.png";
-// import Settings from "/settings-icon.png";
-// import Calendar from "/calendar-icon.png";
-// import Analytics from "/analytics-icon.png";
-// import Create from "/create-icon.png";
-// import Account from "/profile-icon.png";
-// import Contracts from "/contracts-icon.png";
 import "./dashboard-ui.css";
 
 const baseRoute = "/dashboard";

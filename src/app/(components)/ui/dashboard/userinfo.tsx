@@ -10,7 +10,7 @@ const ubuntu = Ubuntu({
 
 export default function UserInfo() {
   return (
-    <div className="w-[38%] shadow-[0px_0px_0px_#272525] rounded-[20px] bg-[#252531] p-6 flex flex-row items-center">
+    <div className="w-[430px] shadow-[0px_0px_0px_#272525] rounded-[20px] bg-[#252531] p-6 flex flex-row items-center overflow-x-auto">
       <Image
         src={DJFrankenstein}
         height={60}
