@@ -38,6 +38,9 @@ export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
     const [payType, setPayType] = useState<string>('');
     const [selectedEvent, setSelectedEvent] = useState<SelectedEvent | null>(null);
     const [selectedDate, setSelectedDate] = useState<SelectedDate | null>(null);
+    const [startTime, setStartTime] = useState<string>('');
+    const [endTime, setEndTime] = useState<string>('');
+    const [comments, setComments] = useState<string>('');
 
     const [dates, setDates] = useState<{ value: string; label: string }[]>([]);
 
@@ -61,12 +64,34 @@ export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
     }
 
     const handleOfferInput = (event:ChangeEvent<HTMLInputElement>) => {
-        setOffer(Number(event.target.value))
+        setOffer(Number(event.target.value));
     }
 
-    const handleOfferTypeInput = (event:ChangeEvent<HTMLInputElement>, val:string) => {
+    const handleTypeInput = (val:string) => {
         setPayType(val)
     }
+
+    const handleStartInput = (event:ChangeEvent<HTMLInputElement>) => {
+        setStartTime(event.target.value);
+    }
+
+    const handleEndInput = (event:ChangeEvent<HTMLInputElement>) => {
+        setEndTime(event.target.value);
+    }
+
+    const handleCommentsInput = (event:ChangeEvent<HTMLTextAreaElement>) => {
+        setComments(event.target.value);
+    }
+
+    const handleSubmit = () => {
+        console.log(offer, payType, selectedEvent, selectedDate, createTimeRange(startTime, endTime), comments)
+    }
+
+    const createTimeRange = (startTime: string, endTime: string): string => {
+        const formattedStartTime = startTime.padStart(5, '0');
+        const formattedEndTime = endTime.padStart(5, '0');
+        return `${formattedStartTime} - ${formattedEndTime}`;
+      }; // To produce time range with the format 'start - end'
 
     return (
         <div className="absolute bg-[#20202A] text-[white] p-8 rounded-[20px] w-[40%] h-[89%]">
@@ -100,15 +125,15 @@ export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
                     <div className="flex flex-row justify-center border-b-[#434352] border-b border-solid">
                         <div className="flex flex-row mb-[18px] items-center">
                             <span className="rounded-[5px] w-[120px] text-center text-xs p-3 tracking-[1.5px] lowercase mt-[1px] italic ml-[-15px]">Start Time:</span>
-                            <input type="time" className="text-[black] rounded-[5px] p-2 h-[75%] w-[22%]"/>
+                            <input type="time" className="text-[black] rounded-[5px] p-2 h-[75%] w-[22%] text-center" value={startTime} onChange={handleStartInput}/>
                             <span className="rounded-[5px] w-[120px] text-center text-xs p-3 tracking-[1.5px] lowercase mt-[1px] italic ml-[30px]">End Time:</span>
-                            <input type="time" className="text-[black] rounded-[5px] p-2 h-[75%] w-[22%]"/>
+                            <input type="time" className="text-[black] text-center rounded-[5px] p-2 h-[75%] w-[22%]" value={endTime} onChange={handleEndInput}/>
                         </div>
                     </div>
                     <div className="flex flex-row justify-center">
                         <div className="flex flex-row mt-[20px] mb-[23px] items-center">
                             <span className="rounded-[5px] text-center text-xs p-3 tracking-[1.5px] lowercase mt-[1px] italic ml-[5%] mr-[10px]">Pay Amount:</span>
-                            <input type="number" value={offer} onChange={handleOfferInput} className="rounded-[5px] p-2 w-[19%] h-[80%]"/>
+                            <input type="number" value={offer} onChange={handleOfferInput} className="rounded-[5px] p-2 w-[19%] h-[80%] text-[black] text-center"/>
                             <span className="rounded-[5px] ml-[30px] w-[95px] text-center text-xs p-3 tracking-[1.5px] lowercase mt-[1px] italic">Pay Type:</span>
                             <Dropdown><DropdownTrigger>
                                 <span className="z-15 bg-[black] text-[white] py-3 uppercase text-[12px] px-[24px] rounded-[10px] tracking-[3px] transition-all duration-200 cursor-pointer">
@@ -116,17 +141,18 @@ export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
                                 </span>
                             </DropdownTrigger>
                             <DropdownMenu aria-label="Static Actions">
-                                <DropdownItem key="Hourly" className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] shadow-[0px_4px_5px_#191922] transition-all duration-200 rounded-[10px_10px_0px_0px]">
+                                <DropdownItem key="Hourly" className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] shadow-[0px_4px_5px_#191922] transition-all duration-200 rounded-[10px_10px_0px_0px]" 
+                                onClick={() => handleTypeInput('Hourly')}>
                                     <span className="text-[#b7c4ff] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px] transition-all duration-200">
                                         Hourly
                                     </span>
                                 </DropdownItem>
-                                <DropdownItem key="Flat" className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] shadow-[0px_4px_5px_#191922] transition-all duration-200">
+                                <DropdownItem key="Flat" className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] shadow-[0px_4px_5px_#191922] transition-all duration-200" onClick={() => handleTypeInput('Fixed')} >
                                     <span className="text-[#b7c4ff] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px] transition-all duration-200">
-                                        Flat Fee
+                                        Fixed
                                     </span>
                                 </DropdownItem>
-                                <DropdownItem key="set" className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] shadow-[0px_4px_5px_#191922] transition-all duration-200 rounded-[0px_0px_10px_10px]">
+                                <DropdownItem key="set" className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] shadow-[0px_4px_5px_#191922] transition-all duration-200 rounded-[0px_0px_10px_10px]" onClick={() => handleTypeInput('Per Set')} >
                                     <span className="text-[#b7c4ff] p-3 uppercase text-[12px] mx-[24px] my-[5px] tracking-[3px] transition-all duration-200">
                                         Per Set
                                     </span>
@@ -138,17 +164,16 @@ export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
                 <span className="block text-[11px] tracking-[1.5px] uppercase mt-[1px] mb-[20px] border-b-[#ccff69] border-b border-solid"></span>
             </div>
             <div className="h-[22%] flex justify-center p-4">
-                <textarea className="m-3 rounded-[5px] w-[80%] p-3" placeholder="Add any extra details or comments here"></textarea>
+                <textarea className="m-3 rounded-[5px] w-[80%] p-3 text-[black] text-sm" placeholder="Add any extra details or comments here" value={comments} onChange={handleCommentsInput}></textarea>
             </div>
             <div className="flex flex-row justify-between mt-[10px]">
                 <button className="border border-solid border-[#ccff69] rounded-[20px] py-2 px-8 ml-3 text-[#ccff69]" onClick={() => setOpenBooking(false)}>
                     Back
                 </button>
-                <button className={`${ubuntu.className} border border-solid border-[#20202A] rounded-[20px] text-[#20202A] bg-[#ccff69] py-2 px-8 mr-3`}>
+                <button className={`${ubuntu.className} border border-solid border-[#20202A] rounded-[20px] text-[#20202A] bg-[#ccff69] py-2 px-8 mr-3`} onClick={handleSubmit}>
                     Submit
                 </button>
             </div>
-    
         </div>
     )
 }

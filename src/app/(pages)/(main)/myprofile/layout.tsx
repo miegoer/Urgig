@@ -128,7 +128,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </div>
         </Link>
         {profileLinks.map((link) => (
-          <Link href={link.href}>
+          <Link href={link.href} key={link.name}>
             <div
               className={clsx(
                 "z-15 w-[100%] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-xs border border-solid border-[white] uppercase transition-all duration-200",
