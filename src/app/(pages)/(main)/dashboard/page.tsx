@@ -22,7 +22,7 @@ export default function Page({ children }: { children: React.ReactNode }) {
         <Messages />
         <EventsList />
       </div>
-      <Button onClick={fillOutDB}>Fill DB</Button>
+      <Button onClick={fillOutDB}>DB OP's, DON'T CLINK!!!</Button>
     </>
     // </div>
   );

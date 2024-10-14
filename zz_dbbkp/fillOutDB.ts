@@ -50,7 +50,7 @@ export const fillOutDB = () => {
   // fillOutEachCollectionDB(bookingsDB, "bookings");
   // fillOutEachCollectionDB(AidanBookings, "bookings");
   //fillOutEachCollectionDB(usersDB, "users");
-  connectBookingWithEvents();
+  //connectBookingWithEvents();
 };
 
 const AidanBookings = [
