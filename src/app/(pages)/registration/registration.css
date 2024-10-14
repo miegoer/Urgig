@@ -1,0 +1,23 @@
+.input {
+  color: white;
+  width: 300px;
+  height: 40px;
+  margin-top: 5px;
+  background-color: #242430;
+  border-radius: 10px;
+}
+
+.inputList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.submit {
+  background: linear-gradient(to bottom, #3240cf, #7263e2);
+  color: white; /* Optional: for better text visibility */
+  border: none; /* Optional: removes the border */
+  padding: 10px 20px; /* Optional: adds some padding */
+  border-radius: 5px; /* Optional: rounds the corners */
+  cursor: pointer; 
+}

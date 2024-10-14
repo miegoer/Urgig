@@ -20,7 +20,7 @@ const messages = [
   },
   {
     name: "Paws the Pub Owner",
-    message: "You're the best, Princess Cheeto.",
+    message: "You're the best, DJ Frankenstein.",
     status: "read",
     photo: WhiteCat,
     alt: "Diva cat mock user",
@@ -39,6 +39,7 @@ export default function Messages() {
             className={`h-[70px] text-[white] text-[11px] flex flex-row mx-0 my-2.5 px-[30px] py-3 rounded-[20px] ${
               message.status === "read" ? "message-box-read" : "message-box-unread"
             }`}
+            key={message.name}
           >
             <Image
               src={message.photo}

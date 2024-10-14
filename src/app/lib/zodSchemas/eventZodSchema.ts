@@ -4,6 +4,8 @@ export const EventZodSchema = z.object({
   _id: z.string().min(1).optional(),
   name: z.string().min(1),
   promoterId: z.string().min(1),
+  artistsIds: z.array(z.string().min(1)).optional(),
+  artistsBookingIds: z.array(z.string().min(1)).optional(),
   date: z
     .string()
     .transform((str) => new Date(str)) // Transform string to Date
@@ -15,4 +17,5 @@ export const EventZodSchema = z.object({
   duration: z.number().positive(), // duration must be a positive number (in days)
   maxCapacity: z.number().int().positive(), // maxCapacity must be a positive integer
   link: z.string().url().optional(), // Optional URL for link
+  description: z.string().optional(), // Optional URL for link
 });

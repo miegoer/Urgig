@@ -11,6 +11,7 @@ export type Booking = {
   status: string; //negotiationg, confirmed, declined
   bookingPromoterId: string;
   bookingArtistId: string;
+  bookingEventId?: string;
   landed?: boolean;
   travelExpenses?: number;
 };

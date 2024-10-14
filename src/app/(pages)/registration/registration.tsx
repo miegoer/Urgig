@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth, useUser } from '@clerk/nextjs'; // Get Clerk token
+import './registration.css';
 
 export default function Registration() {
   // getting stuff from the token
@@ -10,6 +11,7 @@ export default function Registration() {
   const userEmail = user?.primaryEmailAddress?.emailAddress;
   const firstName = user?.firstName || '';
   const lastName = user?.lastName || '';
+  // const userRole = user?.publicMetadata?.role || '';
 
   const router = useRouter();
 
@@ -19,6 +21,7 @@ export default function Registration() {
     lastName: lastName,
     dateOfBirth: '',
     stageName: '',
+    companyName: '',
     phoneNumber: '',
     location: '',
     aboutYou: '',
@@ -29,6 +32,7 @@ export default function Registration() {
     lastName: true,
     dateOfBirth: true,
     stageName: true,
+    companyName: true,
     phoneNumber: true,
     location: true,
   });
@@ -37,6 +41,9 @@ export default function Registration() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [isRegistered, setIsRegistered] = useState(false);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isAccountCreated, setIsAccountCreated] = useState(false);
 
   // ceck if the user is registered
   useEffect(() => {
@@ -117,13 +124,21 @@ export default function Registration() {
 
   const handleRoleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedType = event.target.value;
-    setForm((prevForm) => ({ ...prevForm, typeOfAccount: selectedType })); //
+    setForm((prevForm) => ({ ...prevForm, typeOfAccount: selectedType }));
 
     if (selectedType === 'Artist') {
-      setvalidity((prevValidity) => ({ ...prevValidity, stageName: false }));
-    } else {
+      setvalidity((prevValidity) => ({
+        ...prevValidity,
+        stageName: false,
+        companyName: true,
+      }));
+    } else if (selectedType === 'Promoter') {
       setForm((prevForm) => ({ ...prevForm, stageName: '' }));
-      setvalidity((prevValidity) => ({ ...prevValidity, stageName: true })); // no validation needed for promoter
+      setvalidity((prevValidity) => ({
+        ...prevValidity,
+        stageName: true,
+        companyName: false,
+      }));
     }
   };
 
@@ -136,6 +151,7 @@ export default function Registration() {
 
     if (!form.typeOfAccount) {
       alert('Please select your role');
+      setIsSubmitting(false);
       return;
     }
     if (
@@ -143,9 +159,9 @@ export default function Registration() {
       validity.lastName &&
       validity.dateOfBirth &&
       (form.typeOfAccount === 'Promoter' || validity.stageName) &&
+      (form.typeOfAccount === 'Artist' || validity.companyName) &&
       validity.phoneNumber &&
-      validity.location &&
-      (form.typeOfAccount === 'Promoter' || form.stageName)
+      validity.location
     ) {
       await fetch('/api/users', {
         method: 'POST',
@@ -158,6 +174,7 @@ export default function Registration() {
           contactNumber: form.phoneNumber,
           location: form.location,
           stageName: form.stageName,
+          companyName: form.companyName,
           aboutYou: form.aboutYou,
           _id: userId, // using Clerk userId
           typeOfAccount: form.typeOfAccount.toLowerCase(), // artist or promoter
@@ -168,11 +185,23 @@ export default function Registration() {
         }),
       });
 
+      await fetch('/api/updateUser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          role: form.typeOfAccount,
+          userId: userId,
+        }),
+      });
+
       setForm({
         firstName: '',
         lastName: '',
         dateOfBirth: '',
         stageName: '',
+        companyName: '',
         phoneNumber: '',
         location: '',
         aboutYou: '',
@@ -183,6 +212,7 @@ export default function Registration() {
         lastName: true,
         dateOfBirth: true,
         stageName: true,
+        companyName: true,
         phoneNumber: true,
         location: true,
       });
@@ -198,15 +228,17 @@ export default function Registration() {
     return null;
   }
 
+  // console.log('User role from token:', userRole);
+
   return (
-    <div className="flex flex-col">
+    <div className="inputList">
       <h1 className={`mb-4 text-xl md:text-2xl`}>Registration</h1>
       {!pt1Submitted && (
         <form className="flex flex-col" onSubmit={formPt2}>
           <input
             type="text"
             placeholder="First Name"
-            className="text-black"
+            className="input"
             value={form.firstName}
             onChange={(e) => handleNameChange(e, 'firstName')}
             required
@@ -217,7 +249,7 @@ export default function Registration() {
           <input
             type="text"
             placeholder="Last Name"
-            className="text-black"
+            className="input"
             value={form.lastName}
             onChange={(e) => handleNameChange(e, 'lastName')}
             required
@@ -230,7 +262,7 @@ export default function Registration() {
             onFocus={handleFocus}
             onBlur={handleBlur}
             placeholder="Date of Birth"
-            className="text-black"
+            className="input"
             value={form.dateOfBirth}
             onChange={(e) => handleDateInput(e)}
             required
@@ -238,20 +270,10 @@ export default function Registration() {
           {!validity.dateOfBirth && (
             <p className="text-red-500 mt-[5px]">Invalid date.</p>
           )}
-          {/* <input
-            type="text"
-            placeholder="Stage Name"
-            className="text-black"
-            value={form.stageName}
-            onChange={(e) => handleGenericChange(e, 'stageName')}
-          />
-          {!validity.stageName && (
-            <p className="text-red-500 mt-[5px]">Invalid stage name.</p>
-          )} */}
           <input
             type="tel"
             placeholder="Phone Number"
-            className="text-black"
+            className="input"
             value={form.phoneNumber}
             onChange={(e) => handlePhoneChange(e)}
             required
@@ -264,7 +286,7 @@ export default function Registration() {
           <input
             type="text"
             placeholder="Location"
-            className="text-black"
+            className="input"
             value={form.location}
             onChange={(e) => handleGenericChange(e, 'location')}
             required
@@ -274,7 +296,7 @@ export default function Registration() {
           )}
 
           <select
-            className="text-black"
+            className="input"
             value={form.typeOfAccount}
             onChange={handleRoleChange}
           >
@@ -287,29 +309,45 @@ export default function Registration() {
             <input
               type="text"
               placeholder="Stage Name"
-              className="text-black"
+              className="input"
               value={form.stageName}
               onChange={(e) => handleGenericChange(e, 'stageName')}
               required
             />
           )}
+
+          {form.typeOfAccount === 'Promoter' && (
+            <input
+              type="text"
+              placeholder="Company Name"
+              className="input"
+              value={form.companyName}
+              onChange={(e) => handleGenericChange(e, 'companyName')}
+              required
+            />
+          )}
+
           {!validity.stageName && form.typeOfAccount === 'Artist' && (
             <p className="text-red-500 mt-[5px]">Invalid stage name.</p>
           )}
 
-          <button type="submit">Submit</button>
+          {!validity.companyName && form.typeOfAccount === 'Promoter' && (
+            <p className="text-red-500 mt-[5px]">Invalid companyName name.</p>
+          )}
+
+          <button className="submit" type="submit">Submit</button>
         </form>
       )}
       {pt1Submitted && (
         <form className="flex flex-col" onSubmit={handleSubmit}>
           <textarea
             placeholder="About you"
-            className="text-black"
+            className="input"
             value={form.aboutYou}
             onChange={(e) => handleGenericChange(e, 'aboutYou')}
             required
           />
-          <button type="submit">Submit</button>
+          <button className='submit' type="submit">Submit</button>
         </form>
       )}
     </div>

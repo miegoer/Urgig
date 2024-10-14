@@ -15,7 +15,16 @@ export const ProfileDetailsZodSchema = z.object({
       tiktok: z.string().url().optional(),
     })
     .optional(),
-  unAvailableDates: z.array(z.date()).optional(),
+  unAvailableDates: z
+    .array(
+      z
+        .string()
+        .transform((str) => new Date(str)) // Transform string to Date
+        .refine((date) => !isNaN(date.getTime()), {
+          message: "Invalid date format",
+        })
+    )
+    .optional(),
   bannerPicture: z.string().optional(),
   genre: z.array(z.string()).optional(),
 });
@@ -35,7 +44,7 @@ export const StatisticsZodSchema = z.object({
 });
 
 export const UserZodSchema = z.object({
-  _id: z.string(),
+  _id: z.string().optional(),
   email: z.string().email(),
   typeOfAccount: z.string(),
   name: z.string().optional(),
@@ -52,8 +61,7 @@ export const UserZodSchema = z.object({
   settings: SettingsZodSchema.optional(),
   profileDetails: ProfileDetailsZodSchema.optional(),
   statistics: StatisticsZodSchema.optional(),
-  pastEvents: z.array(z.string()).optional(),
-  upcomingEvents: z.array(z.string()).optional(),
+  events: z.array(z.string()).optional(),
   stageName: z.string().optional(),
   companyName: z.string().optional(),
 });
