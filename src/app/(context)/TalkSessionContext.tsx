@@ -1,18 +1,26 @@
-'use client';
+"use client";
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import Talk from 'talkjs';
-import { useUser } from '@clerk/nextjs';
+import React, { createContext, useContext, useEffect, useState } from "react";
+import Talk from "talkjs";
+import { useUser } from "@clerk/nextjs";
 
 interface TalkSessionContextProps {
   session: Talk.Session | null;
   userId: string | null;
   userType: string | null;
+  setUserId: React.Dispatch<React.SetStateAction<string | null>>;
+  setUserType: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-const TalkSessionContext = createContext<TalkSessionContextProps>({ session: null, userId: null, userType: null });
+const TalkSessionContext = createContext<TalkSessionContextProps | undefined>(undefined);
 
-export const useTalkSession = () => useContext(TalkSessionContext);
+export const useTalkSession = () => {
+  const context = useContext(TalkSessionContext);
+  if (!context) {
+    throw new Error("useTalkSession must be used within a TalkSessionProvider");
+  }
+  return context;
+};
 
 export const TalkSessionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [session, setSession] = useState<Talk.Session | null>(null);
@@ -21,22 +29,22 @@ export const TalkSessionProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const { user, isLoaded } = useUser();
 
   useEffect(() => {
-    if(isLoaded && user) {
+    if (isLoaded && user) {
       setUserId(user.id);
       Talk.ready.then(() => {
         const mainUser = new Talk.User({
-          id: user?.id ?? '',
-          name: user?.firstName + ' ' + user?.lastName,
+          id: user?.id ?? "",
+          name: user?.firstName + " " + user?.lastName,
           email: user?.emailAddresses[0].emailAddress,
-          photoUrl: 'https://talkjs.com/new-web/avatar-7.jpg',
-          welcomeMessage: 'Hi!',
+          photoUrl: "https://talkjs.com/new-web/avatar-7.jpg",
+          welcomeMessage: "Hi!",
         });
-  
+
         const talkSession = new Talk.Session({
           appId: process.env.NEXT_PUBLIC_TALKJS_APP_ID!,
           me: mainUser,
         });
-  
+
         setSession(talkSession);
 
         const getUser = async () => {
@@ -50,15 +58,13 @@ export const TalkSessionProvider: React.FC<{ children: React.ReactNode }> = ({ c
         };
         getUser();
       });
-    } 
+    }
   }, [isLoaded]);
 
-  useEffect(() => {
-    
-  }, [])
+  useEffect(() => {}, []);
 
   return (
-    <TalkSessionContext.Provider value={{ session, userId, userType }}>
+    <TalkSessionContext.Provider value={{ session, userId, userType, setUserType, setUserId }}>
       {children}
     </TalkSessionContext.Provider>
   );
