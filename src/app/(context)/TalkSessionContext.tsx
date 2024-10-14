@@ -1,3 +1,5 @@
+'use client';
+
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import Talk from 'talkjs';
 import { useUser } from '@clerk/nextjs';
@@ -5,21 +7,22 @@ import { useUser } from '@clerk/nextjs';
 interface TalkSessionContextProps {
   session: Talk.Session | null;
   userId: string | null;
+  userType: string | null;
 }
 
-const TalkSessionContext = createContext<TalkSessionContextProps>({ session: null, userId: null });
+const TalkSessionContext = createContext<TalkSessionContextProps>({ session: null, userId: null, userType: null });
 
 export const useTalkSession = () => useContext(TalkSessionContext);
 
 export const TalkSessionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [session, setSession] = useState<Talk.Session | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
+  const [userType, setUserType] = useState<string | null>(null);
   const { user, isLoaded } = useUser();
 
   useEffect(() => {
     if(isLoaded && user) {
       setUserId(user.id);
-      console.log(user);
       Talk.ready.then(() => {
         const mainUser = new Talk.User({
           id: user?.id ?? '',
@@ -35,12 +38,27 @@ export const TalkSessionProvider: React.FC<{ children: React.ReactNode }> = ({ c
         });
   
         setSession(talkSession);
+
+        const getUser = async () => {
+          try {
+            const response = await fetch(`/api/users/${user.id}`);
+            const userData = await response.json();
+            setUserType(userData.typeOfAccount);
+          } catch (error) {
+            console.error(error);
+          }
+        };
+        getUser();
       });
     } 
   }, [isLoaded]);
 
+  useEffect(() => {
+    
+  }, [])
+
   return (
-    <TalkSessionContext.Provider value={{ session, userId }}>
+    <TalkSessionContext.Provider value={{ session, userId, userType }}>
       {children}
     </TalkSessionContext.Provider>
   );

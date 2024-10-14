@@ -40,8 +40,21 @@ export async function GET(request: NextRequest) {
   await dbConnect(); // Ensure database connection is established
 
   try {
+    const { searchParams } = new URL(request.url);
+    const searchQuery = searchParams.get("userId") || ""; // Get the 'userId' query parameter, default to an empty string
+    
+    // Filter bookings by user id if provided
+    const query = searchQuery
+      ? {
+          $or: [
+            { bookingArtistId: { $regex: searchQuery, $options: "i" } }, // Case-insensitive search in bookingArtist_id
+            { bookingPromoterId: { $regex: searchQuery, $options: "i" } }, // Case-insensitive search in event_id
+          ],
+        }
+      : {}; // If no search query, return all bookings
+
     // Fetch all bookings
-    const bookings = await BookingModel.find();
+    const bookings = await BookingModel.find(query);
 
     // Return the bookings with only the selected fields
     return NextResponse.json(bookings, { status: 200 });

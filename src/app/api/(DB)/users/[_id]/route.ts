@@ -5,14 +5,13 @@ import { User } from "@/types/user";
 import { NextRequest, NextResponse } from "next/server";
 
 //get specific user's all info
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: { _id: string } }) {
   const UserIdZodSchema = UserZodSchema.pick({ _id: true });
-
+  const validatedUserId = UserIdZodSchema.parse({ _id: params._id });
+  const { _id } = params;
   try {
-    const validatedUserId = UserIdZodSchema.parse({ _id: params.id });
     await dbConnect(); // Ensure database connection is established
-    const user = await UserModel.findById(params.id).select("-password");
-
+    const user = await UserModel.findById(_id).select("-password");
     //if not found return 404
     if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 });
     // else return data
