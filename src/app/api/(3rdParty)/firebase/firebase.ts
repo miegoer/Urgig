@@ -2,10 +2,12 @@
 import { initializeApp } from "firebase/app";
 import { getStorage } from 'firebase/storage';
 
+const firebaseAPI = process.env.FIREBASE_PUBLIC_API_KEY
+
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDRjW-VQzoRrWqot97mrqC4Pc5HBK_iCZo",
+  apiKey: firebaseAPI,
   authDomain: "urgig-c170c.firebaseapp.com",
   projectId: "urgig-c170c",
   storageBucket: "urgig-c170c.appspot.com",
