@@ -14,7 +14,7 @@ import {
   DropdownTrigger,
   DropdownMenu,
   DropdownSection,
-  DropdownItem
+  DropdownItem,
 } from "@nextui-org/dropdown";
 
 interface MainNavLink {
@@ -40,7 +40,7 @@ export default function NavLinks() {
           key={link.name}
           href={link.href}
           className={clsx(
-            "text-[#b7c4ff] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px] transition-all duration-200",
+            "text-[#b7c4ff] p-3 uppercase text-[11px] mx-[20px] my-[6px] tracking-[3px] transition-all duration-200",
             { "text-[#ccff69]": pathname === link.href },
             "hover:bg-[#3525de] hover:rounded-[5px]"
           )}
@@ -48,34 +48,56 @@ export default function NavLinks() {
           {link.name}
         </Link>
       ))}
-      <Dropdown><DropdownTrigger>
-      <span className={clsx(
-            "text-[#b7c4ff] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px] transition-all duration-200 cursor-pointer",
-            { "text-[#ccff69]": pathname === '/myprofile' || pathname === '/editprofile'},
-            "hover:bg-[#3525de] hover:rounded-[5px]")}>
-          Profile
-        </span>
-      </DropdownTrigger>
-      <DropdownMenu aria-label="Static Actions">
-        <DropdownItem key="View" className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] shadow-[0px_4px_5px_#191922] transition-all duration-200">
-        <Link key='viewprofile' href='/myprofile'
-          className={clsx(
-            "text-[#b7c4ff] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px] transition-all duration-200",
-            { "text-[#ccff69]": pathname === '/myprofile' },
-            "hover:rounded-[5px]")}>
-          View
-        </Link>
-        </DropdownItem>
-        <DropdownItem key="Edit" className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] rounded-[0px_0px_20px_20px] shadow-[0px_4px_5px_#191922] transition-all duration-200 ">
-          <Link key='editprofile' href='/editprofile'
+      <Dropdown>
+        <DropdownTrigger>
+          <span
             className={clsx(
-              "text-[#b7c4ff] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px]",
-              { "text-[#ccff69]": pathname === '/editprofile' },
-              "hover:rounded-[5px]")}>
-            Edit
-          </Link>
-        </DropdownItem>
-      </DropdownMenu></Dropdown>
+              "text-[#b7c4ff] p-3 uppercase text-[11px] mx-[20px] my-[6px] tracking-[3px] transition-all duration-200 cursor-pointer",
+              {
+                "text-[#ccff69]":
+                  pathname === "/myprofile" || pathname === "/editprofile",
+              },
+              "hover:bg-[#3525de] hover:rounded-[5px]"
+            )}
+          >
+            Profile
+          </span>
+        </DropdownTrigger>
+        <DropdownMenu aria-label="Static Actions">
+          <DropdownItem
+            key="View"
+            className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] shadow-[0px_4px_5px_#191922] transition-all duration-200"
+          >
+            <Link
+              key="viewprofile"
+              href="/myprofile"
+              className={clsx(
+                "text-[#b7c4ff] p-3 uppercase text-[11px] mx-[24px] my-[6px] tracking-[3px] transition-all duration-200",
+                { "text-[#ccff69]": pathname === "/myprofile" },
+                "hover:rounded-[5px]"
+              )}
+            >
+              View
+            </Link>
+          </DropdownItem>
+          <DropdownItem
+            key="Edit"
+            className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] rounded-[0px_0px_20px_20px] shadow-[0px_4px_5px_#191922] transition-all duration-200 "
+          >
+            <Link
+              key="editprofile"
+              href="/editprofile"
+              className={clsx(
+                "text-[#b7c4ff] p-3 uppercase text-[11px] mx-[24px] my-[6px] tracking-[3px]",
+                { "text-[#ccff69]": pathname === "/editprofile" },
+                "hover:rounded-[5px]"
+              )}
+            >
+              Edit
+            </Link>
+          </DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
       <Image
         src={Notifications}
         alt="notifications bell"
@@ -88,7 +110,8 @@ export default function NavLinks() {
         className="text-[white] text-center ml-[30px] mr-2.5 my-0 px-2.5 py-1 rounded-[20px] border-[none] w-[12%] h-[70%] text-xs"
         placeholder="Search"
         style={{
-          background: "linear-gradient(11deg, rgba(52, 52, 52, 1) 0%, rgba(100, 100, 100, 1) 100%)",
+          background:
+            "linear-gradient(11deg, rgba(52, 52, 52, 1) 0%, rgba(100, 100, 100, 1) 100%)",
         }}
       />
       <Image
