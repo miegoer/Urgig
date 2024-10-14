@@ -1,8 +1,8 @@
 import { Booking } from "@/types/booking";
 import Link from "next/link";
 
-const BookingItem: React.FC<{booking: Booking}> = ({booking}) => {
-  const accountType = 'artist';
+const BookingItem: React.FC<{booking: Booking, userType: string}> = ({booking, userType}) => {
+  const accountType = userType;
  return (
   <div className="shadow-[0px_4px_5px_#191922] h-[200px] rounded-[20px] bg-[#252531] mb-[20px] p-3" style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
     <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>

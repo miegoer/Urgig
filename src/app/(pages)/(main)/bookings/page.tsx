@@ -6,11 +6,12 @@ import { useState, useEffect } from "react";
 import BookingItem from "./bookingItem";
 
 export default function Page({ children }: { children: React.ReactNode }) {
-  const { userId } = useTalkSession();
+  const { userId, userType } = useTalkSession();
   const [bookings, setBookings] = useState<Booking[]>([]);
+  let recievedType: string;
 
   useEffect(() => {
-    if (userId) {
+    if (userId && userType) {
       const fetchBookings = async () => {
         try {
           const response = await fetch(`/api/bookings?userId=${userId}`);
@@ -20,12 +21,12 @@ export default function Page({ children }: { children: React.ReactNode }) {
           console.error(error);
         }
       };
-
+      recievedType = userType;
       fetchBookings();
     } else {
       setBookings([]);
     }
-  }, [userId]);
+  }, [userId, userType]);
 
   console.log(bookings);
 
@@ -36,7 +37,7 @@ export default function Page({ children }: { children: React.ReactNode }) {
       <>
         <h1>My Bookings</h1>
         {bookings.map((booking: Booking) => (
-          <BookingItem key={booking._id} booking={booking} />
+          <BookingItem key={booking._id} booking={booking} userType={recievedType}/>
         ))}
       </>
     );

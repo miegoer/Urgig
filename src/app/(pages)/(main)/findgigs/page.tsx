@@ -41,19 +41,20 @@ export default function FindGigs() {
 
   return (
     <>
-      <div>
-        <form onSubmit={handleSubmit}>
+      <div className="flex flex-col items-center ">
+        <form onSubmit={handleSubmit}
+        className="mt-12 mb-3 flex flex-col">
           <input
             onChange={(e) => setSearch(e.target.value)}
             value={search}
             name="search"
             type="text"
             placeholder="Search..."
-            className="text-black w-[full] p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="text-black w-[630px] p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <button
             type="submit"
-            className="mt-2 p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+            className="mt-3 p-2 w-[120px] h-10 bg-blue-500 text-white rounded-lg hover:bg-blue-600 self-end"
           >
             Search
           </button>
