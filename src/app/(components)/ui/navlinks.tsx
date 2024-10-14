@@ -50,7 +50,7 @@ export default function NavLinks() {
       ))}
       <Dropdown><DropdownTrigger>
       <span className={clsx(
-            "text-[#b7c4ff] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px] transition-all duration-200",
+            "text-[#b7c4ff] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px] transition-all duration-200 cursor-pointer",
             { "text-[#ccff69]": pathname === '/myprofile' || pathname === '/editprofile'},
             "hover:bg-[#3525de] hover:rounded-[5px]")}>
           Profile
@@ -85,7 +85,7 @@ export default function NavLinks() {
       />
       <input
         type="text"
-        className="text-[white] text-center ml-[30px] mr-2.5 my-0 px-2.5 py-1 rounded-[20px] border-[none] w-[12%] h-[70%] text-xs"
+        className="text-[white] text-center ml-[30px] my-0 px-2.5 py-1 rounded-[20px] border-[none] w-[12%] h-[70%] text-xs"
         placeholder="Search"
         style={{
           background:
@@ -98,7 +98,7 @@ export default function NavLinks() {
         width={20}
         id="search-icon"
         alt="search icon"
-        className="h-[16px] w-[16px] mr-8"
+        className="h-[16px] w-[16px] ml-[-12px] mr-8"
       />
     </>
   );
