@@ -21,6 +21,7 @@ export default function EventsList() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
+        console.log("userID, useEffect fu", userId);
         const [upcomingEvents, pastEvents]: [ArtistEvent[], ArtistEvent[]] =
           await fetchAndTransformEvents(userId as string);
 
