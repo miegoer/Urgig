@@ -32,7 +32,7 @@ export default function EventsList() {
     };
 
     fetchEvents();
-  }, []); // Empty dependency array to run this only on mount
+  }, [userId]); // Dependency array uses userId to load only after context is loaded (and userId doesn't change so it's just once)
 
   const eventList = (events: ArtistEvent[]) => {
     return events.map((event: ArtistEvent) => {
