@@ -15,18 +15,17 @@ export default function Bookings() {
   }, [_id]);
 
   useEffect(() => {
-
     //fetching bookings from the event:
     const fetchBookings = () => {
       fetch(`/api/events/${eventId}/bookings`)
         .then((response) => {
           if (response.ok) {
             return response.json();
-          }})
-          .then((data)=> {
-            setBookings(data);
-           } 
-        )
+          }
+        })
+        .then((data) => {
+          setBookings(data);
+        })
         .catch((error) => {
           console.error(error);
         });
@@ -37,19 +36,46 @@ export default function Bookings() {
     }
   }, [eventId]);
 
+  const confirmed = bookings.filter(
+    (booking) => booking.status === "confirmed"
+  );
+  const pending = bookings.filter((booking) => booking.status === "pending");
+
   return (
     <>
-      <div className="flex flex-col justify-start  w-[600px] ml-[50px]  mt-[50px] border">
-        <div className=" tracking-[1.5px] text-[white] text-sm">
-          <p>BOOKINGS:</p>
+      <div className="flex flex-col justify-start  w-[550px] ml-[50px]  mt-[50px] mb-0">
+        <p className=" text-xs text-[#a0aec0]"> Confirmed Bookings:</p>
+
+        <div className="border-t w-full h-0 self-center mt-1"></div>
+        <div className="mt-2">
+          {confirmed.map((booking) => (
+            <div key={booking._id} className="grid grid-cols-11 ">
+              <p className="col-span-5">{booking.name}</p>
+              <p className="text-xs text-[#a0aec0] col-span-3 text-center">
+                {new Date(booking.sets[0].date).toLocaleDateString('en-US')}, at {booking.sets[0].setTimeStart}
+                </p>
+              <p className="text-xs text-[#a0aec0] col-span-2 text-center">{booking.offer} $</p>
+              <div className="text-xs text-[#a0aec0] col-span-1 text-end">View</div>
+            </div>
+          ))}
         </div>
+      </div>
 
-        <div className="border-t w-full h-0 self-center mt-4"></div>
+      <div className="flex flex-col justify-start  w-[550px] ml-[50px]  mt-[50px] mb-0">
+        <p className=" text-xs text-[#a0aec0]"> Pending Bookings:</p>
 
-        <div className="mt-3  tracking-[1.5px] text-[white] text-sm ">
-          <p>{bookings[0].name}</p>
-          <p>{bookings[1].name}</p>
-          <p>{bookings[2].name}</p>
+        <div className="border-t w-full h-0 self-center mt-1"></div>
+        <div className="mt-2">
+        {pending.map((booking) => (
+            <div key={booking._id} className="grid grid-cols-11 ">
+              <p className="col-span-5">{booking.name}</p>
+              <p className="text-xs text-[#a0aec0] col-span-3 text-center">
+                {new Date(booking.sets[0].date).toLocaleDateString('en-US')}, at {booking.sets[0].setTimeStart}
+                </p>
+              <p className="text-xs text-[#a0aec0] col-span-2 text-center">{booking.offer} $</p>
+              <div className="text-xs text-[#a0aec0] col-span-1 text-end">View</div>
+            </div>
+          ))}
         </div>
       </div>
     </>
