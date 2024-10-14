@@ -1,12 +1,11 @@
 "use client";
-import SideNav from "@/app/(components)/ui/dashboard/sidenav";
 import QuickStats from "@/app/(components)/ui/dashboard/quickstats";
 import Notifications from "@/app/(components)/ui/dashboard/notifications";
 import Messages from "@/app/(components)/ui/dashboard/messages";
-import Nav from "@/app/(components)/ui/nav";
 import UserInfo from "@/app/(components)/ui/dashboard/userinfo";
 import EventsList from "@/app/(components)/ui/dashboard/EventsList";
 import { Button } from "@mui/material";
+import { fillOutDB } from "../../../../../zz_dbbkp/fillOutDB";
 
 export default function Page({ children }: { children: React.ReactNode }) {
   return (
@@ -21,6 +20,7 @@ export default function Page({ children }: { children: React.ReactNode }) {
         <Messages />
         <EventsList />
       </div>
+      <Button onClick={fillOutDB}>DB OP's, DON'T CLINK!!!</Button>
     </>
     // </div>
   );

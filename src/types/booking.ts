@@ -6,7 +6,7 @@ export type Booking = {
   location: string;
   offer: number; //cash amount
   sets: Set[];
-  genre: string[]; //preselected values
+  expectedGenre: string[]; //preselected values
   maxCapacity: number;
   status: string; //negotiationg, confirmed, declined
   bookingPromoterId: string;
