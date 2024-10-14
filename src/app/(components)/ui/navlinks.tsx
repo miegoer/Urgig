@@ -50,7 +50,7 @@ export default function NavLinks() {
       ))}
       <Dropdown><DropdownTrigger>
       <span className={clsx(
-            "text-[#b7c4ff] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px] transition-all duration-200 cursor-pointer",
+            "text-[#b7c4ff] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px] transition-all duration-200",
             { "text-[#ccff69]": pathname === '/myprofile' || pathname === '/editprofile'},
             "hover:bg-[#3525de] hover:rounded-[5px]")}>
           Profile

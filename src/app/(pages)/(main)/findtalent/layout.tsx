@@ -42,8 +42,8 @@ export default function FindTalent({ children }: { children: React.ReactNode }) 
             </div>
             {/* Main Content with Custom Scrollbar */}
             <div
-                style={{ gridColumn: "3 / span 8", gridRow: "2 / span 8" }}
-                className={`h-[600px] mt-[10px] overflow-y-auto
+                style={{ gridColumn: "3 / span 9", gridRow: "2 / span 8" }}
+                className={`h-[630px] mt-[10px] overflow-y-auto
                     [&::-webkit-scrollbar]:w-2
                     [&::-webkit-scrollbar-track]:rounded-full
                     [&::-webkit-scrollbar-track]:bg-black-100
