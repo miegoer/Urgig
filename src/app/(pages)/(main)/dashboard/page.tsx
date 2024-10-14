@@ -7,6 +7,7 @@ import Nav from "@/app/(components)/ui/nav";
 import UserInfo from "@/app/(components)/ui/dashboard/userinfo";
 import EventsList from "@/app/(components)/ui/dashboard/EventsList";
 import { Button } from "@mui/material";
+import { fillOutDB } from "../../../../../zz_dbbkp/fillOutDB";
 
 export default function Page({ children }: { children: React.ReactNode }) {
   return (
@@ -21,6 +22,7 @@ export default function Page({ children }: { children: React.ReactNode }) {
         <Messages />
         <EventsList />
       </div>
+      <Button onClick={fillOutDB}>Fill DB</Button>
     </>
     // </div>
   );
