@@ -1,6 +1,7 @@
 'use client'
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from 'react';
 import GigPhoto1 from '/public/laloOriginalPhotos/LaloGigPhoto1.png';
 import GigPhoto2 from '/public/laloOriginalPhotos/LaloGigPhoto2.png';
@@ -9,6 +10,7 @@ import GigPhoto4 from '/public/laloOriginalPhotos/LaloGigPhoto4.png';
 import DJPhoto from "/public/unsplash-dj-photo.png";
 import "../(pages)/globals.css";
 import './page.css'
+import { useUser } from "@clerk/nextjs";
 
 const Slideshow = () => {
   const [slideIndex, setSlideIndex] = useState(0);
@@ -43,6 +45,14 @@ const Slideshow = () => {
 
 // Home Component with Hero Image and Overlay
 export default function Home() {
+  const { user, isLoaded } = useUser();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isLoaded && user) {
+      router.push('/dashboard');
+    }
+  }, [isLoaded, user, router]);
 
   return (
     <div className="z-11 mt-[100px] flex items-center justify-center h-full w-full">
