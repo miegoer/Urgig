@@ -8,7 +8,7 @@ import {
   } from "@nextui-org/dropdown";
 import Select from 'react-select';
 import mockBookings from "@/mockData/bookings";
-import { Set, Booking } from "@/types/booking";
+import { Booking } from "@/types/booking";
 import { useState } from 'react';
 
 interface BookNowProps {
@@ -30,7 +30,7 @@ const noOptionsMessage = () => 'No Event Attached';
 export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
 
     const [offer, setOffer] = useState<number>(0);
-    const [offerType, setOfferType] = useState<string>('');
+    const [payType, setPayType] = useState<string>('');
     const [selectedEvent, setSelectedEvent] = useState<SelectedEvent | null>(null);
     const [dates, setDates] = useState<{ value: string; label: string }[]>([]);
     // const [eventDate, setEventDate] = useState<string>('');
@@ -40,16 +40,15 @@ export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
         label: event.name,
       }));
  
-    const chooseEvent = (event:SelectedEvent) => {
+      const chooseEvent = (event: SelectedEvent) => {
         setSelectedEvent(event);
-        const formattedDates = event.value.sets.map((set) => ({
-            value: set.date.toISOString().split('T')[0], // Format as 'YYYY-MM-DD'
-            label: set.date.toDateString(), // Format as readable date string
-          }));
-          setDates(formattedDates);
-      };
-  
-    // Work in Progress
+        const uniqueDates = new Set(event.value.sets.map((set) => set.date.toISOString().split('T')[0])); // Filters unique dates from the list of set dates
+        const formattedDates = Array.from(uniqueDates).map((date) => ({
+          value: date,
+          label: new Date(date).toDateString(),
+        }));
+        setDates(formattedDates);
+    }
 
     return (
         <div className="absolute bg-[#20202A] text-[white] p-8 rounded-[20px] w-[40%] h-[89%]">
@@ -93,19 +92,24 @@ export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
                             <input type="text" className="rounded-[5px] p-2 w-[19%] h-[80%]"/>
                             <span className="rounded-[5px] ml-[30px] w-[95px] text-center text-xs p-3 tracking-[1.5px] lowercase mt-[1px] italic">Pay Type:</span>
                             <Dropdown><DropdownTrigger>
-                                <span className="z-10 bg-[black] text-[white] py-3 uppercase text-[12px] px-[24px] rounded-[10px] tracking-[3px] transition-all duration-200 cursor-pointer">
-                                    {offerType === '' ? 'Choose' : offerType}
+                                <span className="z-15 bg-[black] text-[white] py-3 uppercase text-[12px] px-[24px] rounded-[10px] tracking-[3px] transition-all duration-200 cursor-pointer">
+                                    {payType === '' ? 'Choose' : payType}
                                 </span>
                             </DropdownTrigger>
                             <DropdownMenu aria-label="Static Actions">
-                                <DropdownItem key="Hourly" className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] shadow-[0px_4px_5px_#191922] transition-all duration-200 rounded-[10px]">
+                                <DropdownItem key="Hourly" className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] shadow-[0px_4px_5px_#191922] transition-all duration-200 rounded-[10px_10px_0px_0px]">
                                     <span className="text-[#b7c4ff] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px] transition-all duration-200">
                                         Hourly
                                     </span>
                                 </DropdownItem>
-                                <DropdownItem key="Flat" className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] shadow-[0px_4px_5px_#191922] transition-all duration-200 rounded-[10px]">
+                                <DropdownItem key="Flat" className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] shadow-[0px_4px_5px_#191922] transition-all duration-200">
                                     <span className="text-[#b7c4ff] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px] transition-all duration-200">
                                         Flat Fee
+                                    </span>
+                                </DropdownItem>
+                                <DropdownItem key="set" className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] shadow-[0px_4px_5px_#191922] transition-all duration-200 rounded-[0px_0px_10px_10px]">
+                                    <span className="text-[#b7c4ff] p-3 uppercase text-[12px] mx-[24px] my-[5px] tracking-[3px] transition-all duration-200">
+                                        Per Set
                                     </span>
                                 </DropdownItem>
                             </DropdownMenu></Dropdown>
@@ -114,8 +118,8 @@ export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
                 </div>
                 <span className="block text-[11px] tracking-[1.5px] uppercase mt-[1px] mb-[20px] border-b-[#ccff69] border-b border-solid"></span>
             </div>
-            <div className="h-[24%] flex justify-center p-4">
-                <textarea className="m-4 rounded-[5px] w-[80%] p-3" placeholder="Add any extra details or comments here"></textarea>
+            <div className="h-[22%] flex justify-center p-4">
+                <textarea className="m-3 rounded-[5px] w-[80%] p-3" placeholder="Add any extra details or comments here"></textarea>
             </div>
             <div className="flex flex-row justify-between mt-[10px]">
                 <button className="border border-solid border-[#ccff69] rounded-[20px] py-2 px-8 ml-3 text-[#ccff69]" onClick={() => setOpenBooking(false)}>
