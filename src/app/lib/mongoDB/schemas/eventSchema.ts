@@ -17,7 +17,6 @@ export const EventSchema: Schema = new Schema({
   maxCapacity: { type: Number, required: true },
   link: { type: String, required: false },
   promoterId: { type: String, required: true },
-  artistsIds: { type: [String], required: false },
-  artistsBookingIds: { type: [String], required: false },
+  bookingIds: [{ type: String, required: false }],
   description: { type: String, required: false },
 });

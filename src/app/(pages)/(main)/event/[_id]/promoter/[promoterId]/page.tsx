@@ -4,12 +4,13 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { ArtistEvent } from "@/types/interfaces.ts/artistEvent";
 import { fetchAndTransformEvents } from "@/app/utils/eventsUtils";
+import { User } from "@/types/user";
 
 export default function Promoter() {
   const { promoterId } = useParams();
 
   const [promoter_id, setPromoter_id] = useState<string>("");
-  const [promoter, setPromoter] = useState<any>({});
+  const [promoter, setPromoter] = useState<User| null>(null);
   const [artistUpcomingEvents, setUpcomingArtistEvents] = useState<
     ArtistEvent[]
   >([]);
