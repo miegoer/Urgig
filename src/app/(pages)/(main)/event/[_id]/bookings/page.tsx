@@ -12,21 +12,21 @@ export default function Bookings() {
   useEffect(() => {
     // geting eventId from params when mounting
     if (_id) setEventId(_id as string);
-  }, []);
+  }, [_id]);
 
   useEffect(() => {
+
+    //fetching bookings from the event:
     const fetchBookings = () => {
-      //fetching bookings from the event:
-      
       fetch(`/api/events/${eventId}/bookings`)
         .then((response) => {
-          if (response.ok) response.json();
-        })
-        .then((data) => {
-            console.log(data,'--------------data')
+          if (response.ok) {
+            return response.json();
+          }})
+          .then((data)=> {
             setBookings(data);
-          
-        })
+           } 
+        )
         .catch((error) => {
           console.error(error);
         });
@@ -46,10 +46,10 @@ export default function Bookings() {
 
         <div className="border-t w-full h-0 self-center mt-4"></div>
 
-        <div className="mt-3 text-xs text-[#a0aec0] ">
-          {/* <p>{bookings[0].name}</p>
+        <div className="mt-3  tracking-[1.5px] text-[white] text-sm ">
+          <p>{bookings[0].name}</p>
           <p>{bookings[1].name}</p>
-          <p>{bookings[2].name}</p> */}
+          <p>{bookings[2].name}</p>
         </div>
       </div>
     </>
