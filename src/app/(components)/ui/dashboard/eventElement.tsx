@@ -1,5 +1,3 @@
-// components/dashboard/eventElement.tsx
-
 import { Event } from "@/types/event";
 import Image from 'next/image';
 

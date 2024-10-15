@@ -75,7 +75,7 @@ export default function CreateEvent() {
       if (response.ok) {
         setEventData(initialState);
         setGenres([]);
-        setImageURL(""); // Reset imageURL after success
+        setImageURL(""); 
         setIsCreated(true);
         setTimeout(() => {
           router.push("/dashboard");

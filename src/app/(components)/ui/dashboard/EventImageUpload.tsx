@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { storage, db } from '@/app/api/(3rdParty)/firebase/firebase';
+import { storage } from '@/app/api/(3rdParty)/firebase/firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { doc, updateDoc, addDoc, collection } from 'firebase/firestore';
 
 interface EventImageUploadProps {
   setImageURL: (url: string) => void;
-  eventId: string; // The ID of the event being edited
+  eventId: string; 
 }
 
 const EventImageUpload: React.FC<EventImageUploadProps> = ({ setImageURL, eventId }) => {
