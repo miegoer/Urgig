@@ -88,7 +88,7 @@ export default function CreateEvent() {
       } else if (!response.ok) {
         setIsWrong(!isWrong);
         console.log(
-          "Unsucceded post request.Status Text:",
+          "Unsuccessful post request.Status Text:",
           response.statusText,
           response.status
         );

@@ -64,7 +64,7 @@ export default function EventsList() {
   };
 
   return (
-    <div className="w-[400px] shadow-[0px_0px_0px_#272525] mt-5 rounded-[20px] p-5 bg-[#252531]">
+    <div className="w-[400px] shadow-[0px_0px_0px_#272525] mt-5 rounded-[20px] p-5 bg-[#292346]">
       <span className="block text-[11px] tracking-[1px] uppercase ml-2.5 mr-0 mt-[3px] mb-[18px]">
         Upcoming Events
       </span>

@@ -5,6 +5,7 @@ import clsx from "clsx";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import React, { useEffect } from "react";
+import './navLinks.css'
 
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/dropdown";
 import { useTalkSession } from "@/app/(context)/TalkSessionContext";
@@ -44,9 +45,9 @@ export default function NavLinks() {
               key={link.name}
               href={link.href}
               className={clsx(
-                "text-[#b7c4ff] p-3 uppercase text-[11px] mx-[20px] my-[6px] tracking-[3px] transition-all duration-200",
+                "navText text-[#b7c4ff] py-3 px-5 uppercase text-[11px] mx-[20px] my-[6px] tracking-[3px]  transition-all duration-300",
                 { "text-[#ccff69]": pathname === link.href },
-                "hover:bg-[#3525de] hover:rounded-[5px]"
+                "hover:rounded-[8px]"
               )}
             >
               {link.name}
@@ -57,11 +58,11 @@ export default function NavLinks() {
         <DropdownTrigger>
           <span
             className={clsx(
-              "text-[#b7c4ff] p-3 uppercase text-[11px] mx-[20px] my-[6px] tracking-[3px] transition-all duration-200 cursor-pointer",
+              "navText text-[#b7c4ff] uppercase text-[11px] py-3 px-5 mx-[20px] my-[6px] tracking-[3px] transition-all duration-200 cursor-pointer",
               {
-                "text-[#ccff69]": pathname === "/myprofile" || pathname === "/editprofile",
+                "text-[white]": pathname === "/myprofile" || pathname === "/editprofile",
               },
-              "hover:bg-[#3525de] hover:rounded-[5px]"
+              "hover:rounded-[8px]"
             )}
           >
             Profile
@@ -70,7 +71,7 @@ export default function NavLinks() {
         <DropdownMenu aria-label="Static Actions">
           <DropdownItem
             key="View"
-            className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] shadow-[0px_4px_5px_#191922] transition-all duration-200"
+            className="text-center bg-[#211d36] p-3 hover:bg-[#3525de] shadow-[0px_4px_5px_#191922] transition-all duration-200"
           >
             <Link
               key="viewprofile"
@@ -86,7 +87,7 @@ export default function NavLinks() {
           </DropdownItem>
           <DropdownItem
             key="Edit"
-            className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] rounded-[0px_0px_20px_20px] shadow-[0px_4px_5px_#191922] transition-all duration-200 "
+            className="text-center bg-[#211d36] p-3 hover:bg-[#3525de] rounded-[0px_0px_20px_20px] shadow-[0px_4px_5px_#191922] transition-all duration-200 "
           >
             <Link
               key="editprofile"

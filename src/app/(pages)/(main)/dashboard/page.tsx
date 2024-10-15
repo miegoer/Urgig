@@ -1,7 +1,7 @@
 "use client";
 import QuickStats from "@/app/(components)/ui/dashboard/quickstats";
 import Notifications from "@/app/(components)/ui/dashboard/notifications";
-import Messages from "@/app/(components)/ui/dashboard/nearbyinfo";
+import NearbyInfo from "@/app/(components)/ui/dashboard/nearbyinfo";
 import UserInfo from "@/app/(components)/ui/dashboard/userinfo";
 import EventsList from "@/app/(components)/ui/dashboard/EventsList";
 import { Button } from "@mui/material";
@@ -16,8 +16,8 @@ export default function Page({ children }: { children: React.ReactNode }) {
       </div>
       <div className="col-[col-start_2_/_span_10] row-[6_/_span_4] h-[405px] flex flex-row w-[110%]">
         <Notifications />
-        <Messages />
         <EventsList />
+        <NearbyInfo />
       </div>
       <Button onClick={fillOutDB}>DB OP's, DON'T CLINK!!!</Button>
     </>

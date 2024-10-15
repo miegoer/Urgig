@@ -13,7 +13,7 @@ const socialIcons = [
     
     return (
       <>
-        <div className="shadow-[0px_4px_5px_#191922] h-[130px] flex flex-row rounded-[20px] bg-[#252531] mb-[20px] p-3 w-[900px]">
+        <div className="shadow-[0px_4px_5px_#191922] h-[130px] flex flex-row rounded-[20px] bg-[#292346] mb-[20px] p-3 w-[900px]">
         <Link key={name} href={`/a/profile/${name}`}>
           <Image src={profilePhoto} width={100} height={100} alt="Profile photo" className="rounded-[5px] shadow-[2px_4px_4px_#191922] object-cover" />
         </Link>
