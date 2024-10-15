@@ -1,7 +1,7 @@
 'use client'
 
 import mockUsers from "@/mockData/user"
-import {useState, ChangeEvent} from 'react';
+import { useState, ChangeEvent } from 'react';
 import Image from "next/image";
 import Spotify from "/public/spotify-icon.png";
 import TikTok from "/public/tiktok-icon.png";
@@ -9,39 +9,44 @@ const Instagram = "/ig-icon.png";
 const Youtube = "/youtube-icon.png";
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
+import SelectGenre from "@/app/(components)/ui/dashboard/selectGenre";
+import ImageUpload from '../../../(components)/ui/dashboard/ImageUpload'; // Import the ImageUpload component
 
 const animatedComponents = makeAnimated();
 
 const options = [
-    { value: 'option1', label: 'Dark Ambient' },
-    { value: 'option2', label: 'EDM' },
-    { value: 'option3', label: 'Electronic' },
-    { value: 'option4', label: 'Folk' },
-    { value: 'option5', label: 'Hip-Hop' },
-    { value: 'option6', label: 'House' },
-    { value: 'option7', label: 'Jazz' },
-    { value: 'option8', label: 'Trip-Hop' }
-    // Mock data for now because genre list format will have to change
-  ];  
+  { value: 'option1', label: 'Dark Ambient' },
+  { value: 'option2', label: 'EDM' },
+  { value: 'option3', label: 'Electronic' },
+  { value: 'option4', label: 'Folk' },
+  { value: 'option5', label: 'Hip-Hop' },
+  { value: 'option6', label: 'House' },
+  { value: 'option7', label: 'Jazz' },
+  { value: 'option8', label: 'Trip-Hop' }
+  // Mock data for now because genre list format will have to change
+];
 
-export default function EditProfile () {
-    const [artistName, setArtistName] = useState(mockUsers[0].name);
-    const [artistLocation, setArtistLocation] = useState(mockUsers[0].location);
-    const [artistBio, setArtistBio] = useState(mockUsers[0].profileDetails.aboutMe);
+export default function EditProfile() {
+  const [genres, setGenres] = useState<string[]>([]);
+  const [isSent, setIsSent] = useState<boolean>(false);
+  const [artistName, setArtistName] = useState(mockUsers[0].name);
+  const [artistLocation, setArtistLocation] = useState(mockUsers[0].location);
+  const [artistBio, setArtistBio] = useState(mockUsers[0].profileDetails.aboutMe);
+  const [imageURL, setImageURL] = useState<string>('/mockUsers/DJFrankenstein.png'); // Initialize imageURL state
 
-    const handleNameInput = (event: ChangeEvent<HTMLInputElement>) => {
-        setArtistName(event.target.value);
-    };
+  const handleNameInput = (event: ChangeEvent<HTMLInputElement>) => {
+    setArtistName(event.target.value);
+  };
 
-    const handleLocationInput = (event: ChangeEvent<HTMLInputElement>) => {
-        setArtistLocation(event.target.value);
-    };
+  const handleLocationInput = (event: ChangeEvent<HTMLInputElement>) => {
+    setArtistLocation(event.target.value);
+  };
 
-    const handleBioInput = (event: ChangeEvent<HTMLInputElement>) => {
-        setArtistBio(event.target.value);
-    };
+  const handleBioInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setArtistBio(event.target.value);
+  };
 
-    return (
+  return (
     <div className="flex flex-row">
         <div className="flex flex-col w-[22%] p-3 justify-start">
             <div className="shadow-[0px_4px_5px_#191922] mx-[15px] my-0 py-[18px] px-2.5 rounded-[20px] text-center" style= {{background: "linear-gradient(355deg, rgba(32,33,54,1) 0%, rgba(52,41,98,1) 100%)"}} >
@@ -124,5 +129,5 @@ export default function EditProfile () {
             </div>
         </div>
     </div>
-    )
+  );
 }
