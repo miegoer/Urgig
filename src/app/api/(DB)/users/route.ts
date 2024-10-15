@@ -72,3 +72,22 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
+
+// Fetch a specific user by ID (including imageURL)
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+  const dbConnect = (await import("@/app/lib/mongoDB/dbConnect")).default;
+  await dbConnect();
+
+  try {
+    // Fetch user by their ID and include the imageURL field
+    const user = await UserModel.findById(params.id).select("_id name email imageURL");
+
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(user, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+  }
+}

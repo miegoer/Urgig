@@ -33,30 +33,38 @@ export default function EventsList() {
     };
 
     fetchEvents();
-  }, [userId]); // Dependency array uses userId to load only after context is loaded (and userId doesn't change so it's just once)
+  }, [userId]);
 
   const eventList = (events: ArtistEvent[]) => {
     return events.map((event: ArtistEvent) => {
-      // console.log(event._id); // Check if _id is valid
+      // console.log(event._id)
       return (
         <div
           key={event._id}
-          className="flex flex-row text-[black] mb-[25px] px-5 py-2.5 rounded-[10px] shadow-[0_4px_8px_0_rgba(0,0,0,0.2),0_6px_20px_0_rgba(0,0,0,0.19)]"
+          className="flex flex-row text-black mb-6 px-5 py-2.5 rounded-2xl shadow-md"
           style={{
             background:
               "linear-gradient(11deg, rgba(255, 103, 43, 1) 0%, rgba(251, 173, 16, 1) 100%)",
           }}
         >
-          <span className="text-xl w-[26%] mr-6 border-r-[black] border-r border-solid">
-            <span className="text-[35px]">{event.dateD}</span>
+          <div className="w-1/4 mr-6 border-r border-black">
+            <span className="text-4xl">{event.dateD}</span>
             <br />
-            {event.dateM}
-          </span>
-          <div className="flex flex-col text-center w-3/5">
-            <span className={`uppercase mx-0 my-1.5 ${ubuntu.className}`}>
+            <span className="text-xl">{event.dateM}</span>
+          </div>
+          <div className="flex flex-col items-center w-3/5">
+            <span className={`uppercase my-1.5 ${ubuntu.className}`}>
               <Link href={`/events/${event._id}`}>{event.name}</Link>
             </span>
             <span className="text-sm italic">{event.time}</span>
+            {/* Display the image if available */}
+            {event.imageURL && (
+              <img
+                src={event.imageURL}
+                alt={event.name}
+                className="mt-2 w-full h-auto object-cover rounded-md"
+              />
+            )}
           </div>
         </div>
       );
@@ -64,13 +72,14 @@ export default function EventsList() {
   };
 
   return (
-    <div className="w-[320px] shadow-[0px_0px_0px_#272525] mt-5 rounded-[20px] p-5 bg-[#252531]">
-      <span className="block text-[11px] tracking-[1px] uppercase ml-2.5 mr-0 mt-[3px] mb-[18px]">
+    <div className="w-80 shadow-none mt-5 rounded-3xl p-5 bg-gray-800">
+      <span className="block text-xs tracking-widest uppercase ml-2.5 mt-1 mb-4 text-white">
         Upcoming Events
       </span>
 
       {eventList(artistUpcomingEvents)}
-      <span className="block text-[11px] tracking-[1px] uppercase ml-2.5 mr-0 mt-[3px] mb-[18px]">
+
+      <span className="block text-xs tracking-widest uppercase ml-2.5 mt-1 mb-4 text-white">
         Past Events
       </span>
       {eventList(artistPastEvents)}

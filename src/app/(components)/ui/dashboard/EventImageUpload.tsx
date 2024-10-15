@@ -1,14 +1,14 @@
-// components/ImageUpload.tsx
 import React, { useState } from 'react';
-import { storage, db, auth } from '@/app/api/(3rdParty)/firebase/firebase';
+import { storage, db } from '@/app/api/(3rdParty)/firebase/firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc, addDoc, collection } from 'firebase/firestore';
 
-interface ImageUploadProps {
+interface EventImageUploadProps {
   setImageURL: (url: string) => void;
+  eventId: string; // The ID of the event being edited
 }
 
-const ImageUpload: React.FC<ImageUploadProps> = ({ setImageURL }) => {
+const EventImageUpload: React.FC<EventImageUploadProps> = ({ setImageURL, eventId }) => {
   const [file, setFile] = useState<File | null>(null);
   const [progressPercent, setProgressPercent] = useState(0);
 
@@ -32,7 +32,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ setImageURL }) => {
       file.name.split('.').pop()
     }`;
 
-    const storageRef = ref(storage, `images/${uniqueName}`);
+    const storageRef = ref(storage, `event-images/${uniqueName}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on(
@@ -52,20 +52,15 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ setImageURL }) => {
           setImageURL(downloadURL);
           console.log('Image URL:', downloadURL);
 
-          // Save imageURL to the user's profile in the database
-          const user = auth.currentUser;
-          if (user) {
-            const userDocRef = doc(db, 'users', user.uid);
-            try {
-              await updateDoc(userDocRef, {
-                profileImageURL: downloadURL,
-              });
-              console.log('Profile image URL updated in the database');
-            } catch (error) {
-              console.error('Error updating profile image URL: ', error);
-            }
-          } else {
-            console.error('No user is signed in');
+          // Save imageURL to the event in the database
+          try {
+            const eventDocRef = doc(db, 'events', eventId);
+            await updateDoc(eventDocRef, {
+              imageURL: downloadURL,
+            });
+            console.log('Event image URL updated in the database');
+          } catch (error) {
+            console.error('Error updating event image URL: ', error);
           }
         });
       }
@@ -75,10 +70,10 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ setImageURL }) => {
   return (
     <div>
       <input type="file" onChange={handleFileChange} accept="image/*" />
-      <button onClick={handleUpload}>Upload</button>
+      <button onClick={handleUpload}>Upload Event Image</button>
       {progressPercent > 0 && <progress value={progressPercent} max="100" />}
     </div>
   );
 };
 
-export default ImageUpload;
+export default EventImageUpload;
