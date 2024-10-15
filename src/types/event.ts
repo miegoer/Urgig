@@ -5,7 +5,7 @@ export type Event = {
   name: string;
   promoterId: string;
   date: Date;
-  bannerURL?: string;
+  imageURL?: string;
   location: string;
   genre: string[]; //preselected values
   duration: number; //in days

@@ -17,7 +17,7 @@ export type User = {
 };
 
 export type ProfileDetails = {
-  profilePicture?: string; //Either: ID to separate table in Mongo (if we store in DB), URL to any cloud/webdisk API
+  imageURL?: string; // URL to any cloud/webdisk API
   aboutMe?: string;
   selectedVideo?: string; //URL to ... youtube?
   socialLinks?: SocialLinks;

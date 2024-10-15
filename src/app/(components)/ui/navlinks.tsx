@@ -7,7 +7,7 @@ const Messages = "/messages-icon.png";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 const Search = "/search-icon.png";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Dropdown,
@@ -16,46 +16,59 @@ import {
   DropdownSection,
   DropdownItem,
 } from "@nextui-org/dropdown";
+import { Button } from "@nextui-org/react";
+import { useTalkSession } from "@/app/(context)/TalkSessionContext";
 
 interface MainNavLink {
   name: string;
   href: string;
-  forUser: string;
+  showFor: string;
 }
 
 const links: MainNavLink[] = [
-  { name: "Dashboard", href: "/dashboard", forUser: "all" },
-  { name: "Find Talent", href: "/findtalent", forUser: "promoter" },
-  { name: "Find Gigs", href: "/findgigs", forUser: "artist" },
-  { name: "Spotlight", href: "/spotlight", forUser: "all" },
-  // { name: "Profile", href: "/myprofile", forUser: "all" },
+  { name: "Dashboard", href: "/dashboard", showFor: "both" },
+  { name: "Find Talent", href: "/findtalent", showFor: "promoter" },
+  { name: "Find Gigs", href: "/findgigs", showFor: "artist" },
+  { name: "Spotlight", href: "/spotlight", showFor: "both" },
+  // { name: "Profile", href: "/myprofile", forUser: "both" },
 ]; // Links in the global Main Nav at the top of the page
 
 export default function NavLinks() {
   const pathname = usePathname();
+  const { userId, userType } = useTalkSession();
+  let recievedType: string;
+
+  useEffect(() => {
+    if (userId && userType) {
+      recievedType = userType;
+    }
+  }, [userId, userType]);
+
   return (
     <>
-      {links.map((link: MainNavLink) => (
-        <Link
-          key={link.name}
-          href={link.href}
-          className={clsx(
-            "text-[#b7c4ff] p-3 uppercase text-[11px] mx-[20px] my-[6px] tracking-[3px] transition-all duration-200",
-            { "text-[#ccff69]": pathname === link.href },
-            "hover:bg-[#3525de] hover:rounded-[5px]"
-          )}
-        >
-          {link.name}
-        </Link>
-      ))}
+      {links.map(
+        (link: MainNavLink) =>
+          (userType === link.showFor || link.showFor === "both") && (
+            <Link
+              key={link.name}
+              href={link.href}
+              className={clsx(
+                "text-[#b7c4ff] p-3 uppercase text-[11px] mx-[20px] my-[6px] tracking-[3px] transition-all duration-200",
+                { "text-[#ccff69]": pathname === link.href },
+                "hover:bg-[#3525de] hover:rounded-[5px]"
+              )}
+            >
+              {link.name}
+            </Link>
+          )
+      )}
       <Dropdown>
         <DropdownTrigger>
           <span
             className={clsx(
               "text-[#b7c4ff] p-3 uppercase text-[11px] mx-[20px] my-[6px] tracking-[3px] transition-all duration-200 cursor-pointer",
               {
-                "text-[#ccff69]":
-                  pathname === "/myprofile" || pathname === "/editprofile",
+                "text-[#ccff69]": pathname === "/myprofile" || pathname === "/editprofile",
               },
               "hover:bg-[#3525de] hover:rounded-[5px]"
             )}
@@ -110,8 +123,7 @@ export default function NavLinks() {
         className="text-[white] text-center ml-[30px] mr-2.5 my-0 px-2.5 py-1 rounded-[20px] border-[none] w-[12%] h-[70%] text-xs"
         placeholder="Search"
         style={{
-          background:
-            "linear-gradient(11deg, rgba(52, 52, 52, 1) 0%, rgba(100, 100, 100, 1) 100%)",
+          background: "linear-gradient(11deg, rgba(52, 52, 52, 1) 0%, rgba(100, 100, 100, 1) 100%)",
         }}
       />
       <Image
@@ -122,6 +134,52 @@ export default function NavLinks() {
         alt="search icon"
         className="h-[16px] w-[16px] mr-8"
       />
+      {AdminMenu()}
     </>
+  );
+}
+
+function AdminMenu() {
+  const [realUserId, setRealUserId] = useState();
+  const { setUserId, setUserType, userId, userType } = useTalkSession();
+
+  const becomeArtist = () => {
+    setUserType("artist");
+    //window.location.reload();//reload resets to values from DB
+  };
+
+  const becomePromoter = () => {
+    setUserType("promoter");
+    //window.location.reload();//reload resets to values from DB
+  };
+
+  const impersonate = () => {
+    //window.location.reload();//reload resets to values from DB
+  };
+
+  const returnBack = () => {
+    //window.location.reload();//reload resets to values from DB
+  };
+
+  return (
+    <Dropdown>
+      <DropdownTrigger>
+        <Button variant="bordered">Open Menu</Button>
+      </DropdownTrigger>
+      <DropdownMenu aria-label="Static Actions">
+        <DropdownItem key="artist" onClick={becomeArtist}>
+          Become Artist
+        </DropdownItem>
+        <DropdownItem key="promoter" onClick={becomePromoter}>
+          Become Promoter
+        </DropdownItem>
+        <DropdownItem key="impersonate" onClick={impersonate}>
+          Impersonate
+        </DropdownItem>
+        <DropdownItem key="returnBack" onClick={returnBack}>
+          Return Back to your account
+        </DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
   );
 }
