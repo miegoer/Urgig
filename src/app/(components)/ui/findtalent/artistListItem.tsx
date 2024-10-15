@@ -50,7 +50,7 @@ export default function ArtistListItem({ artist }: ArtistListItemProps) {
           <Link href={`/a/profile/${artist._id}`} className="self-center">
             {artist.profileDetails && artist.profileDetails.profilePicture ? (
               <img
-                src={artist.profileDetails.profilePicture}
+                src={artist.profileDetails.imageURL}
                 alt="Artist's profile Photo"
                 width={80}
                 height={80}
