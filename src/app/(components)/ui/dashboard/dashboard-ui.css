@@ -20,10 +20,12 @@
     background: linear-gradient(5deg, rgba(74,34,247,1) 0%, rgba(94,58,248,1) 99%);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     font-weight: bold;
+    overflow: auto;
 }
 
 .message-box-read {
     background: rgb(40,40,40);
     background: linear-gradient(5deg, rgba(40,40,40,1) 0%, rgba(80,80,80,1) 100%);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    overflow: auto;
 }

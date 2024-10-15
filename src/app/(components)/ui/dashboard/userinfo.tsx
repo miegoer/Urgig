@@ -10,13 +10,13 @@ const ubuntu = Ubuntu({
 
 export default function UserInfo() {
   return (
-    <div className="w-[38%] shadow-[0px_0px_0px_#272525] rounded-[20px] bg-[#252531] p-6 flex flex-row items-center">
+    <div className="w-[460px] shadow-[0px_0px_0px_#272525] rounded-[20px] bg-[#252531] p-6 flex flex-row items-center overflow-x-auto">
       <Image
         src={DJFrankenstein}
-        height={60}
-        width={60}
+        height={80}
+        width={80}
         alt="mock profile photo"
-        className="h-[110px] w-[110px] object-cover m-2.5 rounded-[50%]"
+        className="h-[120px] w-[120px] object-cover m-2.5 rounded-[50%]"
       />
       <div className="flex flex-col justify-center ml-12">
         <div className={`text-l tracking-[2px] text-center mb-2.5 ${ubuntu.className}`}>

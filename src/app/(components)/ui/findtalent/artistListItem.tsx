@@ -87,7 +87,7 @@ export default function ArtistListItem({ artist }: ArtistListItemProps) {
 
         <div className="flex flex-col items-center justify-center w-[280px] h-[100px] ">
           {events.map((event) => (
-            <Link href={`/event/${event._id}`}>
+            <Link href={`/events/${event._id}`}>
               {" "}
               <span className="text-[10px] w-[230px] text-nowrap tracking-[1.5px] uppercase  mb-[8px] text-center ">
                 {event.name}
