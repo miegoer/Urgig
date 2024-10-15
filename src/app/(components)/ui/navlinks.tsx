@@ -7,17 +7,11 @@ const Messages = "/messages-icon.png";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 const Search = "/search-icon.png";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
-import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownSection,
-  DropdownItem,
-} from "@nextui-org/dropdown";
-import { Button } from "@nextui-org/react";
+import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/dropdown";
 import { useTalkSession } from "@/app/(context)/TalkSessionContext";
+import NavAdminMenu from "./navAdminMenu";
 
 interface MainNavLink {
   name: string;
@@ -134,52 +128,7 @@ export default function NavLinks() {
         alt="search icon"
         className="h-[16px] w-[16px] mr-8"
       />
-      {AdminMenu()}
+      <NavAdminMenu />
     </>
-  );
-}
-
-function AdminMenu() {
-  const [realUserId, setRealUserId] = useState();
-  const { setUserId, setUserType, userId, userType } = useTalkSession();
-
-  const becomeArtist = () => {
-    setUserType("artist");
-    //window.location.reload();//reload resets to values from DB
-  };
-
-  const becomePromoter = () => {
-    setUserType("promoter");
-    //window.location.reload();//reload resets to values from DB
-  };
-
-  const impersonate = () => {
-    //window.location.reload();//reload resets to values from DB
-  };
-
-  const returnBack = () => {
-    //window.location.reload();//reload resets to values from DB
-  };
-
-  return (
-    <Dropdown>
-      <DropdownTrigger>
-        <Button variant="bordered">Open Menu</Button>
-      </DropdownTrigger>
-      <DropdownMenu aria-label="Static Actions">
-        <DropdownItem key="artist" onClick={becomeArtist}>
-          Become Artist
-        </DropdownItem>
-        <DropdownItem key="promoter" onClick={becomePromoter}>
-          Become Promoter
-        </DropdownItem>
-        <DropdownItem key="impersonate" onClick={impersonate}>
-          Impersonate
-        </DropdownItem>
-        <DropdownItem key="returnBack" onClick={returnBack}>
-          Return Back to your account
-        </DropdownItem>
-      </DropdownMenu>
-    </Dropdown>
   );
 }
