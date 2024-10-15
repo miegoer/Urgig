@@ -70,10 +70,6 @@ export default function EventsList() {
       </span>
 
       {eventList(artistUpcomingEvents)}
-      <span className="block text-[11px] tracking-[1px] uppercase ml-2.5 mr-0 mt-[3px] mb-[18px]">
-        Past Events
-      </span>
-      {eventList(artistPastEvents)}
     </div>
   );
 }

@@ -18,7 +18,7 @@ import { Ubuntu } from "next/font/google";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
-import { BookNow } from "@/app/(components)/ui/a/booknow";
+import { BookNow } from "@/app/(components)/ui/a/bookNow";
 import { useState } from 'react';
 import './animation.css';
 

@@ -114,7 +114,7 @@ export default function NavLinks() {
       />
       <input
         type="text"
-        className="text-[white] text-center ml-[30px] mr-2.5 my-0 px-2.5 py-1 rounded-[20px] border-[none] w-[12%] h-[70%] text-xs"
+        className="text-[white] text-center ml-[30px] my-0 px-2.5 py-1 rounded-[20px] border-[none] w-[12%] h-[70%] text-xs"
         placeholder="Search"
         style={{
           background: "linear-gradient(11deg, rgba(52, 52, 52, 1) 0%, rgba(100, 100, 100, 1) 100%)",
@@ -126,7 +126,7 @@ export default function NavLinks() {
         width={20}
         id="search-icon"
         alt="search icon"
-        className="h-[16px] w-[16px] mr-8"
+        className="h-[16px] w-[16px] ml-[-12px] mr-8"
       />
       <NavAdminMenu />
     </>
