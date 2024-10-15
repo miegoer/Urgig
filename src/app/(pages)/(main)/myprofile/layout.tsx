@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect, useState } from 'react';
+import { auth, db } from '@/app/api/(3rdParty)/firebase/firebase';
+import { doc, getDoc } from 'firebase/firestore';
 import mockUsers from "@/mockData/user";
 import Link from "next/link";
 const DJFrankenstein = "/mockUsers/DJFrankenstein.png";
@@ -16,6 +19,7 @@ import { Ubuntu } from "next/font/google";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
+import imageURL from "../../../(components)/ui/dashboard/ImageUpload"
 
 const ubuntu = Ubuntu({
   weight: "400",
@@ -39,6 +43,35 @@ const profileLinks: profileLink[] = [
 export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
+  const [profileImageURL, setProfileImageURL] = useState('/mockUsers/DJFrankenstein.png');
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const user = auth.currentUser;
+      if (user) {
+        const userDocRef = doc(db, 'users', user.uid);
+        try {
+          const docSnap = await getDoc(userDocRef);
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            if (data.profileImageURL) {
+              setProfileImageURL(data.profileImageURL);
+            }
+          } else {
+            console.log('No such document!');
+          }
+        } catch (error) {
+          console.error('Error fetching user data: ', error);
+        }
+      } else {
+        console.error('No user is signed in');
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+
   return (
     <div
       style={{
@@ -52,10 +85,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         className="h-[630px] w-[500px] relative"
       >
         <Image
-          src={DJFrankenstein}
+          src={profileImageURL}
           width={660}
           height={530}
-          alt="mock profile photo"
+          alt="Profile Photo"
           className="h-[100%] w-[100%] shadow-[0_4px_8px_0_rgba(0,0,0,0.2),0_6px_20px_0_rgba(0,0,0,0.19)] -ml-5 rounded-r-[50%]"
         />
         <div className="h-[80px] px-5 flex flex-col top-[82%] inline-flex z-5 absolute bg-[rgba(0,0,0,0.7)]">

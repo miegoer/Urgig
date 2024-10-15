@@ -1,14 +1,14 @@
-// components/ImageUpload.tsx
 import React, { useState } from "react";
-import { storage, db, auth } from "@/app/api/(3rdParty)/firebase/firebase";
+import { storage } from "@/app/api/(3rdParty)/firebase/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc, addDoc, collection } from "firebase/firestore";
 
-interface ImageUploadProps {
+interface EventImageUploadProps {
   setImageURL: (url: string) => void;
+  // eventId: string;
 }
 
-const ImageUpload: React.FC<ImageUploadProps> = ({ setImageURL }) => {
+const EventImageUpload: React.FC<EventImageUploadProps> = ({ setImageURL }) => {
   const [file, setFile] = useState<File | null>(null);
   const [progressPercent, setProgressPercent] = useState(0);
 
@@ -32,7 +32,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ setImageURL }) => {
       .split(".")
       .pop()}`;
 
-    const storageRef = ref(storage, `images/${uniqueName}`);
+    const storageRef = ref(storage, `event-images/${uniqueName}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on(
@@ -57,10 +57,10 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ setImageURL }) => {
   return (
     <div>
       <input type="file" onChange={handleFileChange} accept="image/*" />
-      <button onClick={handleUpload}>Upload</button>
+      <button onClick={handleUpload}>Upload Event Image</button>
       {progressPercent > 0 && <progress value={progressPercent} max="100" />}
     </div>
   );
 };
 
-export default ImageUpload;
+export default EventImageUpload;
