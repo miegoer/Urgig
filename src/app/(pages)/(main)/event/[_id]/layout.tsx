@@ -140,7 +140,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         style={{ gridColumn: "8 / span 3", gridRow: "2 / span 8" }}
         className="w-[160px] ml-[70px]"
       >
-        {event.promoterId === _id
+        {event.promoterId === userId
           ? profileLinks.map((link) => (
               <Link href={link.href} key={link.name}>
                 <div

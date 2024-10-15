@@ -2,7 +2,7 @@ export type User = {
   _id: string;
   email: string;
   typeOfAccount: string; //Myabe a [] later and then refactor to include both?
-  name?: string;
+  name: string;
   contactNumber?: string;
   password?: string;
   dateOfBirth?: Date;
@@ -13,6 +13,7 @@ export type User = {
   events?: string[];
   stageName?: string;
   companyName?: string;
+  genre?: string[]
 };
 
 export type ProfileDetails = {
@@ -22,7 +23,7 @@ export type ProfileDetails = {
   socialLinks?: SocialLinks;
   unAvailableDates?: Date[]; //for now
   bannerPicture?: string;
-  genre?: string[]; // preselected ones, defined hardcoded into UI! Make a separate file at least...
+  genre: string[]; // preselected ones, defined hardcoded into UI! Make a separate file at least...
 };
 
 export type SocialLinks = {
