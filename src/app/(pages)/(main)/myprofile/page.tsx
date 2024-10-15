@@ -12,13 +12,8 @@ import { useTalkSession } from "@/app/(context)/TalkSessionContext";
 import { getUser } from "@/app/utils/userUtils";
 import { User } from "@/types/user";
 import clsx from "clsx";
+import FirstCol from "@/app/(components)/ui/profilePage/firstCol";
 
-const StartChat = "/startchat-icon.png";
-const Connect = "/connect-icon.png";
-const Spotify = "/spotify-icon.png";
-const Instagram = "/ig-icon.png";
-const Tiktok = "/tiktok-icon.png";
-const Youtube = "/youtube-icon.png";
 const DJFrankenstein = "/mockUsers/DJFrankenstein.png";
 
 const ubuntu = Ubuntu({
@@ -40,11 +35,6 @@ const profileLinks: profileLink[] = [
   { name: "Media", href: `${baseRoute}/media` },
 ];
 
-interface userTag {
-  name: string;
-  color: string;
-}
-
 // TO DO: refactor to minimise repetitive, create function to find placement of icons depending on how many social accounts linked.
 
 export default function MyProfile() {
@@ -60,75 +50,13 @@ export default function MyProfile() {
     })();
   }, [userId]); // Dependency array uses userId to load only after context is loaded (and userId doesn't change so it's just once)
 
+  const isPublic = () => {
+    return pathname.includes("a/profile") || pathname.includes("p/profile");
+  };
+
   return (
     <>
-      <div
-        id="1stcol"
-        style={{ gridColumn: "1 / span 3", gridRow: "2 / span 10" }}
-        className="h-[630px] w-[500px] relative"
-      >
-        {user?.profileDetails?.profilePicture && (
-          <Image
-            src={user.profileDetails.profilePicture}
-            width={660}
-            height={530}
-            alt="mock profile photo"
-            className="h-[100%] w-[100%] shadow-[0_4px_8px_0_rgba(0,0,0,0.2),0_6px_20px_0_rgba(0,0,0,0.19)] -ml-5 rounded-r-[50%]"
-          />
-        )}
-        <div className="h-[80px] px-5 flex flex-col top-[82%] inline-flex z-5 absolute bg-[rgba(0,0,0,0.7)]">
-          <div
-            className={`z-10 py-2.5 rounded-[3px] tracking-[1.5px] text-[white] ${ubuntu.className} text-2xl`}
-          >
-            {user ? user.name : ""}
-          </div>
-          <span className="text-sm italic -mt-2 text-center ${ubuntu.className}">
-            {user ? user.location : ""}
-          </span>
-        </div>
-        <Image
-          src={StartChat}
-          width={28}
-          height={28}
-          alt="Chat button"
-          className="w-[28px] h-[28px] absolute top-[40px] left-[78%] hover:scale-[1.2] transition-all duration-200"
-        />
-        <Image
-          src={Connect}
-          width={28}
-          height={28}
-          alt="Connect button"
-          className="w-[28px] h-[28px] absolute top-[120px] left-[90%] hover:scale-[1.2] transition-all duration-200"
-        />
-        <Image
-          src={Spotify}
-          width={28}
-          height={28}
-          alt="Spotify button"
-          className="w-[28px] h-[28px] absolute top-[220px] left-[96%] hover:scale-[1.2] transition-all duration-200"
-        />
-        <Image
-          src={Instagram}
-          width={28}
-          height={28}
-          alt="Instagram button"
-          className="w-[28px] h-[28px] absolute top-[330px] left-[98%] hover:scale-[1.2] transition-all duration-200"
-        />
-        <Image
-          src={Youtube}
-          width={28}
-          height={28}
-          alt="YouTube button"
-          className="w-[28px] h-[28px] absolute top-[440px] left-[95%] hover:scale-[1.2] transition-all duration-200"
-        />
-        <Image
-          src={Tiktok}
-          width={28}
-          height={28}
-          alt="Tiktok button"
-          className="w-[30px] h-[30px] absolute top-[545px] left-[82%] hover:scale-[1.2] transition-all duration-200"
-        />
-      </div>
+      <FirstCol user={user!} />
       <div
         id="2ndcol"
         style={{ gridColumn: "4 / span 4", gridRow: "1 / span 4" }}
@@ -197,11 +125,13 @@ export default function MyProfile() {
         style={{ gridColumn: "8 / span 3", gridRow: "2 / span 8" }}
         className="z-10 w-[160px] ml-[70px]"
       >
-        <Link href="/booknow">
-          <div className="w-[100%] bg-[#20202A] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-[#ccff69] text-xs border-2 border-solid border-[#ccff69] uppercase transition-all duration-200 pulse-button">
-            Book Now
-          </div>
-        </Link>
+        {isPublic() && (
+          <Link href="/booknow">
+            <div className="w-[100%] bg-[#20202A] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-[#ccff69] text-xs border-2 border-solid border-[#ccff69] uppercase transition-all duration-200 pulse-button">
+              Book Now
+            </div>
+          </Link>
+        )}
         {profileLinks.map((link) => (
           <Link href={link.href}>
             <div
