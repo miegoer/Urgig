@@ -36,7 +36,6 @@ export default function ThirdCol({ sessionUser }: Props) {
 
         if (!isValidProfile(pathname, user.typeOfAccount)) {
           const link = `${redirectToValidProfile(user.typeOfAccount)}/${id}`;
-          console.log({ link });
           router.push(link);
           return;
         }
