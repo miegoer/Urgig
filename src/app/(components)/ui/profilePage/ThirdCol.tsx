@@ -44,9 +44,9 @@ export default function ThirdCol({ sessionUser }: Props) {
 
       setProfileLinks([
         { name: "Bio", href: `${baseRoute}` },
-        { name: "Fan Base", href: `${baseRoute}fanbase` },
-        { name: "Events", href: `${baseRoute}events` },
-        { name: "Media", href: `${baseRoute}media` },
+        { name: "Fan Base", href: `${baseRoute}/fanbase` },
+        { name: "Events", href: `${baseRoute}/events` },
+        { name: "Media", href: `${baseRoute}/media` },
       ]);
     };
     checkUser();
@@ -79,9 +79,9 @@ export default function ThirdCol({ sessionUser }: Props) {
 }
 
 function getBaseRoute(pathname: string, userId: string) {
-  if (pathname.includes("/myprofile")) return "/myprofile/";
-  if (pathname.includes(`/a/${userId}`)) return `/a/${userId}/`;
-  if (pathname.includes(`/p/${userId}`)) return `/p/${userId}/`;
+  if (pathname.includes("/myprofile")) return "/myprofile";
+  if (pathname.includes(`/a/${userId}`)) return `/a/${userId}`;
+  if (pathname.includes(`/p/${userId}`)) return `/p/${userId}`;
   console.log("this is run...");
   return null;
 }
