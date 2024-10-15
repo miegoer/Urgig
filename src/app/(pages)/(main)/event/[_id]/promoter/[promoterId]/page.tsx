@@ -50,7 +50,7 @@ export default function Promoter() {
 
           setUpcomingArtistEvents(upcomingEvents);
           setPastArtistEvents(pastEvents);
-          console.log(upcomingEvents, pastEvents);
+          console.log('upcoming-----------',upcomingEvents,'past----------',pastEvents);
         } catch (error) {
           console.error("Error fetching events:", error);
         }
@@ -107,11 +107,11 @@ export default function Promoter() {
                 <div>
                   {event.name && (
                     <Link href={`/event/${promoter.events[index]}`}>
-                      {" "}
+                    
                       <p>
-                        {event.name}{" "}
+                        {event.name}
                         <span className="text-xs text-[#a0aec0] ">
-                        {"       "} {event.dateD} of {event.dateM}
+                         {event.dateD} of {event.dateM}
                         </span>
                       </p>
                     </Link>

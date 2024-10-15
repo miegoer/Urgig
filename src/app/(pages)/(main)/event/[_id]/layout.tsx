@@ -30,9 +30,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const params = useParams();
   const { userId } = useTalkSession();
-  const _id = userId ? userId.slice(5) : "";
+
 
   const [event, setEvent] = useState<Event>({
+    _id:"",
     name: "",
     location: "",
     date: new Date(),
@@ -61,7 +62,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   const profileLinks: profileLink[] = [
     { name: "Event", href: `${baseRoute}` },
-    { name: "Promoter", href: `${baseRoute}/promoter/${event.promoterId}` },
+    { name: "Promoter", href: `myprofile/${event.promoterId}` },
+    // { name: "Promoter", href: `${baseRoute}/promoter/${event.promoterId}` },
     {
       name: "Oficial Site",
       href: event.link ? event.link : `https://${event.name}.com`,

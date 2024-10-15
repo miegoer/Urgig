@@ -12,6 +12,7 @@ export default function CreateEvent() {
   // const _id = userId? userId.slice(5): '';
 
   const initialState: Event = {
+    _id:"",
     name: "",
     location: "",
     date: new Date(),

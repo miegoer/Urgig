@@ -12,6 +12,7 @@ export async function GET(request: NextRequest, { params }: { params: { _id: str
   try {
     await dbConnect(); // Ensure database connection is established
     const user = await UserModel.findById(_id).select("-password");
+    console.log('--------------user en server',user)
     //if not found return 404
     if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 });
     // else return data
