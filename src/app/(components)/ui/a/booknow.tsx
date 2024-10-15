@@ -7,8 +7,8 @@ import {
     DropdownItem
   } from "@nextui-org/dropdown";
 import Select from 'react-select';
-import mockBookings from "@/mockData/bookings";
-import { Booking } from "@/types/booking";
+import mockEvents from "@/mockData/events";
+import { Booking, Set } from "@/types/booking";
 import { useState, ChangeEvent } from 'react';
 
 interface BookNowProps {
@@ -21,7 +21,7 @@ const ubuntu = Ubuntu({
   });
 
 interface SelectedEvent {
-    value: Booking,
+    value: Event,
     label: string,
 }
 
@@ -34,49 +34,108 @@ const noOptionsMessage = () => 'No Event Attached';
 
 export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
 
+    const initialState:Booking = {
+        _id: '',
+        name: '',
+        // link?: string;
+        location: '',
+        offer: 0,
+        sets: [],
+        genre: [],
+        maxCapacity: 0,
+        status: 'pending',
+        bookingPromoterId: '',
+        bookingArtistId: '',
+        bookingEventId: '',
+        link: ''
+      };
+
+    const initialSet: Set = {
+        _id: '',
+        date: Date,
+        setTimeStart: '',
+        setTimeEnd: ''
+    }
+      
+
+    const [bookingData, setBookingData] = useState(initialState);
+
     const [offer, setOffer] = useState<number>(0);
     const [payType, setPayType] = useState<string>('');
     const [selectedEvent, setSelectedEvent] = useState<SelectedEvent | null>(null);
-    const [selectedDate, setSelectedDate] = useState<SelectedDate | null>(null);
     const [startTime, setStartTime] = useState<string>('');
     const [endTime, setEndTime] = useState<string>('');
     const [comments, setComments] = useState<string>('');
+    const [setDetails, setSetDetails] = useState<Set>({})
 
     const [dates, setDates] = useState<{ value: string; label: string }[]>([]);
 
-    const bookings:SelectedEvent[] = mockBookings.map((event) => ({
+    const events:SelectedEvent[] = mockEvents.map((event) => ({
         value: event,
         label: event.name,
       }));
  
     const chooseEvent = (event: SelectedEvent) => {
         setSelectedEvent(event);
-        const uniqueDates = new Set(event.value.sets.map((set) => set.date.toISOString().split('T')[0])); // Filters unique dates from the list of set dates
-        const formattedDates = Array.from(uniqueDates).map((date) => ({
-          value: date,
-          label: new Date(date).toDateString(),
+
+        const formattedDate = event.value.date.toLocaleDateString('en-GB', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+          });
+
+        setDates([{value: formattedDate, label: formattedDate}]);
+
+        setBookingData((prevData) => ({
+            ...prevData,
+            name: event.value.name,
+            location: event.value.location,
+            maxCapacity: event.value.maxCapacity,
+            bookingPromoterId: event.value.promoterId,
+            genre: event.value.genre
         }));
-        setDates(formattedDates);
     }
 
     const chooseDate = (date: SelectedDate) => {
-        setSelectedDate(date);
+        setBookingData((prevData) => ({
+            ...prevData,
+            date: date.value,
+        }));
     }
 
     const handleOfferInput = (event:ChangeEvent<HTMLInputElement>) => {
         setOffer(Number(event.target.value));
+        setBookingData((prevData) => ({
+            ...prevData,
+            offer: Number(event.target.value),
+          }));
     }
 
     const handleTypeInput = (val:string) => {
         setPayType(val)
     }
 
-    const handleStartInput = (event:ChangeEvent<HTMLInputElement>) => {
-        setStartTime(event.target.value);
-    }
+    const handleStartInput = (event: ChangeEvent<HTMLInputElement>) => {
+        setBookingData((prevData) => ({
+          ...prevData,
+          sets: prevData.sets[0].map((set, index) => 
+            index === 0 
+              ? { ...set, setTimeStart: event.target.value } 
+              : set
+          ),
+        }));
+      };
+      
 
     const handleEndInput = (event:ChangeEvent<HTMLInputElement>) => {
-        setEndTime(event.target.value);
+        setBookingData((prevData) => ({
+            ...prevData,
+            sets: prevData.sets.map((set, index) => 
+              index === 0 
+                ? { ...set, setTimeEnd: event.target.value } 
+                : set
+            ),
+          }));
     }
 
     const handleCommentsInput = (event:ChangeEvent<HTMLTextAreaElement>) => {
@@ -84,14 +143,8 @@ export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
     }
 
     const handleSubmit = () => {
-        console.log(offer, payType, selectedEvent, selectedDate, createTimeRange(startTime, endTime), comments)
+        console.log(bookingData)
     }
-
-    const createTimeRange = (startTime: string, endTime: string): string => {
-        const formattedStartTime = startTime.padStart(5, '0');
-        const formattedEndTime = endTime.padStart(5, '0');
-        return `${formattedStartTime} - ${formattedEndTime}`;
-      }; // To produce time range with the format 'start - end'
 
     return (
         <div className="absolute bg-[#20202A] text-[white] p-8 rounded-[20px] w-[40%] h-[89%]">
@@ -104,7 +157,7 @@ export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
                     <Select className="z-60 w-[55%] text-[black] text-center"
                     classNamePrefix="select"
                     name="event"
-                    options={bookings}
+                    options={events}
                     onChange={(e) => chooseEvent(e)}
                     />
                 </div>
