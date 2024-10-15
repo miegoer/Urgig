@@ -57,6 +57,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     fetchUserData();
   }, []);
 
+  const baseRoute = "/myprofile";
+
+  const profileLinks: profileLink[] = [
+    { name: "Bio", href: `${baseRoute}` },
+    { name: "Fan Base", href: `${baseRoute}/fanbase` },
+    { name: "Events", href: `${baseRoute}/events` },
+    { name: "Media", href: `${baseRoute}/media` },
+  ];
 
   return (
     <div

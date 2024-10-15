@@ -24,7 +24,7 @@ export default function QuickStats() {
         if (stat.requests) {
           statId = "box-1";
           number = stat.requests;
-          type = number !== 1 ? "Requests" : "Request";
+          type = 'Pending';
           src = Request;
           route = '/requests';
         } else if (stat.bookings) {
@@ -42,7 +42,7 @@ export default function QuickStats() {
         }
         return (
           <div
-            className="w-[130px] h-[130px] flex flex-col justify-center text-center shadow-[0_4px_8px_0_rgba(0,0,0,0.2),0_6px_20px_0_rgba(0,0,0,0.19)] mt-[35px] mb-[15px] mx-[25px] m-5 rounded-[30%]"
+            className="w-[130px] h-[130px] flex flex-col justify-center text-center shadow-[0_4px_8px_0_rgba(0,0,0,0.2),0_6px_20px_0_rgba(0,0,0,0.19)] mt-[35px] mb-[15px] mx-[25px] m-5 rounded-[30%] hover:scale-105 transition-all duration-250"
             id={`${statId}`}
             key={statId}
             onClick={() => router.push(route)}

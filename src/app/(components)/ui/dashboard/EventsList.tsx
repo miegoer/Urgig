@@ -72,7 +72,7 @@ export default function EventsList() {
   };
 
   return (
-    <div className="w-80 shadow-none mt-5 rounded-3xl p-5 bg-gray-800">
+    <div className="w-[400px] shadow-none mt-5 rounded-3xl p-5 bg-[#292346]">
       <span className="block text-xs tracking-widest uppercase ml-2.5 mt-1 mb-4 text-white">
         Upcoming Events
       </span>

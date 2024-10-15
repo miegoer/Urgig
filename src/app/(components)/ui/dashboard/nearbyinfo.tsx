@@ -51,7 +51,7 @@ export default function NearbyInfo() {
         )}
         {userType === 'artist' && (
           mockGigList.map((gig) => (
-            <div>{gig.name}</div>
+            <div key={gig.name}>{gig.name}</div>
           ))
         )}
       </div>

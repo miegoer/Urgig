@@ -147,6 +147,7 @@ export default function CreateEvent() {
                 className="text-center w-[240px] p-1 mb-5 outline-none rounded-[20px] text-[black]"
               />
             </div>
+          </div>
             {/* Image Upload */}
             <div>
               <label>Event Image:</label>
