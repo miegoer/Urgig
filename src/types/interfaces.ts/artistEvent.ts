@@ -4,4 +4,5 @@ export interface ArtistEvent {
   dateM: string;
   name: string;
   time: string;
+  imageURL?: string;
 }
