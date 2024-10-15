@@ -9,6 +9,7 @@ const Instagram = "/ig-icon.png";
 const Youtube = "/youtube-icon.png";
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
+import SelectGenre from "@/app/(components)/ui/dashboard/selectGenre";
 import ImageUpload from '../../../(components)/ui/dashboard/ImageUpload'; // Import the ImageUpload component
 
 const animatedComponents = makeAnimated();
@@ -26,6 +27,8 @@ const options = [
 ];
 
 export default function EditProfile() {
+  const [genres, setGenres] = useState<string[]>([]);
+  const [isSent, setIsSent] = useState<boolean>(false);
   const [artistName, setArtistName] = useState(mockUsers[0].name);
   const [artistLocation, setArtistLocation] = useState(mockUsers[0].location);
   const [artistBio, setArtistBio] = useState(mockUsers[0].profileDetails.aboutMe);
@@ -110,13 +113,7 @@ export default function EditProfile() {
             Genres
           </span>
           <div className="m-4 px-10 tracking-[1px] text-sm text-[black]">
-            <Select
-              closeMenuOnSelect={false}
-              components={animatedComponents}
-              defaultValue={options[0]}
-              isMulti
-              options={options}
-            />
+          <SelectGenre setGenres={setGenres} genres={genres} isSent={isSent} />
           </div>
         </div>
         <div className="shadow-[0px_4px_5px_#191922] mt-[40px] py-[18px] px-2.5 rounded-[20px] text-center bg-[#2f2753]">
