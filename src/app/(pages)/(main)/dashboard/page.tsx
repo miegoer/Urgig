@@ -1,7 +1,7 @@
 "use client";
 import QuickStats from "@/app/(components)/ui/dashboard/quickstats";
 import Notifications from "@/app/(components)/ui/dashboard/notifications";
-import Messages from "@/app/(components)/ui/dashboard/messages";
+import Messages from "@/app/(components)/ui/dashboard/nearbyinfo";
 import UserInfo from "@/app/(components)/ui/dashboard/userinfo";
 import EventsList from "@/app/(components)/ui/dashboard/EventsList";
 import { Button } from "@mui/material";

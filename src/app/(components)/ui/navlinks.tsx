@@ -2,11 +2,8 @@
 
 import Link from "next/link";
 import clsx from "clsx";
-const Notifications = "/notifications-bell.png";
-const Messages = "/messages-icon.png";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-const Search = "/search-icon.png";
 import React, { useEffect } from "react";
 
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/dropdown";
@@ -105,7 +102,7 @@ export default function NavLinks() {
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>
-      <Image
+      {/* <Image
         src={Notifications}
         alt="notifications bell"
         height={20}
@@ -119,15 +116,15 @@ export default function NavLinks() {
         style={{
           background: "linear-gradient(11deg, rgba(52, 52, 52, 1) 0%, rgba(100, 100, 100, 1) 100%)",
         }}
-      />
-      <Image
+      /> */}
+      {/* <Image
         src={Search}
         height={20}
         width={20}
         id="search-icon"
         alt="search icon"
         className="h-[16px] w-[16px] ml-[-12px] mr-8"
-      />
+      /> */}
       <NavAdminMenu />
     </>
   );
