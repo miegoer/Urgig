@@ -1,5 +1,3 @@
-import { string } from "zod";
-
 export type Event = {
   _id?: string;
   name: string;

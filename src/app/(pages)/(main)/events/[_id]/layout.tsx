@@ -30,16 +30,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const params = useParams();
   const { userId } = useTalkSession();
-  const _id = userId ? userId.slice(5) : "";
 
   const [event, setEvent] = useState<Event>({
+    _id: "",
     name: "",
     location: "",
     date: new Date(),
     genre: [] as string[],
     duration: 1,
     maxCapacity: 100,
-    bannerURL: undefined,
+    imageURL: undefined,
     link: undefined,
     promoterId: "",
   });
@@ -57,17 +57,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     fetchData();
   }, [params]);
 
-  const baseRoute = `/event/${event._id}`;
+  const baseRoute = `/events/${event._id}`;
 
   const profileLinks: profileLink[] = [
     { name: "Event", href: `${baseRoute}` },
-    { name: "Promoter", href: `${baseRoute}/promoter/${event.promoterId}` },
+    { name: "Promoter", href: `/p/${event.promoterId}` },
+    // { name: "Promoter", href: `${baseRoute}/promoter/${event.promoterId}` },
     {
       name: "Oficial Site",
       href: event.link ? event.link : `https://${event.name}.com`,
     }, //placeholder
     { name: "Info", href: `${baseRoute}/eventInfo` },
-    { name: "Edit", href: `${baseRoute}/edit` },
+    { name: "Bookings", href: `${baseRoute}/bookings` },
   ];
 
   return (
@@ -138,15 +139,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         style={{ gridColumn: "8 / span 3", gridRow: "2 / span 8" }}
         className="w-[160px] ml-[70px]"
       >
-        {event.promoterId === _id
+        {event.promoterId === userId
           ? profileLinks.map((link) => (
               <Link href={link.href} key={link.name}>
                 <div
                   className={clsx(
                     "w-[100%] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-xs border border-solid border-[white] uppercase transition-all duration-200",
                     {
-                      "bg-[white] text-[#20202d] font-bold ":
-                        pathname === link.href,
+                      "bg-[white] text-[#20202d] font-bold ": pathname === link.href,
                       "text-[white]": pathname !== link.href,
                     },
                     "hover:bg-[white] hover:text-[black] hover:scale-110"
@@ -162,8 +162,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   className={clsx(
                     "w-[100%] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-xs border border-solid border-[white] uppercase transition-all duration-200",
                     {
-                      "bg-[white] text-[#20202d] font-bold ":
-                        pathname === link.href,
+                      "bg-[white] text-[#20202d] font-bold ": pathname === link.href,
                       "text-[white]": pathname !== link.href,
                     },
                     "hover:bg-[white] hover:text-[black] hover:scale-110"
