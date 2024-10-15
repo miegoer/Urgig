@@ -1,4 +1,4 @@
-import ProfileMedia from "@/app/(components)/ui/profilePage/Media";
+import ProfileMedia from "@/app/(components)/ui/profilePage/ProfileMedia";
 import { User } from "@/types/user";
 import React from "react";
 
