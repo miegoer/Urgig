@@ -13,6 +13,7 @@ export default function CreateEvent() {
   const router = useRouter();
 
   const initialState: Event = {
+    _id:"",
     name: "",
     location: "",
     date: new Date(),
