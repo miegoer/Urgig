@@ -1,12 +1,12 @@
 "use client";
-import EventImageUpload from '../../../../(components)/ui/dashboard/EventImageUpload';
+import EventImageUpload from "../../../../(components)/ui/dashboard/EventImageUpload";
 import React, { useEffect, useState } from "react";
 import { Event } from "@/types/event";
 import { useTalkSession } from "@/app/(context)/TalkSessionContext";
 import SelectGenre from "@/app/(components)/ui/dashboard/selectGenre";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import ImageUpload from "../../../../(components)/ui/dashboard/ImageUpload"; 
+import ImageUpload from "../../../../(components)/ui/dashboard/ImageUpload";
 
 export default function CreateEvent() {
   const { userId } = useTalkSession();
@@ -19,8 +19,8 @@ export default function CreateEvent() {
     genre: [] as string[],
     duration: 1,
     maxCapacity: 100,
-    imageURL: "", 
-    link: "",
+    imageURL: "",
+    link: undefined,
     promoterId: "",
   };
 
@@ -75,7 +75,7 @@ export default function CreateEvent() {
       if (response.ok) {
         setEventData(initialState);
         setGenres([]);
-        setImageURL(""); 
+        setImageURL("");
         setIsCreated(true);
         setTimeout(() => {
           router.push("/dashboard");
@@ -138,7 +138,7 @@ export default function CreateEvent() {
             {/* Image Upload */}
             <div>
               <label>Event Image:</label>
-              <ImageUpload setImageURL={setImageURL} /> {/* Handle image upload */}
+              <EventImageUpload setImageURL={setImageURL} /> {/* Handle image upload */}
             </div>
             {/* Genres */}
             <div className="mt-4">

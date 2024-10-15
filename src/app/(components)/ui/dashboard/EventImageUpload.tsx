@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { storage } from '@/app/api/(3rdParty)/firebase/firebase';
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { doc, updateDoc, addDoc, collection } from 'firebase/firestore';
+import React, { useState } from "react";
+import { storage } from "@/app/api/(3rdParty)/firebase/firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { doc, updateDoc, addDoc, collection } from "firebase/firestore";
 
 interface EventImageUploadProps {
   setImageURL: (url: string) => void;
-  eventId: string; 
+  // eventId: string;
 }
 
-const EventImageUpload: React.FC<EventImageUploadProps> = ({ setImageURL, eventId }) => {
+const EventImageUpload: React.FC<EventImageUploadProps> = ({ setImageURL }) => {
   const [file, setFile] = useState<File | null>(null);
   const [progressPercent, setProgressPercent] = useState(0);
 
@@ -17,7 +17,7 @@ const EventImageUpload: React.FC<EventImageUploadProps> = ({ setImageURL, eventI
       const selectedFile = e.target.files[0];
       const fileSizeLimit = 2 * 1024 * 1024; // 2MB in bytes
       if (selectedFile.size > fileSizeLimit) {
-        alert('File size exceeds 2MB limit.');
+        alert("File size exceeds 2MB limit.");
         return;
       }
       setFile(selectedFile);
@@ -28,19 +28,17 @@ const EventImageUpload: React.FC<EventImageUploadProps> = ({ setImageURL, eventI
     if (!file) return;
 
     // Generate a unique file name
-    const uniqueName = `${Date.now()}-${Math.floor(Math.random() * 1e6)}.${
-      file.name.split('.').pop()
-    }`;
+    const uniqueName = `${Date.now()}-${Math.floor(Math.random() * 1e6)}.${file.name
+      .split(".")
+      .pop()}`;
 
     const storageRef = ref(storage, `event-images/${uniqueName}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on(
-      'state_changed',
+      "state_changed",
       (snapshot) => {
-        const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
+        const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
         setProgressPercent(progress);
       },
       (error) => {
@@ -48,20 +46,9 @@ const EventImageUpload: React.FC<EventImageUploadProps> = ({ setImageURL, eventI
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-          console.log('File available at', downloadURL);
+          console.log("File available at", downloadURL);
           setImageURL(downloadURL);
-          console.log('Image URL:', downloadURL);
-
-          // Save imageURL to the event in the database
-          try {
-            const eventDocRef = doc(db, 'events', eventId);
-            await updateDoc(eventDocRef, {
-              imageURL: downloadURL,
-            });
-            console.log('Event image URL updated in the database');
-          } catch (error) {
-            console.error('Error updating event image URL: ', error);
-          }
+          console.log("Image URL:", downloadURL);
         });
       }
     );
