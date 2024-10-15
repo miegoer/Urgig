@@ -98,37 +98,25 @@ export default function CreateEvent() {
 
   return (
     <div 
-    className="w-[58%] flex flex-col justify-center shadow-[0px_0px_0px_#272525] mx-[30px] my-0 pt-2.5 pb-[35px] px-2.5 rounded-[20px] bg-[#252531]">
-      <h2 className="text-xl mb-5 ">Create event</h2>
+    className="w-[65%] h-[600px] flex flex-col shadow-[0px_0px_0px_#272525] mx-[30px] my-2 pt-2.5 pb-[5px] px-2.5 rounded-[20px] bg-[#292346]">
+      <h2 className="text-xl m-5 text-center text-[#ccff69]">Create New Event</h2>
       <div>
         <form onSubmit={handleSubmit}>
-          <div>
-            <div>
-              <label htmlFor="createEventFormLocation">Name:</label>
-              <input
-                value={eventData.name}
-                name="name"
-                onChange={handleChange}
-                type="text"
-                id="createEventFormName"
-                required
-                className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full"
-              />
-            </div>
-            <div>
-              <label htmlFor="createEventFormLocation">Location:</label>
-              <input
-                value={eventData.location}
-                name="location"
-                onChange={handleChange}
-                type="text"
-                id="createEventFormLocation"
-                required
-                className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full"
-              />
-            </div>
-            <div>
-              <label htmlFor="createEventFormName">Date:</label>
+          <div className="flex flex-col justify-center items-center">
+            <label htmlFor="createEventFormLocation" className="block text-[12px] tracking-[1px] uppercase my-[7px] text-[#ccff69]">Name:</label>
+                <input
+                  value={eventData.name}
+                  name="name"
+                  onChange={handleChange}
+                  type="text"
+                  id="createEventFormName"
+                  required
+                  className="text-center w-[300px] p-1 mb-2 outline-none rounded-[20px] text-[black] border-b-[1px] border-white"
+                />
+          </div>
+          <div className="flex flex-row justify-around items-center border-b">
+            <div className="flex flex-col items-center">
+            <label htmlFor="createEventFormName" className="block text-[12px] tracking-[1px] uppercase my-[8px] text-[#ccff69]">Date:</label>
               <input
                 value={eventData.date as any}
                 name="date"
@@ -136,11 +124,11 @@ export default function CreateEvent() {
                 type="date"
                 id="createEventFormName"
                 required
-                className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full]"
+                className="text-center w-[150px] p-1 mb-5 outline-none rounded-[20px] text-[black]"
               />
             </div>
-            <div>
-              <label htmlFor="createEventFormDuration">Duration (days):</label>
+            <div className="flex flex-col items-center">
+            <label htmlFor="createEventFormDuration" className="block text-[12px] tracking-[1px] uppercase my-[8px] text-[#ccff69]">No. of Days:</label>
               <input
                 value={eventData.duration}
                 name="duration"
@@ -150,11 +138,25 @@ export default function CreateEvent() {
                 step="1"
                 id="createEventFormDuration"
                 required
-                className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full"
+                className="text-center w-[90px] p-1 mb-5 outline-none rounded-[20px] text-[black]"
               />
             </div>
-            <div>
-              <label htmlFor="createEventFormCapacity">Max Capacity:</label>
+            <div className="flex flex-col items-center">
+              <label htmlFor="createEventFormLocation" className="block text-[12px] tracking-[1px] uppercase my-[8px] text-[#ccff69]">Location:</label>
+              <input
+                value={eventData.location}
+                name="location"
+                onChange={handleChange}
+                type="text"
+                id="createEventFormLocation"
+                required
+                className="text-center w-[240px] p-1 mb-5 outline-none rounded-[20px] text-[black]"
+              />
+            </div>
+          </div>
+          <div className="flex flex-row justify-center items-center mb-[30px]">
+          <div className="flex flex-col justify-center mt-[15px] items-center mr-[30px]">
+              <label htmlFor="createEventFormCapacity" className="block text-[12px] tracking-[1px] uppercase my-[7px] mr-[12px] text-[#ccff69]">Max Capacity:</label>
               <input
                 value={eventData.maxCapacity}
                 name="maxCapacity"
@@ -162,29 +164,30 @@ export default function CreateEvent() {
                 min={1}
                 type="number"
                 id="createEventFormCapacity"
-                className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full"
+                className="text-center w-[180px] p-1 outline-none rounded-[20px] text-[black]"
               />
             </div>
-            <div>
-              <label htmlFor="createEventFormBanner">Banner:</label>
+            <div className="flex flex-col justify-center mt-[15px] items-center">
+              <label htmlFor="createEventFormBanner" className="block text-[12px] tracking-[1px] uppercase my-[7px] mr-[12px] text-[#ccff69]">Banner:</label>
               <input
                 value={eventData.bannerURL}
                 name="bannerURL"
                 onChange={handleChange}
                 type="url"
                 id="createEventFormBanner"
-                className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full"
+                className="text-center w-[180px] p-1 outline-none rounded-[20px] text-[black]"
               />
             </div>
-            <div>
-              <label htmlFor="createEventFormLink">Link:</label>
+          </div>
+            <div className="flex flex-row justify-center mt-[30px] items-center">
+              <label htmlFor="createEventFormLink" className="block text-[12px] tracking-[1px] uppercase my-[7px] mr-[12px] text-[#ccff69]">Link:</label>
               <input
                 value={eventData.link}
                 name="link"
                 onChange={handleChange}
                 type="url"
                 id="createEventFormLink"
-                className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full"
+                className="text-center w-[280px] p-1 outline-none rounded-[20px] text-[black]"
               />
             </div>
             <div className="mt-4">
@@ -194,7 +197,6 @@ export default function CreateEvent() {
                 isSent={isSent}
               />
             </div>
-          </div>
           {isWrong && <p>Something went wrong, try again</p>}
           {isSent && <p>Your new event was created succesfully!!</p>}
           {/* <Link href={'/dashboard'}>   */}
