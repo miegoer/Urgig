@@ -39,8 +39,6 @@ export default function FirstCol({ sessionUser }: Props) {
   }, [sessionUser]);
 
   const socials = pageUser?.profileDetails?.socialLinks;
-  console.log({ socials });
-  console.log({ sessionUser });
 
   //TODO: refactor to minimise repetitive, create function to find placement of icons depending on how many social accounts linked.
   const imageIcon = (imgSrc: string, positionClasses: string, socialURL: string | null = null) => {

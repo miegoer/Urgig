@@ -3,7 +3,7 @@ import { getUser, isPublic } from "@/app/utils/userUtils";
 import { User } from "@/types/user";
 import clsx from "clsx";
 import Link from "next/link";
-import { useParams, usePathname } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 //
 
@@ -19,6 +19,8 @@ interface Props {
 export default function ThirdCol({ sessionUser }: Props) {
   const [pageUser, setPageUser] = useState<User | null>(null);
   const pathname = usePathname();
+  const router = useRouter();
+
   const { id } = useParams();
   const [profileLinks, setProfileLinks] = useState<profileLink[]>([
     { name: "Bio", href: `` },
@@ -29,18 +31,25 @@ export default function ThirdCol({ sessionUser }: Props) {
 
   useEffect(() => {
     const checkUser = async () => {
-      if (isPublic(pathname) && id) setPageUser(await getUser(id as string));
-      else setPageUser(sessionUser);
+      if (isPublic(pathname) && id) {
+        const user = await getUser(id as string);
+
+        if (!isValidProfile(pathname, user.typeOfAccount)) {
+          const link = `${redirectToValidProfile(user.typeOfAccount)}/${id}`;
+          console.log({ link });
+          router.push(link);
+          return;
+        }
+        setPageUser(user);
+      } else setPageUser(sessionUser);
     };
     checkUser();
-  }, [sessionUser]);
+  }, [sessionUser, router]);
 
   useEffect(() => {
     const checkUser = () => {
       if (!pageUser) return;
       let baseRoute = getBaseRoute(pathname, pageUser._id);
-      console.log("baseRoute", baseRoute);
-      console.log("pathname", pathname);
 
       setProfileLinks([
         { name: "Bio", href: `${baseRoute}` },
@@ -82,6 +91,15 @@ function getBaseRoute(pathname: string, userId: string) {
   if (pathname.includes("/myprofile")) return "/myprofile";
   if (pathname.includes(`/a/${userId}`)) return `/a/${userId}`;
   if (pathname.includes(`/p/${userId}`)) return `/p/${userId}`;
-  console.log("this is run...");
-  return null;
+  return "";
+}
+
+function isValidProfile(pathname: string, typeOfAccount: string) {
+  if (typeOfAccount === "artist" && pathname.includes("/a/")) return true;
+  if (typeOfAccount === "promoter" && pathname.includes("/p/")) return true;
+  return false;
+}
+function redirectToValidProfile(typeOfAccount: string) {
+  if (typeOfAccount === "artist") return "/a";
+  if (typeOfAccount === "promoter") return "/p";
 }

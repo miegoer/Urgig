@@ -12,5 +12,5 @@ export const getUser = async (userId: string) => {
 };
 
 export const isPublic = (pathname: string) => {
-  return pathname.includes(`/a/`) || pathname.includes(`/p/}`);
+  return pathname.includes(`/a/`) || pathname.includes(`/p/`);
 };
