@@ -37,7 +37,11 @@ export default function ThirdCol({ sessionUser }: Props) {
 
   useEffect(() => {
     const checkUser = () => {
-      let baseRoute = getBaseRoute(pathname, pageUser!._id);
+      if (!pageUser) return;
+      let baseRoute = getBaseRoute(pathname, pageUser._id);
+      console.log("baseRoute", baseRoute);
+      console.log("pathname", pathname);
+
       setProfileLinks([
         { name: "Bio", href: `${baseRoute}` },
         { name: "Fan Base", href: `${baseRoute}fanbase` },
@@ -46,7 +50,7 @@ export default function ThirdCol({ sessionUser }: Props) {
       ]);
     };
     checkUser();
-  }, [pageUser]);
+  }, [pageUser, pathname]);
 
   return (
     <>
@@ -75,8 +79,9 @@ export default function ThirdCol({ sessionUser }: Props) {
 }
 
 function getBaseRoute(pathname: string, userId: string) {
-  if (pathname.includes("/myprofile/")) return "/myprofile/";
-  if (pathname.includes(`/a/${userId}/`)) return `/a/${userId}/`;
-  if (pathname.includes(`/p/${userId}/`)) return `/p/${userId}/`;
+  if (pathname.includes("/myprofile")) return "/myprofile/";
+  if (pathname.includes(`/a/${userId}`)) return `/a/${userId}/`;
+  if (pathname.includes(`/p/${userId}`)) return `/p/${userId}/`;
+  console.log("this is run...");
   return null;
 }
