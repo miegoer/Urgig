@@ -11,11 +11,11 @@ export const fetchAndTransformEvents = async (
   // }
   //if mocking:
 
-  artistId = "67082cc74e2febe010324134";
-
+  // artistId = "67082cc74e2febe010324134";
   try {
     const response = await fetch(`/api/users/${artistId}/events`); // Adjust the API route if necessary
     const events: Event[] = await response.json();
+    console.log(events)
 
     const upcomingEvents: Event[] = [];
     const pastEvents: Event[] = [];

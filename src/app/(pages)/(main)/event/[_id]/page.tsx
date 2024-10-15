@@ -23,7 +23,6 @@ type eventProps = {
 export default function EventProfile() {
   const params = useParams();
   const { userId } = useTalkSession();
-  // const _id = userId ? userId.slice(5) : "";
 
   const [event, setEvent] = useState<Event>({
     name: "",
