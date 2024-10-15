@@ -48,14 +48,13 @@ const updateEvent_artistsBookingIds = async (bookingId: string, eventId: string)
 export const fillOutDB = () => {
   // fillOutEachCollectionDB(eventsDB, "events");
   // fillOutEachCollectionDB(bookingsDB, "bookings");
-  // fillOutEachCollectionDB(AidanBookings, "bookings");
+  fillOutEachCollectionDB(AidanBookings, "bookings");
   //fillOutEachCollectionDB(usersDB, "users");
   //connectBookingWithEvents();
 };
 
 const AidanBookings = [
   {
-    _id: "670a7bbdf74e2dfad495d028",
     name: "Summer Music Festival",
     link: "https://example.com/summer-festival",
     bannerURL: "https://example.com/images/summer-festival-banner.jpg",
