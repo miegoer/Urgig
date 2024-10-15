@@ -1,4 +1,4 @@
-import ProfileFanbase from "@/app/(components)/ui/profilePage/Fanbase";
+import ProfileFanbase from "@/app/(components)/ui/profilePage/ProfileFanbase";
 import { User } from "@/types/user";
 import React from "react";
 
