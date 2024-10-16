@@ -1,4 +1,5 @@
 "use client";
+import { usePageOwnerUser } from "@/app/(context)/PageOwnerUserContext";
 import { getUser, isPublic } from "@/app/utils/userUtils";
 import { User } from "@/types/user";
 import { Ubuntu } from "next/font/google";
@@ -20,12 +21,10 @@ const ubuntu = Ubuntu({
   subsets: ["latin"],
 });
 //
-interface Props {
-  pageOwnerUser: User | null;
-}
 
 //
-export default function FirstCol({ pageOwnerUser }: Props) {
+export default function FirstCol() {
+  const pageOwnerUser = usePageOwnerUser();
   const [pageOwner, setPageOwner] = useState<User | null>(null);
   const pathname = usePathname();
   const { id } = useParams();
@@ -75,9 +74,7 @@ export default function FirstCol({ pageOwnerUser }: Props) {
         />
       )}
       <div className="h-[80px] px-5 flex flex-col top-[82%] inline-flex z-5 absolute bg-[rgba(0,0,0,0.7)]">
-        <div
-          className="z-10 py-2.5 rounded-[3px] tracking-[1.5px] text-[white] ${ubuntu.className} text-2xl"
-        >
+        <div className="z-10 py-2.5 rounded-[3px] tracking-[1.5px] text-[white] ${ubuntu.className} text-2xl">
           {pageOwner ? pageOwner.name : ""}
         </div>
         <span className="text-sm italic -mt-2 text-center ${ubuntu.className}">

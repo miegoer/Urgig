@@ -1,12 +1,10 @@
+"use client";
 import { User } from "@/types/user";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import EventsList from "../dashboard/EventsList";
 //
-interface Props {
-  pageOwnerUser: User;
-}
 //
-export default function ProfileEvents({ pageOwnerUser }: Props) {
+export default function ProfileEvents() {
   return (
     <div>
       <div

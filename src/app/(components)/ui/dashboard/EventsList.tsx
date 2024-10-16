@@ -1,8 +1,10 @@
 "use client";
+import { usePageOwnerUser } from "@/app/(context)/PageOwnerUserContext";
 import { useTalkSession } from "@/app/(context)/TalkSessionContext";
 import { fetchAndTransformEvents } from "@/app/utils/eventsUtils";
 import mockEvents from "@/mockData/events";
 import { ArtistEvent } from "@/types/interfaces.ts/artistEvent";
+import { User } from "@/types/user";
 import { useUser } from "@clerk/nextjs";
 import { Ubuntu } from "next/font/google";
 import Link from "next/link";
@@ -14,16 +16,18 @@ const ubuntu = Ubuntu({
 });
 
 export default function EventsList() {
+  const pageOwnerUser = usePageOwnerUser();
   const { session, userId } = useTalkSession();
   const [artistUpcomingEvents, setUpcomingArtistEvents] = useState<ArtistEvent[]>([]);
   const [artistPastEvents, setPastArtistEvents] = useState<ArtistEvent[]>([]);
 
   useEffect(() => {
     const fetchEvents = async () => {
+      if (!pageOwnerUser) return;
+      console.log("userID, useEffect fu", pageOwnerUser._id);
       try {
-        console.log("userID, useEffect fu", userId);
         const [upcomingEvents, pastEvents]: [ArtistEvent[], ArtistEvent[]] =
-          await fetchAndTransformEvents(userId as string);
+          await fetchAndTransformEvents(pageOwnerUser._id as string);
 
         setUpcomingArtistEvents(upcomingEvents);
         setPastArtistEvents(pastEvents);
@@ -33,7 +37,7 @@ export default function EventsList() {
     };
 
     fetchEvents();
-  }, [userId]);
+  }, [pageOwnerUser]);
 
   const eventList = (events: ArtistEvent[]) => {
     return events.map((event: ArtistEvent) => {

@@ -15,11 +15,11 @@ interface profileLink {
   href: string;
 }
 
-interface Props {
-  pageOwnerUser: User | null;
-}
+import { usePageOwnerUser } from "@/app/(context)/PageOwnerUserContext";
+
 //
-export default function ThirdCol({ pageOwnerUser }: Props) {
+export default function ThirdCol() {
+  const pageOwnerUser = usePageOwnerUser();
   const [pageUser, setPageUser] = useState<User | null>(null);
   const [openBooking, setOpenBooking] = useState(false);
   const pathname = usePathname();

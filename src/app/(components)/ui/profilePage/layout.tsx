@@ -8,6 +8,7 @@ import { User } from "@/types/user";
 import { Ubuntu } from "next/font/google";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import PageOwnerUserContext from "@/app/(context)/PageOwnerUserContext";
 
 const ubuntu = Ubuntu({
   weight: "400",
@@ -15,7 +16,6 @@ const ubuntu = Ubuntu({
 });
 
 export default function ProfileLayout({ children }: { children: React.ReactNode }) {
-  // const [user, setUser] = useState<User | null>(null);
   const { userId } = useTalkSession();
   const { id } = useParams();
 
@@ -29,6 +29,7 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
       if (isPublic(pathname) && id) {
         const user = await getUser(id as string);
 
+        //if looking at an artist id, but on /p/ switch it to /a/id...
         if (!isValidProfile(pathname, user.typeOfAccount)) {
           const link = `${redirectToValidProfile(user.typeOfAccount)}/${id}`;
           router.push(link);
@@ -44,48 +45,43 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
     checkUser();
   }, [userId, router]);
 
-  const childrenWithProps = React.Children.map(children, (child) => {
-    if (React.isValidElement(child)) {
-      return React.cloneElement(child, { pageOwnerUser });
-    }
-    return child;
-  });
-
   return (
-    <div className="flex flex-row">
-    <div
-      id="mainGrid"
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(12, 1fr)",
-        gridTemplateRows: "auto 1fr",
-      }}
-    >
-      <>
+    <PageOwnerUserContext.Provider value={pageOwnerUser}>
+      <div className="flex flex-row">
         <div
-          id="1stcol"
-          style={{ gridColumn: "1 / span 3", gridRow: "2 / span 10" }}
-          className="h-[630px] w-[500px] relative"
+          id="mainGrid"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(12, 1fr)",
+            gridTemplateRows: "auto 1fr",
+          }}
         >
-          <FirstCol pageOwnerUser={pageOwnerUser} />
+          <>
+            <div
+              id="1stcol"
+              style={{ gridColumn: "1 / span 3", gridRow: "2 / span 10" }}
+              className="h-[630px] w-[500px] relative"
+            >
+              <FirstCol />
+            </div>
+            <div
+              id="2ndcol"
+              style={{ gridColumn: "4 / span 4", gridRow: "1 / span 4" }}
+              className="h-[660px] w-[480px]"
+            >
+              {children}
+            </div>
+            <div
+              id="3rdcol"
+              style={{ gridColumn: "8 / span 3", gridRow: "2 / span 8" }}
+              className="z-10 w-[160px] ml-[70px]"
+            >
+              <ThirdCol />
+            </div>
+          </>
         </div>
-        <div
-          id="2ndcol"
-          style={{ gridColumn: "4 / span 4", gridRow: "1 / span 4" }}
-          className="h-[660px] w-[480px]"
-        >
-          {childrenWithProps}
-        </div>
-        <div
-          id="3rdcol"
-          style={{ gridColumn: "8 / span 3", gridRow: "2 / span 8" }}
-          className="z-10 w-[160px] ml-[70px]"
-        >
-          <ThirdCol pageOwnerUser={pageOwnerUser} />
-        </div>
-      </>
-    </div>
-    </div>
+      </div>
+    </PageOwnerUserContext.Provider>
   );
 }
 
