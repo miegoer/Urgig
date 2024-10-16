@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, ChangeEvent } from 'react';
-import mockUsers from '@/mockData/user'; // Mock data (will replace this with actual DB data)
+import mockUsers from '@/mockData/user';
 import Image from 'next/image';
 import Spotify from '/public/spotify-icon.png';
 import TikTok from '/public/tiktok-icon.png';
@@ -169,16 +169,17 @@ export default function EditProfile() {
           <span className="block text-[11px] text-[#ccff69] tracking-[1px] uppercase mt-[7px] mb-[10px]">
             Genres
           </span>
-          <div className="m-4 px-10 tracking-[1px] text-sm text-[black]">
+          <div className="m-4 px-10 tracking-[1px] text-sm text-[#ccff69]">
             <SelectGenre
               setGenres={setGenres}
               genres={genres}
               isSent={isSent}
+              className="text-black"
             />
           </div>
         </div>
         <button
-          className="mt-5 p-2 rounded bg-[#ccff69] text-black"
+          className="mt-5 p-2 rounded bg-[#ccff69] text-[black]"
           onClick={handleSaveChanges}
         >
           Save Changes
