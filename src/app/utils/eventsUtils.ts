@@ -16,6 +16,7 @@ export const fetchAndTransformEvents = async (
   try {
     const response = await fetch(`/api/users/${artistId}/events`); // Adjust the API route if necessary
     const events: Event[] = await response.json();
+    console.log(events)
 
     const upcomingEvents: Event[] = [];
     const pastEvents: Event[] = [];

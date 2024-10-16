@@ -10,3 +10,7 @@ export const getUser = async (userId: string) => {
     throw error;
   }
 };
+
+export const isPublic = (pathname: string) => {
+  return pathname.includes(`/a/`) || pathname.includes(`/p/`);
+};
