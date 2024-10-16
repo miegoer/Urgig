@@ -5,25 +5,25 @@ import { Booking } from "@/types/booking";
 import { NextRequest, NextResponse } from "next/server";
 
 //get specific booking's all info
-export async function GET(request: NextRequest, { params }: { params: { _id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   const BookingIdZodSchema = BookingZodSchema.pick({ _id: true });
-  const validatedBookingId = BookingIdZodSchema.parse({ _id: params._id });
+  const validatedBookingId = BookingIdZodSchema.parse({ id: params.id });
 
   try {
     await dbConnect(); // Ensure database connection is established
-    const booking = await BookingModel.findById(params._id);
+    const booking = await BookingModel.findById(params.id);
 
     //if not found return 404
     if (!booking) return NextResponse.json({ error: "Booking not found" }, { status: 404 });
     // else return data
     return NextResponse.json(booking, { status: 200 });
   } catch (error) {
-    console.error("Failed to get booking by _id:", error);
-    throw new Error("Failed to get booking by _id from DB");
+    console.error("Failed to get booking by id:", error);
+    throw new Error("Failed to get booking by id from DB");
   }
 }
 
-export async function PATCH(request: NextRequest, { params }: { params: { _id: string } }) {
+export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     //validate the request body
     const bodyBooking = await request.json();
@@ -33,7 +33,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { _id: s
 
     await dbConnect(); // Ensure database connection is established
     // fetch booking with the given id
-    const booking = await BookingModel.findById(params._id);
+    const booking = await BookingModel.findById(params.id);
 
     // if doesn't exit -> return 404
     if (!booking) return NextResponse.json({ error: "booking not found PATCH" }, { status: 404 });
@@ -54,7 +54,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { _id: s
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const BookingIdZodSchema = BookingZodSchema.pick({ _id: true });
-    const validatedBookingId = BookingIdZodSchema.parse({ _id: params.id });
+    const validatedBookingId = BookingIdZodSchema.parse({ id: params.id });
 
     await dbConnect(); // Ensure database connection is established
     // Fetch the booking by ID before deletion
@@ -64,7 +64,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
     if (!booking) return NextResponse.json({ error: "Booking not found" }, { status: 404 });
 
     // Delete the booking by ID
-    const result = await BookingModel.deleteOne({ _id: validatedBookingId });
+    const result = await BookingModel.deleteOne({ id: validatedBookingId });
 
     // Check if a document was deleted
     if (result.deletedCount === 0)

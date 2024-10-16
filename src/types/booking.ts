@@ -6,8 +6,8 @@ export type Booking = {
   location: string;
   offer: number; //cash amount
   sets: Set[];
-  expectedGenre: string[]; //preselected values
-  maxCapacity: number;
+  genre: string[]; //preselected values
+  maxCapacity: number | string;
   status: string; //negotiationg, confirmed, declined
   bookingPromoterId: string;
   bookingArtistId: string;
@@ -17,7 +17,7 @@ export type Booking = {
 };
 
 export type Set = {
-  _id: string;
+  _id?: string;
   date: Date;
   setTimeStart: string; //needs to be two time pickers...
   setTimeEnd: string; //needs to be two time pickers...
