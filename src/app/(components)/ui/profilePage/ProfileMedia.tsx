@@ -2,10 +2,10 @@ import { User } from "@/types/user";
 import React from "react";
 //
 interface Props {
-  user: User;
+  pageOwnerUser: User;
 }
 //
-export default function ProfileMedia({ user }: Props) {
+export default function ProfileMedia({ pageOwnerUser }: Props) {
   return (
     <div>
       <div

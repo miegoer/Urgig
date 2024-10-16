@@ -2,10 +2,10 @@ import { User } from "@/types/user";
 import React from "react";
 //
 interface Props {
-  user: User;
+  pageOwnerUser: User;
 }
 //
-export default function ProfileFanbase({ user }: Props) {
+export default function ProfileFanbase({ pageOwnerUser }: Props) {
   return (
     <div>
       <div

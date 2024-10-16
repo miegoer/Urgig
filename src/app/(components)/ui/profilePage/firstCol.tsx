@@ -21,24 +21,24 @@ const ubuntu = Ubuntu({
 });
 //
 interface Props {
-  sessionUser: User;
+  pageOwnerUser: User | null;
 }
 
 //
-export default function FirstCol({ sessionUser }: Props) {
-  const [pageUser, setPageUser] = useState<User | null>(null);
+export default function FirstCol({ pageOwnerUser }: Props) {
+  const [pageOwner, setPageOwner] = useState<User | null>(null);
   const pathname = usePathname();
   const { id } = useParams();
 
   useEffect(() => {
     const checkUser = async () => {
-      if (isPublic(pathname) && id) setPageUser(await getUser(id as string));
-      else setPageUser(sessionUser);
+      if (!pageOwnerUser) return;
+
+      if (isPublic(pathname) && id) setPageOwner(await getUser(id as string));
+      else setPageOwner(pageOwnerUser);
     };
     checkUser();
-  }, [sessionUser]);
-
-  const socials = pageUser?.profileDetails?.socialLinks;
+  }, [pageOwnerUser]);
 
   //TODO: refactor to minimise repetitive, create function to find placement of icons depending on how many social accounts linked.
   const imageIcon = (imgSrc: string, positionClasses: string, socialURL: string | null = null) => {
@@ -65,9 +65,9 @@ export default function FirstCol({ sessionUser }: Props) {
 
   return (
     <>
-      {pageUser?.profileDetails?.profilePicture && (
+      {pageOwner?.profileDetails?.imageURL && (
         <Image
-          src={pageUser.profileDetails.profilePicture}
+          src={pageOwner.profileDetails.imageURL}
           width={660}
           height={530}
           alt="mock profile photo"
@@ -78,19 +78,35 @@ export default function FirstCol({ sessionUser }: Props) {
         <div
           className={`z-10 py-2.5 rounded-[3px] tracking-[1.5px] text-[white] ${ubuntu.className} text-2xl`}
         >
-          {pageUser ? pageUser.name : ""}
+          {pageOwner ? pageOwner.name : ""}
         </div>
         <span className="text-sm italic -mt-2 text-center ${ubuntu.className}">
-          {pageUser ? pageUser.location : ""}
+          {pageOwner ? pageOwner.location : ""}
         </span>
       </div>
       <div>
         {/* {imageIcon(StartChat, "top-[40px] left-[78%]", "")}
           {imageIcon(Connect, "top-[120px] left-[90%]", "")} */}
-        {imageIcon(Spotify, "top-[220px] left-[96%]", socials?.spotify)}
-        {imageIcon(Instagram, "top-[330px] left-[98%]", socials?.instagram)}
-        {imageIcon(Youtube, "top-[440px] left-[95%]", socials?.youtube)}
-        {imageIcon(Tiktok, "top-[545px] left-[82%]", socials?.tiktok)}
+        {imageIcon(
+          Spotify,
+          "top-[220px] left-[96%]",
+          pageOwner?.profileDetails?.socialLinks?.spotify
+        )}
+        {imageIcon(
+          Instagram,
+          "top-[330px] left-[98%]",
+          pageOwner?.profileDetails?.socialLinks?.instagram
+        )}
+        {imageIcon(
+          Youtube,
+          "top-[440px] left-[95%]",
+          pageOwner?.profileDetails?.socialLinks?.youtube
+        )}
+        {imageIcon(
+          Tiktok,
+          "top-[545px] left-[82%]",
+          pageOwner?.profileDetails?.socialLinks?.tiktok
+        )}
       </div>
     </>
   );

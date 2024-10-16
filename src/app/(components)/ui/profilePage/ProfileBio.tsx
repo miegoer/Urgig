@@ -8,10 +8,10 @@ const ubuntu = Ubuntu({
 });
 //
 interface Props {
-  user: User;
+  pageOwnerUser: User;
 }
 //
-export default function SecondCol({ user }: Props) {
+export default function SecondCol({ pageOwnerUser }: Props) {
   return (
     <>
       <div
@@ -21,8 +21,8 @@ export default function SecondCol({ user }: Props) {
         <span className="inline-flex text-[11px] tracking-[1px] uppercase mr-0 mt-[1px] px-4 mb-[18px] rounded-[3px] text-[black] bg-[white]">
           About
         </span>
-        {user?.profileDetails?.aboutMe && (
-          <span className="block rounded-[10px]">{user.profileDetails.aboutMe}</span>
+        {pageOwnerUser?.profileDetails?.aboutMe && (
+          <span className="block rounded-[10px]">{pageOwnerUser.profileDetails.aboutMe}</span>
         )}
       </div>
       <div className="ml-[90px] text-center border-t-[white] border-t w-[300px]"></div>
@@ -63,8 +63,8 @@ export default function SecondCol({ user }: Props) {
           Genres
         </span>
         <div>
-          {user?.profileDetails?.genre &&
-            user.profileDetails.genre.map((tag) => (
+          {pageOwnerUser?.profileDetails?.genre &&
+            pageOwnerUser.profileDetails.genre.map((tag) => (
               <span className="inline-flex m-1.5 py-2 px-4 rounded-[30px] bg-[black]" key={tag}>
                 {tag}
               </span>
