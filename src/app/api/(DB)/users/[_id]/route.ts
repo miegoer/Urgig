@@ -15,7 +15,6 @@ export async function GET(request: NextRequest, { params }: { params: { _id: str
     //if not found return 404
     if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 });
     // else return data
-    console.log(JSON.stringify(user));
     return NextResponse.json(user, { status: 200 });
   } catch (error) {
     console.error("Failed to get user by id:", error);
