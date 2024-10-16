@@ -3,6 +3,7 @@ export interface ArtistEvent {
   dateD: string;
   dateM: string;
   name: string;
+  location: string;
   time: string;
   imageURL?: string;
 }
