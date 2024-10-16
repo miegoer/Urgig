@@ -1,3 +1,8 @@
+td {
+    padding: 7px;
+    font-size: 11px;
+}
+
 @keyframes pulse {
     0% {
       transform: scale(1);

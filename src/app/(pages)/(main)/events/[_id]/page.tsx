@@ -31,7 +31,7 @@ export default function EventProfile() {
     genre: [] as string[],
     duration: 1,
     maxCapacity: 100,
-    bannerURL: undefined,
+    imageURL: undefined,
     link: undefined,
     promoterId: "",
   });
@@ -53,27 +53,21 @@ export default function EventProfile() {
   return (
     <>
       <div className="flex flex-col justify-center w-[100%] mx-[20%]">
-        <div
-          className={`z-10 mt-1 py-8 text-center tracking-[1.5px] text-[white] text-sm`}
-        >
+        <div className={`z-10 mt-1 py-8 text-center tracking-[1.5px] text-[white] text-sm`}>
           <span className="inline-flex text-[11px] tracking-[1px] uppercase px-4 mb-[18px] rounded-[3px] text-[black] bg-[white]">
             About
           </span>
           <span className="block">
-            Welcome to {event.name}, the ultimate celebration of electronic
-            music! Set on a stunning beachfront, this three-day festival brings
-            together the biggest names in for an unforgettable sonic experience.
-            With five massive stages, cutting-edge visuals, and breathtaking
-            pyrotechnics, ElectroWave Fest immerses you in a world of sound and
-            light. Whether you're a hardcore raver or just love great vibes,
-            ElectroWave Fest is where music, technology, and nature collide for
-            an epic journey you won't want to miss!
+            Welcome to {event.name}, the ultimate celebration of electronic music! Set on a stunning
+            beachfront, this three-day festival brings together the biggest names in for an
+            unforgettable sonic experience. With five massive stages, cutting-edge visuals, and
+            breathtaking pyrotechnics, ElectroWave Fest immerses you in a world of sound and light.
+            Whether you're a hardcore raver or just love great vibes, ElectroWave Fest is where
+            music, technology, and nature collide for an epic journey you won't want to miss!
           </span>
         </div>
         <div className="border-t w-[300px] h-0 self-center mt-4"></div>
-        <div
-          className={`z-10 mt-4 rounded-[2px] text-center text-[white] text-sm`}
-        >
+        <div className={`z-10 mt-4 rounded-[2px] text-center text-[white] text-sm`}>
           <span className="inline-flex text-[11px] tracking-[1px] uppercase px-4  mb-[18px] rounded-[3px] text-[black] bg-[white]">
             Details
           </span>
@@ -107,10 +101,7 @@ export default function EventProfile() {
           </span>
           <div>
             {event.genre.map((tag) => (
-              <span
-              className="inline-flex m-1.5 py-2 px-4 rounded-[30px] bg-[black]"
-              key={tag}
-            >
+              <span className="inline-flex m-1.5 py-2 px-4 rounded-[30px] bg-[black]" key={tag}>
                 {tag}
               </span>
             ))}

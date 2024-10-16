@@ -30,8 +30,8 @@ export default function ArtistListItem({ artist }: ArtistListItemProps) {
             throw new Error("Failed to fetch events");
           }
           const data = await response.json();
-          if (data.length > 3 ) {
-            data.slice(0,3)
+          if (data.length > 3) {
+            data.slice(0, 3);
           }
           setEvents(data);
         } catch (error) {
@@ -45,10 +45,9 @@ export default function ArtistListItem({ artist }: ArtistListItemProps) {
   return (
     <>
       <div className="flex flex-row items-center shadow-[0px_4px_5px_#191922] h-[130px] rounded-[20px] bg-[#252531] mb-[20px] p-3">
-       
         <div className="w-[150px] flex flex-col ">
-          <Link href={`/a/profile/${artist._id}`} className="self-center">
-            {artist.profileDetails && artist.profileDetails.profilePicture ? (
+          <Link href={`/a/${artist._id}`} className="self-center">
+            {artist.profileDetails && artist.profileDetails.imageURL ? (
               <img
                 src={artist.profileDetails.imageURL}
                 alt="Artist's profile Photo"
@@ -88,9 +87,12 @@ export default function ArtistListItem({ artist }: ArtistListItemProps) {
 
         <div className="flex flex-col items-center justify-center w-[280px] h-[100px] ">
           {events.map((event) => (
-           <Link href={`/event/${event._id}`}> <span className="text-[10px] w-[230px] text-nowrap tracking-[1.5px] uppercase  mb-[8px] text-center ">
-              {event.name}
-            </span></Link>
+            <Link href={`/events/${event._id}`}>
+              {" "}
+              <span className="text-[10px] w-[230px] text-nowrap tracking-[1.5px] uppercase  mb-[8px] text-center ">
+                {event.name}
+              </span>
+            </Link>
           ))}
         </div>
 
@@ -107,14 +109,13 @@ export default function ArtistListItem({ artist }: ArtistListItemProps) {
             </span>
           ))}
         </div>
-
       </div>
     </>
   );
 }
 
-
-{/* <div
+{
+  /* <div
   className="flex flex-col w-[80px] justify-between py-3 px-5 -mr-5"
   style={{ borderLeft: "1px solid black" }}>
   <Image src="/save-icon.png" width={25} height={25} alt="save icon" />
@@ -124,7 +125,8 @@ export default function ArtistListItem({ artist }: ArtistListItemProps) {
     height={25}
     alt="share icon"
   />
-</div> */}
+</div> */
+}
 
 // const socialIcons = [
 //   { imageurl: "/spotify-icon.png", alt: "Spotify Icon" },

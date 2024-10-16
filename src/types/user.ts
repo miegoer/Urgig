@@ -6,14 +6,14 @@ export type User = {
   contactNumber?: string;
   password?: string;
   dateOfBirth?: Date;
-  location?: String;
+  location?: string;
   settings?: Settings; //settings like white/black theme and similar...
   profileDetails?: ProfileDetails; //more info about user
   statistics?: Statistics;
   events?: string[];
   stageName?: string;
   companyName?: string;
-  genre?: string[]
+  genre?: string[];
 };
 
 export type ProfileDetails = {

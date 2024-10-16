@@ -15,7 +15,7 @@ export const BookingSchema: Schema = new Schema({
   sets: { type: [SetSchema], required: true },
   genre: { type: [String], required: true }, //preselected values
   maxCapacity: { type: Number, required: true },
-  status: { type: String, required: true }, //negotiationg, confirmed, declined
+  status: { type: String, required: true }, //negotiating, confirmed, declined
   bookingPromoterId: { type: String, required: true },
   bookingArtistId: { type: String, required: true },
   bookingEventId: { type: String, required: true },

@@ -1,7 +1,5 @@
-import { string } from "zod";
-
 export type Event = {
-  _id: string;
+  _id?: string;
   name: string;
   promoterId: string;
   date: Date;
