@@ -37,7 +37,7 @@ export default function EditProfile() {
         setArtistLocation(userData.location);
         setArtistBio(userData.profileDetails.aboutMe);
         setImageURL(userData.profileDetails.profilePicture);
-        setGenres(userData.genres || []);
+        setGenres(userData.profileDetails.genre || []);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -75,8 +75,8 @@ export default function EditProfile() {
         profileDetails: {
           aboutMe: artistBio,
           profilePicture: imageURL,
+          genre: genres,
         },
-        genres,
       };
 
       const response = await fetch(`/api/users/${userId}`, {
@@ -95,7 +95,7 @@ export default function EditProfile() {
         setArtistLocation(updatedData.location);
         setArtistBio(updatedData.profileDetails.aboutMe);
         setImageURL(updatedData.profileDetails.profilePicture);
-        setGenres(updatedData.genres || []);
+        setGenres(updatedData.profileDetails.genre || []);
       } else {
         throw new Error('Failed to update profile');
       }
