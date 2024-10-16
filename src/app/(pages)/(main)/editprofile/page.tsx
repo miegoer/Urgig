@@ -7,16 +7,18 @@ import Spotify from '/public/spotify-icon.png';
 import TikTok from '/public/tiktok-icon.png';
 import Instagram from '/public/ig-icon.png';
 import Youtube from '/public/youtube-icon.png';
+import NoImage from '/public/no-image.svg';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import SelectGenre from '@/app/(components)/ui/dashboard/selectGenre';
 import ImageUpload from '../../../(components)/ui/dashboard/ImageUpload'; // Import the ImageUpload component
-import { useAuth } from '@clerk/nextjs'; // Clerk for ID
+import { useAuth, useUser } from '@clerk/nextjs'; // Clerk for ID
 
 const animatedComponents = makeAnimated();
 
 export default function EditProfile() {
   const { userId } = useAuth();
+  const { user } = useUser();
   const [genres, setGenres] = useState<string[]>([]);
   const [isSent, setIsSent] = useState<boolean>(false);
   const [artistName, setArtistName] = useState('');
@@ -44,6 +46,17 @@ export default function EditProfile() {
     };
     fetchUserData();
   }, [userId]);
+
+  // display either from DB, google profile image (clerk) or no-image in that order
+  const getProfileImage = () => {
+    if (imageURL) {
+      return imageURL;
+    } else if (user?.imageUrl) {
+      return user.imageUrl;
+    } else {
+      return NoImage;
+    }
+  };
 
   const handleNameInput = (event: ChangeEvent<HTMLInputElement>) => {
     setArtistName(event.target.value);
@@ -141,7 +154,7 @@ export default function EditProfile() {
           </span>
           <div className="my-3 flex flex-col items-center justify-center rounded-[20px] p-3">
             <Image
-              src={imageURL} // Use the imageURL state
+              src={getProfileImage()}
               alt="Current Profile Photo"
               className="rounded-[20px]"
               width={110}
