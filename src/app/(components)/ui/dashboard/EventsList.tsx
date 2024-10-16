@@ -22,8 +22,7 @@ interface EventsListProps {
 }
 
 const artistId = "67082cc74e2febe010324134";
-// const promoterId = "670830401234567890abcdef";
-const promoterId = "670830101234567890abcdef";
+const promoterId = "670830401234567890abcdef";
 
 export default function EventsList({ handleCount}: EventsListProps) {
   const { session, userId, userType } = useTalkSession();
