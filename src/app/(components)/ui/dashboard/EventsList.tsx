@@ -94,7 +94,6 @@ export default function EventsList({ handleCount}: EventsListProps) {
             )} */}
           </div>
           <div className="flex flex-col justify-center border-l border-black items-center text-center w-[300px]">
-          <span className="p-3 text-xs tracking-[1px] text-[white]">
               {userType === 'artist' && bookings ? (
                 (() => {
                   const booking = bookings.find((booking) => booking.bookingEventId === event._id);
@@ -110,31 +109,41 @@ export default function EventsList({ handleCount}: EventsListProps) {
                   return (
                     <>
                       {booking ? (
-                        <>
+                        <span className="p-3 text-xs tracking-[1px] text-[white]">
                           <span className="text-[#7675c6] mr-2">Set Time:</span> {booking.sets[0].setTimeStart} - {booking.sets[0].setTimeEnd}
                           <span className="block mt-2 text-[#7675c6]">Contact: <span className="text-[white] ml-2">{promoter}</span></span>
-                        </>
+                        </span>
                       ) : "No Time Available"}
                       </>
                   );
                 })()
               ) : null}
-            </span>
-            {userType === 'promoter' && bookings ? (
-                (() => {
-                  const booking = bookings.find((booking) => booking.name.includes(event.name));
-                  const artist = booking?.name.split('- ')[1];
-                  return (
-                    <>
-                      {booking ? (
-                        <>
-                          <span className="uppercase text-[#7675c6]">{artist}</span>
-                        </>
-                      ) : "No Artists Hired"}
-                      </>
-                  );
-                })()
-              ) : null}
+            {userType === 'promoter' && bookings && bookings.length > 0 ? (
+            (() => {
+              // Filter the bookings that include the event name
+              const filteredBookings = bookings.filter((booking) => booking.name.includes(event.name));
+              
+              // Check if there are any bookings found
+              if (filteredBookings.length > 0) {
+                return (
+                  <div className="text-center flex flex-col justify-start items-center">
+                    <span className="block text-[white] text-xs mb-[4px] tracking-[1px]">Confirmed Artists:</span>
+                    <div className="flex flex-row">
+                    {filteredBookings.map((booking, index) => {
+                      // Extract the artist's name from each booking
+                      const artist = booking.name.split('- ')[1];
+                      return (
+                        <span key={index} className="bg-[#2d2377] text-[#ff934d] m-1 tracking-[1px] py-1 px-3 text-xs rounded-[8px]">{artist}</span>
+                      );
+                    })}
+                    </div>
+                  </div>
+                );
+              } else {
+                return "No Artists Hired";
+              }
+            })()
+          ) : null}
           </div>
         </div>
       );
