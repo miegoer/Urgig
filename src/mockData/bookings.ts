@@ -12,7 +12,7 @@ const mockBookings: Booking[] = [
     sets: [
       { _id: "set1", date: new Date("2024-07-12"), setTimeStart: "18:00", setTimeEnd: "19:00" },
     ],
-    genre: ["Pop", "EDM"],
+    expectedGenre: ["Pop", "EDM"],
     maxCapacity: 10000,
     status: "negotiating",
     bookingPromoterId: "organizer1",
