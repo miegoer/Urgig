@@ -6,10 +6,13 @@ import {
     DropdownSection,
     DropdownItem
   } from "@nextui-org/dropdown";
-import Select from 'react-select';
-import mockEvents from "@/mockData/events";
+import Select, { SingleValue} from 'react-select';
 import { Booking, Set } from "@/types/booking";
-import { useState, ChangeEvent } from 'react';
+import { Event } from "@/types/event";
+import { useState, ChangeEvent, useEffect } from 'react';
+import { useTalkSession } from "@/app/(context)/TalkSessionContext";
+import { useParams } from "next/navigation";
+import Talk from "talkjs";
 
 interface BookNowProps {
     setOpenBooking: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,136 +23,238 @@ const ubuntu = Ubuntu({
     subsets: ["latin"],
   });
 
-interface SelectedEvent {
-    value: Event,
-    label: string,
-}
-
 interface SelectedDate {
-    value: Date,
+    value: string,
     label: string,
 }
+// Ditto, but for dates.
 
 const noOptionsMessage = () => 'No Event Attached';
 
 export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
 
+    const params = useParams();
+
+    const { userId, session, inboxRef, setInboxRef }  = useTalkSession();
+
     const initialState:Booking = {
-        _id: '',
         name: '',
-        // link?: string;
         location: '',
         offer: 0,
-        sets: [],
+        sets: [{
+            date: new Date,
+            setTimeStart: '00:00',
+            setTimeEnd: '00:00'
+        }],
         genre: [],
         maxCapacity: 0,
-        status: 'pending',
+        status: 'negotiation',
         bookingPromoterId: '',
         bookingArtistId: '',
         bookingEventId: '',
         link: ''
-      };
+      }; // Initial state for empty booking request
 
-    const initialSet: Set = {
-        _id: '',
-        date: Date,
-        setTimeStart: '',
-        setTimeEnd: ''
-    }
-      
+      async function startChat() {
+        try {
+            const fetchMe = await fetch(`/api/users/${userId}`);
+            const me = await fetchMe.json();
+            console.log("me ", me);
+            const fetchYou = await fetch(`/api/users/${bookingData.bookingArtistId}`);
+            const you = await fetchYou.json();
+            console.log("you ", you);
+            // const meUser = new Talk.User({
+            //     id: userId!,
+            //     name: me.firstName + " " + me.lastName,
+            //     email: me.email,
+            //     photoUrl: "https://talkjs.com/new-web/avatar-7.jpg",
+            //     welcomeMessage: "Hi!",
+            // })
+            // const youUser = new Talk.User({
+            //     id: bookingData.bookingArtistId,
+            //     name: you.firstName + " " + you.lastName,
+            //     email: you.email,
+            //     photoUrl: "https://talkjs.com/new-web/avatar-7.jpg",
+            //     welcomeMessage: "Hi!",
+            // })
+            // if (session) {
+            //     const conversation = session?.getOrCreateConversation(
+            //         Talk.oneOnOneId(meUser, youUser)
+            //     );
+            //     conversation!.subject = `${bookingData.name} - ${bookingData.location}`;
+            //     conversation!.setParticipant(meUser);
+            //     conversation!.setParticipant(youUser);
+            //     conversation?.sendMessage(`Hi ${you.firstName}! I'm interested in your booking for ${bookingData.name}!`);
+
+            //     if (inboxRef) {
+                    
+            //     }
+            // } else {
+            //     console.log("no session");
+            // }
+            await fetch(`https://api.talkjs.com/v1/${process.env.NEXT_PUBLIC_TALKJS_APP_ID}/users/${you._id}`, {
+                method: "PUT",
+                headers: {
+                'Authorization': `Bearer ${process.env.NEXT_PUBLIC_TALKJS_API_KEY}`,
+                "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name: `${you.name}`,
+                    photoUrl: "https://talkjs.com/new-web/avatar-7.jpg",
+                    welcomeMessage: "Hi!"
+                })
+            });
+            await fetch(`https://api.talkjs.com/v1/${process.env.NEXT_PUBLIC_TALKJS_APP_ID}/conversations/${bookingData.bookingArtistId}${userId}`, {
+                method: "PUT",
+                headers: {
+                'Authorization': `Bearer ${process.env.NEXT_PUBLIC_TALKJS_API_KEY}`,
+                "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    participants:[userId, bookingData.bookingArtistId],
+                    subject: `${bookingData.name} - ${bookingData.location}`,
+                    welcomeMessage: "Hi!"
+                })
+            });
+            await fetch(`https://api.talkjs.com/v1/${process.env.NEXT_PUBLIC_TALKJS_APP_ID}/conversations/${bookingData.bookingArtistId}${userId}/messages`, {
+                method: "POST",
+                headers: {
+                'Authorization': `Bearer ${process.env.NEXT_PUBLIC_TALKJS_API_KEY}`,
+                "Content-Type": "application/json",
+                },
+                body: JSON.stringify([{
+                    text: `Hi ${you.name}! I'm interested in booking you for ${bookingData.name}!`,
+                    sender: userId,
+                    type: "UserMessage"
+                }])
+            });
+            } catch (error) {
+                console.log(error);
+            }
+      }
 
     const [bookingData, setBookingData] = useState(initialState);
-
-    const [offer, setOffer] = useState<number>(0);
-    const [payType, setPayType] = useState<string>('');
-    const [selectedEvent, setSelectedEvent] = useState<SelectedEvent | null>(null);
-    const [startTime, setStartTime] = useState<string>('');
-    const [endTime, setEndTime] = useState<string>('');
-    const [comments, setComments] = useState<string>('');
-    const [setDetails, setSetDetails] = useState<Set>({})
+    // Empty booking request
 
     const [dates, setDates] = useState<{ value: string; label: string }[]>([]);
+    // All date options for the selected event above, for dropdown menu.
+    
+    const [travelExpenses, setTravelExpenses] = useState<boolean>(false);
+    // travel exp paid or unpaid
 
-    const events:SelectedEvent[] = mockEvents.map((event) => ({
-        value: event,
-        label: event.name,
-      }));
+    const [comments, setComments] = useState<string>('');
+    // IGNORE
+
+    const [userEvents, setUserEvents] = useState<Event[]>([]);
+
+    useEffect(() => {
+        const getPromoterEvents = async () => {
+            const response = await fetch(`/api/users/${userId}/events`);
+            const data = await response.json();
+            const formattedData = data.map((event: Event) => ({
+                value: event,
+                label: event.name
+            }))
+            setUserEvents(formattedData);
+        };
+        getPromoterEvents();
+    }, [userId])
  
-    const chooseEvent = (event: SelectedEvent) => {
-        setSelectedEvent(event);
-
-        const formattedDate = event.value.date.toLocaleDateString('en-GB', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-          });
-
-        setDates([{value: formattedDate, label: formattedDate}]);
-
-        setBookingData((prevData) => ({
-            ...prevData,
-            name: event.value.name,
-            location: event.value.location,
-            maxCapacity: event.value.maxCapacity,
-            bookingPromoterId: event.value.promoterId,
-            genre: event.value.genre
-        }));
+    const chooseEvent = (event: SingleValue<Event>) => {
+        // Triggered after selecting an event
+        if (event) {
+            const fetchEventData = async (event: any) => {
+                const response =await fetch(`/api/events/${event.value.value._id}`);
+                const eventData = await response.json();
+                console.log(eventData.genre);
+                const date = new Date(eventData.date);
+                const formattedDate = date.toLocaleDateString('en-GB', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+                setDates([{value: formattedDate, label: formattedDate}]);
+                setBookingData((prevData) => ({
+                    ...prevData,
+                    name: eventData.name,
+                    location: eventData.location,
+                    maxCapacity: eventData.maxCapacity,
+                    bookingPromoterId: eventData.promoterId,
+                    bookingEventId: eventData._id,
+                    bookingArtistId: typeof params.id === 'string' ? params.id : '',
+                    genre: eventData.genre,
+                    link: eventData.link
+                })); // Sets booking data with info already embedded in the event data
+            };
+            fetchEventData({label: event.name, value:event});
+        }
     }
 
-    const chooseDate = (date: SelectedDate) => {
+    const chooseDate = (date: SingleValue<SelectedDate>) => {
+        // Triggered after selecting a date
+        if (date) {
         setBookingData((prevData) => ({
             ...prevData,
-            date: date.value,
+            date: new Date(date.value),
         }));
+        }
     }
 
     const handleOfferInput = (event:ChangeEvent<HTMLInputElement>) => {
-        setOffer(Number(event.target.value));
         setBookingData((prevData) => ({
             ...prevData,
             offer: Number(event.target.value),
           }));
-    }
-
-    const handleTypeInput = (val:string) => {
-        setPayType(val)
-    }
+        }
 
     const handleStartInput = (event: ChangeEvent<HTMLInputElement>) => {
         setBookingData((prevData) => ({
-          ...prevData,
-          sets: prevData.sets[0].map((set, index) => 
-            index === 0 
-              ? { ...set, setTimeStart: event.target.value } 
-              : set
-          ),
-        }));
+            ...prevData,
+            sets: [{ ...prevData.sets[0], setTimeStart: event.target.value }]
+        }))
       };
-      
 
     const handleEndInput = (event:ChangeEvent<HTMLInputElement>) => {
         setBookingData((prevData) => ({
             ...prevData,
-            sets: prevData.sets.map((set, index) => 
-              index === 0 
-                ? { ...set, setTimeEnd: event.target.value } 
-                : set
-            ),
+            sets: [{ ...prevData.sets[0], setTimeEnd: event.target.value }]
+        }))
+    };
+
+    const handleWebsiteInput = (event:ChangeEvent<HTMLInputElement>) => {
+        setBookingData((prevData) => ({
+            ...prevData,
+            link: event.target.value,
           }));
     }
 
+    const handleSubmit = async () => {
+        // Will need to embed the setDetails in Sets and travelExpenses
+        try {
+            // await fetch('/api/bookings', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify(bookingData),
+            // })
+            console.log(bookingData)
+            startChat();
+            setOpenBooking(false);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+
     const handleCommentsInput = (event:ChangeEvent<HTMLTextAreaElement>) => {
         setComments(event.target.value);
-    }
-
-    const handleSubmit = () => {
-        console.log(bookingData)
-    }
+    } // IGNORE
 
     return (
-        <div className="absolute bg-[#20202A] text-[white] p-8 rounded-[20px] w-[40%] h-[89%]">
+        <div className="absolute bg-[#20202A] text-[white] p-8 rounded-[20px] w-[40%] h-[95%]">
             <h1 className={`${ubuntu.className} text-center text-2xl text-[#ccff69] tracking-[1px] mb-[15px]`}>Booking Request</h1>
-            <div className="h-[28%]">
+            <div className="h-[32%]">
             <span className="block text-[#ccff69] text-[11px] tracking-[1.5px] uppercase mt-[1px] mb-[25px] border-b-[#ccff69] border-b border-solid">Event Details</span>
             <div className="flex flex-col">
                 <div className="flex flex-row justify-center items-center w-[100%]">
@@ -157,7 +262,7 @@ export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
                     <Select className="z-60 w-[55%] text-[black] text-center"
                     classNamePrefix="select"
                     name="event"
-                    options={events}
+                    options={userEvents}
                     onChange={(e) => chooseEvent(e)}
                     />
                 </div>
@@ -170,6 +275,10 @@ export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
                         onChange={(e) => chooseDate(e)}
                         noOptionsMessage={noOptionsMessage}/>
                 </div>
+                <div className="flex flex-row justify-center items-center w-[100%]">
+                    <span className="rounded-[5px] ml-[-20px] text-center text-xs tracking-[1.5px] lowercase italic w-[25%]">website:</span>
+                    <input type="text" className="z-58 rounded-[5px] w-[55%] p-1 text-[black] text-center text-sm mb-[20px]" value={bookingData.link} onChange={handleWebsiteInput}/>
+                </div>
             </div>
             </div>
             <div className="h-[34%]">
@@ -178,45 +287,25 @@ export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
                     <div className="flex flex-row justify-center border-b-[#434352] border-b border-solid">
                         <div className="flex flex-row mb-[18px] items-center">
                             <span className="rounded-[5px] w-[120px] text-center text-xs p-3 tracking-[1.5px] lowercase mt-[1px] italic ml-[-15px]">Start Time:</span>
-                            <input type="time" className="text-[black] rounded-[5px] p-2 h-[75%] w-[22%] text-center" value={startTime} onChange={handleStartInput}/>
+                            <input type="time" className="text-[black] rounded-[5px] p-2 h-[75%] w-[22%] text-center" value={bookingData.sets[0].setTimeStart} onChange={handleStartInput}/>
                             <span className="rounded-[5px] w-[120px] text-center text-xs p-3 tracking-[1.5px] lowercase mt-[1px] italic ml-[30px]">End Time:</span>
-                            <input type="time" className="text-[black] text-center rounded-[5px] p-2 h-[75%] w-[22%]" value={endTime} onChange={handleEndInput}/>
+                            <input type="time" className="text-[black] text-center rounded-[5px] p-2 h-[75%] w-[22%]" value={bookingData.sets[0].setTimeEnd} onChange={handleEndInput}/>
                         </div>
                     </div>
                     <div className="flex flex-row justify-center">
                         <div className="flex flex-row mt-[20px] mb-[23px] items-center">
                             <span className="rounded-[5px] text-center text-xs p-3 tracking-[1.5px] lowercase mt-[1px] italic ml-[5%] mr-[10px]">Pay Amount:</span>
-                            <input type="number" value={offer} onChange={handleOfferInput} className="rounded-[5px] p-2 w-[19%] h-[80%] text-[black] text-center"/>
-                            <span className="rounded-[5px] ml-[30px] w-[95px] text-center text-xs p-3 tracking-[1.5px] lowercase mt-[1px] italic">Pay Type:</span>
-                            <Dropdown><DropdownTrigger>
-                                <span className="z-15 bg-[black] text-[white] py-3 uppercase text-[12px] px-[24px] rounded-[10px] tracking-[3px] transition-all duration-200 cursor-pointer">
-                                    {payType === '' ? 'Choose' : payType}
-                                </span>
-                            </DropdownTrigger>
-                            <DropdownMenu aria-label="Static Actions">
-                                <DropdownItem key="Hourly" className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] shadow-[0px_4px_5px_#191922] transition-all duration-200 rounded-[10px_10px_0px_0px]" 
-                                onClick={() => handleTypeInput('Hourly')}>
-                                    <span className="text-[#b7c4ff] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px] transition-all duration-200">
-                                        Hourly
-                                    </span>
-                                </DropdownItem>
-                                <DropdownItem key="Flat" className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] shadow-[0px_4px_5px_#191922] transition-all duration-200" onClick={() => handleTypeInput('Fixed')} >
-                                    <span className="text-[#b7c4ff] p-3 uppercase text-[12px] mx-[24px] my-[6px] tracking-[3px] transition-all duration-200">
-                                        Fixed
-                                    </span>
-                                </DropdownItem>
-                                <DropdownItem key="set" className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] shadow-[0px_4px_5px_#191922] transition-all duration-200 rounded-[0px_0px_10px_10px]" onClick={() => handleTypeInput('Per Set')} >
-                                    <span className="text-[#b7c4ff] p-3 uppercase text-[12px] mx-[24px] my-[5px] tracking-[3px] transition-all duration-200">
-                                        Per Set
-                                    </span>
-                                </DropdownItem>
-                            </DropdownMenu></Dropdown>
+                            <input type="number" value={bookingData.offer} onChange={handleOfferInput} className="rounded-[5px] p-2 w-[19%] h-[80%] text-[black] text-center"/>
+                            <span className="rounded-[5px] ml-[30px] w-[110px] text-center text-xs p-3 tracking-[1.5px] lowercase mt-[1px] italic">Travel Paid:</span>
+                            <span className="z-15 bg-[black] text-[white] py-3 uppercase text-[12px] px-[24px] rounded-[10px] tracking-[3px] transition-all duration-200 cursor-pointer" onClick={() => setTravelExpenses(!travelExpenses)}>
+                                {travelExpenses === false ? 'No' : 'Yes'}
+                            </span>
                         </div>
                     </div>
                 </div>
                 <span className="block text-[11px] tracking-[1.5px] uppercase mt-[1px] mb-[20px] border-b-[#ccff69] border-b border-solid"></span>
             </div>
-            <div className="h-[22%] flex justify-center p-4">
+            <div className="h-[20%] flex justify-center p-4">
                 <textarea className="m-3 rounded-[5px] w-[80%] p-3 text-[black] text-sm" placeholder="Add any extra details or comments here" value={comments} onChange={handleCommentsInput}></textarea>
             </div>
             <div className="flex flex-row justify-between mt-[10px]">

@@ -76,7 +76,7 @@ export default function FirstCol({ sessionUser }: Props) {
       )}
       <div className="h-[80px] px-5 flex flex-col top-[82%] inline-flex z-5 absolute bg-[rgba(0,0,0,0.7)]">
         <div
-          className={`z-10 py-2.5 rounded-[3px] tracking-[1.5px] text-[white] ${ubuntu.className} text-2xl`}
+          className="z-10 py-2.5 rounded-[3px] tracking-[1.5px] text-[white] ${ubuntu.className} text-2xl"
         >
           {pageUser ? pageUser.name : ""}
         </div>
