@@ -1,7 +1,8 @@
 // components/ImageUpload.tsx
-import React, { useState } from 'react';
-import { storage } from '@/app/api/(3rdParty)/firebase/firebase';
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import React, { useState } from "react";
+import { storage, db, auth } from "@/app/api/(3rdParty)/firebase/firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { doc, updateDoc } from "firebase/firestore";
 
 interface ImageUploadProps {
   setImageURL: (url: string) => void;
@@ -13,31 +14,41 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ setImageURL }) => {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setFile(e.target.files[0]);
+      const selectedFile = e.target.files[0];
+      const fileSizeLimit = 2 * 1024 * 1024; // 2MB in bytes
+      if (selectedFile.size > fileSizeLimit) {
+        alert("File size exceeds 2MB limit.");
+        return;
+      }
+      setFile(selectedFile);
     }
   };
 
   const handleUpload = () => {
     if (!file) return;
 
-    const storageRef = ref(storage, `images/${file.name}`);
+    // Generate a unique file name
+    const uniqueName = `${Date.now()}-${Math.floor(Math.random() * 1e6)}.${file.name
+      .split(".")
+      .pop()}`;
+
+    const storageRef = ref(storage, `images/${uniqueName}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on(
-      'state_changed',
+      "state_changed",
       (snapshot) => {
-        const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
+        const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
         setProgressPercent(progress);
       },
       (error) => {
         alert(error);
       },
       () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          console.log('File available at', downloadURL);
-          setImageURL(downloadURL); 
+        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+          console.log("File available at", downloadURL);
+          setImageURL(downloadURL);
+          console.log("Image URL:", downloadURL);
         });
       }
     );

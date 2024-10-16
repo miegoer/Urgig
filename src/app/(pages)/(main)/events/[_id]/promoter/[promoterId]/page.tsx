@@ -4,12 +4,13 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { ArtistEvent } from "@/types/interfaces.ts/artistEvent";
 import { fetchAndTransformEvents } from "@/app/utils/eventsUtils";
+import { User } from "@/types/user";
 
 export default function Promoter() {
   const { promoterId } = useParams();
 
   const [promoter_id, setPromoter_id] = useState<string>("");
-  const [promoter, setPromoter] = useState<any>({});
+  const [promoter, setPromoter] = useState<User | null>(null);
   const [artistUpcomingEvents, setUpcomingArtistEvents] = useState<
     ArtistEvent[]
   >([]);
@@ -49,7 +50,6 @@ export default function Promoter() {
 
           setUpcomingArtistEvents(upcomingEvents);
           setPastArtistEvents(pastEvents);
-          console.log(upcomingEvents, pastEvents);
         } catch (error) {
           console.error("Error fetching events:", error);
         }
@@ -106,11 +106,10 @@ export default function Promoter() {
                 <div>
                   {event.name && (
                     <Link href={`/event/${promoter.events[index]}`}>
-                      {" "}
                       <p>
-                        {event.name}{" "}
+                        {event.name}
                         <span className="text-xs text-[#a0aec0] ">
-                        {"       "} {event.dateD} of {event.dateM}
+                          {event.dateD} of {event.dateM}
                         </span>
                       </p>
                     </Link>

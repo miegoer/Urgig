@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --background: #20202A;
+  --background: #20202a;
   --foreground: #ededed;
 }
 @media (prefers-color-scheme: dark) {
@@ -15,7 +15,7 @@
 
 body {
   color: var(--foreground);
-  background: #20202A;
+  background: #20202a;
   font-family: Arial, Helvetica, sans-serif;
 }
 

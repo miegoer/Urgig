@@ -2,27 +2,28 @@ export type User = {
   _id: string;
   email: string;
   typeOfAccount: string; //Myabe a [] later and then refactor to include both?
-  name?: string;
+  name: string;
   contactNumber?: string;
   password?: string;
   dateOfBirth?: Date;
-  location?: String;
+  location?: string;
   settings?: Settings; //settings like white/black theme and similar...
   profileDetails?: ProfileDetails; //more info about user
   statistics?: Statistics;
   events?: string[];
   stageName?: string;
   companyName?: string;
+  genre?: string[];
 };
 
 export type ProfileDetails = {
-  profilePicture?: string; //Either: ID to separate table in Mongo (if we store in DB), URL to any cloud/webdisk API
+  imageURL?: string; // URL to any cloud/webdisk API
   aboutMe?: string;
   selectedVideo?: string; //URL to ... youtube?
   socialLinks?: SocialLinks;
   unAvailableDates?: Date[]; //for now
   bannerPicture?: string;
-  genre?: string[]; // preselected ones, defined hardcoded into UI! Make a separate file at least...
+  genre: string[]; // preselected ones, defined hardcoded into UI! Make a separate file at least...
 };
 
 export type SocialLinks = {

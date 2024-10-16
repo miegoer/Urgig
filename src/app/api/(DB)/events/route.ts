@@ -1,6 +1,8 @@
 import dbConnect from "@/app/lib/mongoDB/dbConnect";
 import { EventModel } from "@/app/lib/mongoDB/models/eventModel";
+import { UserModel } from "@/app/lib/mongoDB/models/userModel";
 import { EventZodSchema } from "@/app/lib/zodSchemas/eventZodSchema";
+import { Event } from "@/types/event";
 import { NextRequest, NextResponse } from "next/server";
 
 //create new event
@@ -13,7 +15,17 @@ export async function POST(request: NextRequest) {
   if (!validation.success) return NextResponse.json(validation.error.errors, { status: 400 });
   try {
     // Attempt to create a new event
-    const newEvent = await EventModel.create(validation.data);
+    const newEvent: Event = await EventModel.create(validation.data);
+
+    try {
+      //update user
+      const userId = newEvent.promoterId;
+      await UserModel.findByIdAndUpdate(
+        userId,
+        { $push: { events: newEvent._id } } // Add the new event to the events array
+      );
+    } catch (error) {}
+
     return NextResponse.json(newEvent, { status: 201 });
   } catch (error) {
     if (error instanceof Error) {
