@@ -10,11 +10,11 @@ import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 // Must be refactored later to work with data properties
 
-export default function QuickStats({bookingsCount}: {bookingsCount: number}) {
+export default function QuickStats({bookingsCount, views}: {bookingsCount: number; views:number}) {
 
   const router = useRouter();
 
-  const userStats = [{ requests: 3 }, { bookings: bookingsCount }, { views: 15 }];
+  const userStats = [{ requests: 3 }, { bookings: bookingsCount }, { views: views }];
 
   const createStats = () => {
     return userStats.map((stat) => {

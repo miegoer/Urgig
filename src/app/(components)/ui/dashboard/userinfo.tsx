@@ -35,7 +35,7 @@ export default function UserInfo({userInfo, isLoading}:{userInfo:User | undefine
         className="h-[120px] w-[120px] object-cover rounded-[50%]"
       />
       <div className="flex flex-col justify-center ml-12">
-        <div className={`text-xl text-[#ccff69] tracking-[2px] text-center mb-3 ${ubuntu.className}`}>
+        <div className={`text-[18px] text-[#ccff69] tracking-[2px] text-center mb-3 ${ubuntu.className}`}>
           {!userInfo ? (
           <p>Loading User...</p>
         ) : (

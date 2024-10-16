@@ -11,20 +11,28 @@ import dynamic from 'next/dynamic';
 import { getUser } from "@/app/utils/userUtils";
 import { User } from "@/types/user";
 import {EventsLoading, StatsLoading} from "@/app/(components)/ui/dashboard/loading/loading";
+import { useTalkSession } from "@/app/(context)/TalkSessionContext";
+
 // import dynamic from 'next/dynamic';
 
 export default function Page({ children }: { children: React.ReactNode }) {
   const [userInfo, setUserInfo] = useState<User>();
   const [isLoading, setIsLoading] = useState(true);
   const [bookingsCount, setBookingsCount] = useState<number>(0);
+  const { userType } = useTalkSession();
 
   const handleCount = (value:number) => {
     setBookingsCount(value); // Update the state
   };
 
   useEffect(() => {
+    let currentId;
+    if (userType === 'artist') {
+      currentId = "67082cc74e2febe010324134";
+    } else {
+      currentId = "670830401234567890abcdef";
+    }
     const fetchUserInfo = async () => {
-      const currentId ='67082cc74e2febe010324134';
       try {
         const fetchedUser:User = await getUser(currentId as string);
         setUserInfo(fetchedUser);
@@ -35,7 +43,7 @@ export default function Page({ children }: { children: React.ReactNode }) {
     };
 
     fetchUserInfo();
-  }, []);
+  }, [userType]);
 
 
   const QuickStats = dynamic(() => import("@/app/(components)/ui/dashboard/quickstats"), {
@@ -52,7 +60,7 @@ export default function Page({ children }: { children: React.ReactNode }) {
   return (
     <>
       <div className="col-[col-start_2_/_span_10] row-[2_/_span_4] flex flex-row w-[110%] mb-[5px]">
-        <QuickStats bookingsCount={bookingsCount}/>
+        <QuickStats bookingsCount={bookingsCount} views={userInfo?.statistics?.profileViews}/>
         <UserInfo userInfo={userInfo} isLoading={isLoading}/>
       </div>
       <div className="col-[col-start_2_/_span_10] row-[6_/_span_4] h-[405px] flex flex-row w-[110%]">

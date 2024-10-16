@@ -11,7 +11,7 @@ export const fetchAndTransformEvents = async (
   // }
   //if mocking:
 
-  artistId = "67082cc74e2febe010324134";
+  // artistId = "67082cc74e2febe010324134";
 
   try {
     const response = await fetch(`/api/users/${artistId}/events`); // Adjust the API route if necessary
@@ -39,6 +39,7 @@ const sortAndTransformEvents = (events: Event[], prefix: number): ArtistEvent[] 
     .map((event) => ({
       _id: event._id!,
       name: event.name,
+      location: event.location,
       dateD: new Date(event.date).getDate().toString(), // Get the day of the month
       dateM: new Date(event.date).toLocaleString("default", { month: "short" }), // Get the abbreviated month name
       time: "", // Placeholder for time (yet to be settled)

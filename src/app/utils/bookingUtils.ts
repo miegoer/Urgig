@@ -4,7 +4,6 @@ import { Booking } from "@/types/booking";
 export const fetchBookings = async (
     artistId: string | undefined
   ): Promise<Booking[]> => {
-    artistId = "67082cc74e2febe010324134";
     try {
       const response = await fetch(`/api/bookings?userId=${artistId}`);
       const bookings: Booking[] = await response.json();
