@@ -3,7 +3,7 @@ import QuickStats from "@/app/(components)/ui/dashboard/quickstats";
 import Notifications from "@/app/(components)/ui/dashboard/notifications";
 import Messages from "@/app/(components)/ui/dashboard/messages";
 import UserInfo from "@/app/(components)/ui/dashboard/userinfo";
-import EventsList from "@/app/(components)/ui/dashboard/EventsList";
+import EventsList from "@/app/(components)/ui/dashboard/AllEventsList";
 import { Button } from "@mui/material";
 import { fillOutDB } from "../../../../../zz_dbbkp/fillOutDB";
 import { PageOwnerUserProvider } from "@/app/(context)/PageOwnerUserContext";

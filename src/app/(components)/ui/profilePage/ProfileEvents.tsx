@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import EventsList from "../dashboard/EventsList";
+import EventsList from "../dashboard/AllEventsList";
 //
 //
 export default function ProfileEvents() {

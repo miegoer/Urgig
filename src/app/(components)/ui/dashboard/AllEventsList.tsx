@@ -2,10 +2,7 @@
 import { usePageOwnerUser } from "@/app/(context)/PageOwnerUserContext";
 import { useTalkSession } from "@/app/(context)/TalkSessionContext";
 import { fetchAndTransformEvents } from "@/app/utils/eventsUtils";
-import mockEvents from "@/mockData/events";
 import { ArtistEvent } from "@/types/interfaces.ts/artistEvent";
-import { User } from "@/types/user";
-import { useUser } from "@clerk/nextjs";
 import { Ubuntu } from "next/font/google";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -17,7 +14,6 @@ const ubuntu = Ubuntu({
 
 export default function EventsList() {
   const { pageOwnerUser } = usePageOwnerUser();
-  const { session, userId } = useTalkSession();
   const [artistUpcomingEvents, setUpcomingArtistEvents] = useState<ArtistEvent[]>([]);
   const [artistPastEvents, setPastArtistEvents] = useState<ArtistEvent[]>([]);
 
