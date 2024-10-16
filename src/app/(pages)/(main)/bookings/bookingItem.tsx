@@ -29,7 +29,7 @@ const BookingItem: React.FC<{booking: Booking, userType: string}> = ({booking, u
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({status: 'accepted'})
+        body: JSON.stringify({status: 'confirmed'})
       })
 
       const userResponse = await fetch(`/api/users/${booking.bookingArtistId}`);
@@ -69,7 +69,7 @@ const BookingItem: React.FC<{booking: Booking, userType: string}> = ({booking, u
       <h1>{booking.name}</h1>
         <div>
           Event Genre:
-          {booking.expectedGenre.map((genre) => (
+          {booking.genre.map((genre) => (
             <h3 key={genre}>{genre}</h3>
           ))}
         </div>
@@ -91,18 +91,20 @@ const BookingItem: React.FC<{booking: Booking, userType: string}> = ({booking, u
     </div>
     <div className='div6'>
       <Link href={`/profile/${booking.bookingPromoterId}`}>Promoter: {promoter?.name || 'Unknown'}</Link>
+      {booking.link && 
       <Link href={new URL(booking.link!)}>Official Website</Link>
+      }
     </div>
     <div className='div7'>
-    {(accountType === 'promoter' && (booking.status === 'confirmed' || booking.status === 'declined')) && (
+    {(accountType === 'artist' && (booking.status === 'negotiation' || booking.status === 'pending')) && (
         <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'centre', alignItems: 'center'}}>
         <button style={{background: 'linear-gradient(to bottom, #22aa44, #e8ff59)', padding: '10px 10px', borderRadius: '5px', cursor: 'pointer', width: '180px'}} onClick={AcceptBooking}>Accept Booking</button>
         <button style={{background: 'linear-gradient(to bottom, #f70000, #f76b00)', padding: '10px 10px', borderRadius: '5px', cursor: 'pointer', marginTop: '10px', width: '180px'}} onClick={DeclineBooking}>Decline Booking</button>
         </div>
       )}
-      {/* {(accountType === 'promoter' || (accountType === 'artist' && (booking.status === 'confirmed' || booking.status === 'declined'))) && (
+      {(accountType === 'promoter' || (accountType === 'artist' && (booking.status === 'confirmed' || booking.status === 'declined'))) && (
         <h2>{booking.status}</h2>
-      )} */}
+      )}
     </div>
   </div>
  ); 

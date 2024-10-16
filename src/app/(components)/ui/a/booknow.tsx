@@ -6,10 +6,13 @@ import {
     DropdownSection,
     DropdownItem
   } from "@nextui-org/dropdown";
-import Select from 'react-select';
-import mockEvents from "@/mockData/events";
+import Select, { SingleValue} from 'react-select';
 import { Booking, Set } from "@/types/booking";
-import { useState, ChangeEvent } from 'react';
+import { Event } from "@/types/event";
+import { useState, ChangeEvent, useEffect } from 'react';
+import { useTalkSession } from "@/app/(context)/TalkSessionContext";
+import { useParams } from "next/navigation";
+import { useCallback } from "react";
 
 interface BookNowProps {
     setOpenBooking: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,14 +23,8 @@ const ubuntu = Ubuntu({
     subsets: ["latin"],
   });
 
-interface SelectedEvent {
-    value: Event,
-    label: string,
-}
-// This type is a readable format for the dropdown menu as it requires a label property.
-
 interface SelectedDate {
-    value: Date,
+    value: string,
     label: string,
 }
 // Ditto, but for dates.
@@ -36,101 +33,96 @@ const noOptionsMessage = () => 'No Event Attached';
 
 export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
 
+    const params = useParams();
+
+    const { userId, session }  = useTalkSession();
+
     const initialState:Booking = {
-        _id: '',
         name: '',
         location: '',
         offer: 0,
-        sets: [],
-        expectedGenre: [],
+        sets: [{
+            date: new Date,
+            setTimeStart: '00:00',
+            setTimeEnd: '00:00'
+        }],
+        genre: [],
         maxCapacity: 0,
-        status: 'pending',
+        status: 'negotiation',
         bookingPromoterId: '',
         bookingArtistId: '',
         bookingEventId: '',
         link: ''
       }; // Initial state for empty booking request
 
-    const initialSet: Set = {
-        _id: '',
-        date: new Date,
-        setTimeStart: '',
-        setTimeEnd: ''
-    } // Initial state for empty set, which will be added to 'sets' above
-
     const [bookingData, setBookingData] = useState(initialState);
     // Empty booking request
 
-    const [selectedEvent, setSelectedEvent] = useState<SelectedEvent | null>(null);
-    // The above is a separate type which includes a label for the dropdown menu.
-
     const [dates, setDates] = useState<{ value: string; label: string }[]>([]);
     // All date options for the selected event above, for dropdown menu.
-
-    const [offer, setOffer] = useState<number>(0);
-    // sets offer amount
     
     const [travelExpenses, setTravelExpenses] = useState<boolean>(false);
     // travel exp paid or unpaid
 
-    const [startTime, setStartTime] = useState<string>('');
-    // sets start time of set
-
-    const [endTime, setEndTime] = useState<string>('');
-    // sets end time of set
-
-    const [setDetails, setSetDetails] = useState<Set>(initialSet);
-    // pulls all set details
-
     const [comments, setComments] = useState<string>('');
     // IGNORE
 
-    const events:SelectedEvent[] = mockEvents.map((event) => ({
-        value: event,
-        label: event.name,
-      }));
+    const [userEvents, setUserEvents] = useState<Event[]>([]);
+
+    useEffect(() => {
+        const getPromoterEvents = async () => {
+            const response = await fetch(`/api/users/${userId}/events`);
+            const data = await response.json();
+            const formattedData = data.map((event: Event) => ({
+                value: event,
+                label: event.name
+            }))
+            setUserEvents(formattedData);
+        };
+        getPromoterEvents();
+    }, [userId])
  
-    const chooseEvent = (event: SelectedEvent) => {
+    const chooseEvent = (event: SingleValue<Event>) => {
         // Triggered after selecting an event
-        setSelectedEvent(event);
-        const formattedDate = event.value.date.toLocaleDateString('en-GB', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-          });
-        setDates([{value: formattedDate, label: formattedDate}]); // Fills dropdown menu with corresponding dates
-        setBookingData((prevData) => ({
-            ...prevData,
-            name: event.value.name,
-            location: event.value.location,
-            maxCapacity: event.value.maxCapacity,
-            bookingPromoterId: event.value.promoterId,
-            expectedGenre: event.value.genre
-        })); // Sets booking data with info already embedded in the event data
+        if (event) {
+            const fetchEventData = async (event: any) => {
+                const response =await fetch(`/api/events/${event.value.value._id}`);
+                const eventData = await response.json();
+                console.log(eventData.genre);
+                const date = new Date(eventData.date);
+                const formattedDate = date.toLocaleDateString('en-GB', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+                setDates([{value: formattedDate, label: formattedDate}]);
+                setBookingData((prevData) => ({
+                    ...prevData,
+                    name: eventData.name,
+                    location: eventData.location,
+                    maxCapacity: eventData.maxCapacity,
+                    bookingPromoterId: eventData.promoterId,
+                    bookingEventId: eventData._id,
+                    bookingArtistId: typeof params.id === 'string' ? params.id : '',
+                    genre: eventData.genre,
+                    link: eventData.link
+                })); // Sets booking data with info already embedded in the event data
+            };
+            fetchEventData({label: event.name, value:event});
+        }
     }
 
-    const chooseDate = (date: SelectedDate) => {
+    const chooseDate = (date: SingleValue<SelectedDate>) => {
         // Triggered after selecting a date
+        if (date) {
         setBookingData((prevData) => ({
             ...prevData,
-            date: date.value,
+            date: new Date(date.value),
         }));
+        }
     }
-
-    // const parseDateString = (dateString:string) => {
-    //     const [day, month, year] = dateString.split(' ');
-    //     const months = {
-    //       January: 0, February: 1, March: 2, April: 3,
-    //       May: 4, June: 5, July: 6, August: 7,
-    //       September: 8, October: 9, November: 10, December: 11,
-    //     };
-    //     return new Date(year, months[month], day);
-    // }; 
-    // Converts dates in string-form back to a date type. Unclear if needed.
-
 
     const handleOfferInput = (event:ChangeEvent<HTMLInputElement>) => {
-        setOffer(Number(event.target.value));
         setBookingData((prevData) => ({
             ...prevData,
             offer: Number(event.target.value),
@@ -138,20 +130,18 @@ export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
         }
 
     const handleStartInput = (event: ChangeEvent<HTMLInputElement>) => {
-        setStartTime(event.target.value)
-        setSetDetails((prevData) => ({
+        setBookingData((prevData) => ({
             ...prevData,
-            setTimeStart: event.target.value
+            sets: [{ ...prevData.sets[0], setTimeStart: event.target.value }]
         }))
       };
 
     const handleEndInput = (event:ChangeEvent<HTMLInputElement>) => {
-        setEndTime(event.target.value)
-        setSetDetails((prevData) => ({
+        setBookingData((prevData) => ({
             ...prevData,
-            setTimeEnd: event.target.value
+            sets: [{ ...prevData.sets[0], setTimeEnd: event.target.value }]
         }))
-    }
+    };
 
     const handleWebsiteInput = (event:ChangeEvent<HTMLInputElement>) => {
         setBookingData((prevData) => ({
@@ -160,9 +150,21 @@ export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
           }));
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         // Will need to embed the setDetails in Sets and travelExpenses
-        console.log(bookingData)
+        try {
+            await fetch('/api/bookings', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(bookingData),
+            })
+            console.log(bookingData)
+            setOpenBooking(false);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
 
@@ -181,7 +183,7 @@ export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
                     <Select className="z-60 w-[55%] text-[black] text-center"
                     classNamePrefix="select"
                     name="event"
-                    options={events}
+                    options={userEvents}
                     onChange={(e) => chooseEvent(e)}
                     />
                 </div>
@@ -206,15 +208,15 @@ export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
                     <div className="flex flex-row justify-center border-b-[#434352] border-b border-solid">
                         <div className="flex flex-row mb-[18px] items-center">
                             <span className="rounded-[5px] w-[120px] text-center text-xs p-3 tracking-[1.5px] lowercase mt-[1px] italic ml-[-15px]">Start Time:</span>
-                            <input type="time" className="text-[black] rounded-[5px] p-2 h-[75%] w-[22%] text-center" value={startTime} onChange={handleStartInput}/>
+                            <input type="time" className="text-[black] rounded-[5px] p-2 h-[75%] w-[22%] text-center" value={bookingData.sets[0].setTimeStart} onChange={handleStartInput}/>
                             <span className="rounded-[5px] w-[120px] text-center text-xs p-3 tracking-[1.5px] lowercase mt-[1px] italic ml-[30px]">End Time:</span>
-                            <input type="time" className="text-[black] text-center rounded-[5px] p-2 h-[75%] w-[22%]" value={endTime} onChange={handleEndInput}/>
+                            <input type="time" className="text-[black] text-center rounded-[5px] p-2 h-[75%] w-[22%]" value={bookingData.sets[0].setTimeEnd} onChange={handleEndInput}/>
                         </div>
                     </div>
                     <div className="flex flex-row justify-center">
                         <div className="flex flex-row mt-[20px] mb-[23px] items-center">
                             <span className="rounded-[5px] text-center text-xs p-3 tracking-[1.5px] lowercase mt-[1px] italic ml-[5%] mr-[10px]">Pay Amount:</span>
-                            <input type="number" value={offer} onChange={handleOfferInput} className="rounded-[5px] p-2 w-[19%] h-[80%] text-[black] text-center"/>
+                            <input type="number" value={bookingData.offer} onChange={handleOfferInput} className="rounded-[5px] p-2 w-[19%] h-[80%] text-[black] text-center"/>
                             <span className="rounded-[5px] ml-[30px] w-[110px] text-center text-xs p-3 tracking-[1.5px] lowercase mt-[1px] italic">Travel Paid:</span>
                             <span className="z-15 bg-[black] text-[white] py-3 uppercase text-[12px] px-[24px] rounded-[10px] tracking-[3px] transition-all duration-200 cursor-pointer" onClick={() => setTravelExpenses(!travelExpenses)}>
                                 {travelExpenses === false ? 'No' : 'Yes'}
