@@ -52,6 +52,7 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
   });
 
   return (
+    <div className="flex flex-row">
     <div
       id="mainGrid"
       style={{
@@ -83,6 +84,7 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
           <ThirdCol pageOwnerUser={pageOwnerUser} />
         </div>
       </>
+    </div>
     </div>
   );
 }
