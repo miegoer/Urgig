@@ -7,7 +7,9 @@ export default function Bookings() {
   const { _id } = useParams();
 
   const [eventId, setEventId] = useState<string>("");
-  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [bookings, setBookings] = useState<Booking[] | []>([]);
+  const [confirmed, setConfirmed] = useState<Booking[] | []>([]);
+  const [pending, setPending] = useState<Booking[] | []>([]);
 
   useEffect(() => {
     // geting eventId from params when mounting
@@ -30,16 +32,17 @@ export default function Bookings() {
           console.error(error);
         });
     };
-    if (eventId) {
-      fetchBookings();
-      console.log(bookings);
-    }
+    fetchBookings();
   }, [eventId]);
 
-  const confirmed = bookings.filter(
-    (booking) => booking.status === "confirmed"
-  );
-  const pending = bookings.filter((booking) => booking.status === "pending");
+  useEffect(() => {
+    if (Array.isArray(bookings) && bookings.length > 0) {
+      setConfirmed(
+        bookings.filter((booking) => booking.status === "confirmed")
+      );
+      setPending(bookings.filter((booking) => booking.status === "pending"));
+    }
+  }, [bookings]);
 
   return (
     <>
@@ -48,16 +51,25 @@ export default function Bookings() {
 
         <div className="border-t w-full h-0 self-center mt-1"></div>
         <div className="mt-2">
-          {confirmed.map((booking) => (
-            <div key={booking._id} className="grid grid-cols-11 ">
-              <p className="col-span-5">{booking.name}</p>
-              <p className="text-xs text-[#a0aec0] col-span-3 text-center">
-                {new Date(booking.sets[0].date).toLocaleDateString('en-US')}, at {booking.sets[0].setTimeStart}
+          {confirmed.length > 0 ? (
+            confirmed.map((booking) => (
+              <div key={booking._id} className="grid grid-cols-11 ">
+                <p className="col-span-5">{booking.name}</p>
+                <p className="text-xs text-[#a0aec0] col-span-3 text-center">
+                  {new Date(booking.sets[0].date).toLocaleDateString("en-US")},
+                  at {booking.sets[0].setTimeStart}
                 </p>
-              <p className="text-xs text-[#a0aec0] col-span-2 text-center">{booking.offer} $</p>
-              <div className="text-xs text-[#a0aec0] col-span-1 text-end">View</div>
-            </div>
-          ))}
+                <p className="text-xs text-[#a0aec0] col-span-2 text-center">
+                  {booking.offer} $
+                </p>
+                <div className="text-xs text-[#a0aec0] col-span-1 text-end">
+                  View
+                </div>
+              </div>
+            ))
+          ) : (
+            <p> No confirmed gigs for this event to show</p>
+          )}
         </div>
       </div>
 
@@ -66,16 +78,25 @@ export default function Bookings() {
 
         <div className="border-t w-full h-0 self-center mt-1"></div>
         <div className="mt-2">
-        {pending.map((booking) => (
-            <div key={booking._id} className="grid grid-cols-11 ">
-              <p className="col-span-5">{booking.name}</p>
-              <p className="text-xs text-[#a0aec0] col-span-3 text-center">
-                {new Date(booking.sets[0].date).toLocaleDateString('en-US')}, at {booking.sets[0].setTimeStart}
+          {pending.length > 0 ? (
+            pending.map((booking) => (
+              <div key={booking._id} className="grid grid-cols-11 ">
+                <p className="col-span-5">{booking.name}</p>
+                <p className="text-xs text-[#a0aec0] col-span-3 text-center">
+                  {new Date(booking.sets[0].date).toLocaleDateString("en-US")},
+                  at {booking.sets[0].setTimeStart}
                 </p>
-              <p className="text-xs text-[#a0aec0] col-span-2 text-center">{booking.offer} $</p>
-              <div className="text-xs text-[#a0aec0] col-span-1 text-end">View</div>
-            </div>
-          ))}
+                <p className="text-xs text-[#a0aec0] col-span-2 text-center">
+                  {booking.offer} $
+                </p>
+                <div className="text-xs text-[#a0aec0] col-span-1 text-end">
+                  View
+                </div>
+              </div>
+            ))
+          ) : (
+            <p> No pending gigs for this event to show</p>
+          )}
         </div>
       </div>
     </>

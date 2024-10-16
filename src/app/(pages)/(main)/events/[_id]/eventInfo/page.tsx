@@ -1,7 +1,8 @@
 "use client";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState , Suspense} from "react";
 import { Event } from "@/types/event";
+
 
 export default function eventInfo() {
   const params = useParams();
@@ -12,7 +13,6 @@ export default function eventInfo() {
     genre: [] as string[],
     duration: 1,
     maxCapacity: 100,
-    bannerURL: undefined,
     link: undefined,
     promoterId: "",
   });
@@ -32,6 +32,8 @@ export default function eventInfo() {
   }, [params]);
 
   return (
+ 
+
     <div className="flex flex-col justify-center  w-[600px] ml-[30px]">
       <div
         className={`z-10 w-[100%] mt-8 p-5 rounded-[2px] text-center tracking-[1.5px] text-[white] text-sm`}
@@ -64,5 +66,6 @@ export default function eventInfo() {
       </div>
       </div>
     </div>
+   
   );
 }
