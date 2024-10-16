@@ -3,15 +3,17 @@ const DJFrankenstein = "/mockUsers/DJFrankenstein.png";
 const defaultPhoto = "/default-profile-photo.png";
 import { useTalkSession } from "@/app/(context)/TalkSessionContext";
 import { Ubuntu } from "next/font/google";
-import {useEffect} from 'react';
+import { User } from "@/types/user";
+import {useEffect, useState} from 'react';
 import Link from "next/link";
+import { getUser } from "@/app/utils/userUtils";
 
 const ubuntu = Ubuntu({
   weight: "400",
   subsets: ["latin"],
 });
 
-export default function UserInfo() {
+export default function UserInfo({userInfo, isLoading}:{userInfo:User | undefined; isLoading:boolean}) {
 
   const { userId, userType } = useTalkSession();
   let receivedType: string;
@@ -21,6 +23,7 @@ export default function UserInfo() {
       receivedType = userType;
     }
   }, [userId, userType]);
+
 
   return (
     <div className="w-[460px] shadow-[0px_0px_0px_#272525] rounded-[20px] bg-[#292346] p-6 flex flex-row items-center justify-center overflow-x-auto">
@@ -32,12 +35,21 @@ export default function UserInfo() {
         className="h-[120px] w-[120px] object-cover rounded-[50%]"
       />
       <div className="flex flex-col justify-center ml-12">
-        <div className={`text-xl text-[#ccff69] tracking-[2px] text-center mb-2.5 ${ubuntu.className}`}>
-          DJ Frankenstein
+        <div className={`text-xl text-[#ccff69] tracking-[2px] text-center mb-3 ${ubuntu.className}`}>
+          {!userInfo ? (
+          <p>Loading User...</p>
+        ) : (
+          <p>{userInfo.name}</p>
+        )}
         </div>
-        <span className="block text-[13px] tracking-[2px] mb-2.5 text-center uppercase">
+        <span className="block text-[13px] tracking-[2px] mb-2 text-center uppercase">
           {userType === 'promoter' && ('Promoter')}
           {userType === 'artist' && ('Artist')}
+        </span>
+        <span className="block text-[11px] mb-2.5 italic tracking-[2px] text-center ">
+          {!userInfo ? null : (
+            <p>{userInfo.location}</p>
+          )}
         </span>
         <div
           className={`flex flex-row tracking-[1px] ${ubuntu.className} border-t-[white] border-t border-solid mt-[6px] pt-[14px] justify-around`}
