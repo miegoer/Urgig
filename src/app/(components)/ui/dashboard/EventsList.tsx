@@ -43,6 +43,7 @@ export default function EventsList({ handleCount}: EventsListProps) {
           await fetchAndTransformEvents(currentId as string);
         setUpcomingArtistEvents(upcomingEvents);
         setPastArtistEvents(pastEvents);
+        console.log(upcomingEvents)
         handleCount(upcomingEvents.length);
       } catch (error) {
         console.error("Error fetching events:", error);
@@ -70,7 +71,7 @@ export default function EventsList({ handleCount}: EventsListProps) {
   }, [userId, userType]);
 
   const eventList = (events: ArtistEvent[]) => {
-    return events.map((event: ArtistEvent) => {
+    return events.slice(0, 3).map((event: ArtistEvent) => {
       // console.log(event._id)
       return (
         <div
