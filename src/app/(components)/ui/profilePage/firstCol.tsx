@@ -54,9 +54,9 @@ export default function FirstCol() {
 
   return (
     <>
-      {pageOwnerUser?.profileDetails?.imageURL && (
+      {pageOwnerUser?.profileDetails?.profilePicture && (
         <Image
-          src={pageOwnerUser.profileDetails.imageURL}
+          src={pageOwnerUser.profileDetails.profilePicture}
           width={660}
           height={530}
           alt="mock profile photo"

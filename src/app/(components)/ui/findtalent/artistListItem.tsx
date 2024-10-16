@@ -47,9 +47,9 @@ export default function ArtistListItem({ artist }: ArtistListItemProps) {
       <div className="flex flex-row items-center shadow-[0px_4px_5px_#191922] h-[130px] rounded-[20px] bg-[#252531] mb-[20px] p-3">
         <div className="w-[150px] flex flex-col ">
           <Link href={`/a/${artist._id}`} className="self-center">
-            {artist.profileDetails && artist.profileDetails.imageURL ? (
+            {artist.profileDetails && artist.profileDetails.profilePicture ? (
               <img
-                src={artist.profileDetails.imageURL}
+                src={artist.profileDetails.profilePicture}
                 alt="Artist's profile Photo"
                 width={80}
                 height={80}
@@ -129,7 +129,7 @@ export default function ArtistListItem({ artist }: ArtistListItemProps) {
 }
 
 // const socialIcons = [
-//   { imageurl: "/spotify-icon.png", alt: "Spotify Icon" },
-//   { imageurl: "/tiktok-icon.png", alt: "TikTok Icon" },
-//   { imageurl: "/youtube-icon.png", alt: "YouTube" },
+//   { profilePicture: "/spotify-icon.png", alt: "Spotify Icon" },
+//   { profilePicture: "/tiktok-icon.png", alt: "TikTok Icon" },
+//   { profilePicture: "/youtube-icon.png", alt: "YouTube" },
 // ];
