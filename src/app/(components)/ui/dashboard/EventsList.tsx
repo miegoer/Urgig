@@ -32,8 +32,8 @@ export default function EventsList({ handleCount }: EventsListProps) {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      if (!pageOwnerUser) return;
-      console.log("userID, useEffect fu", pageOwnerUser._id);
+      if (!userId) return;
+      console.log("userID, useEffect fu", userId);
       try {
         let currentId;
         if (userType === "artist") {
@@ -169,7 +169,7 @@ export default function EventsList({ handleCount }: EventsListProps) {
     });
   };
 
-  if (!pageOwnerUser) {
+  if (!userId) {
     return <div>Loading...</div>;
   }
 

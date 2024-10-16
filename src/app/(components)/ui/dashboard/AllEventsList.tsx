@@ -40,30 +40,27 @@ export default function AllEventsList() {
       return (
         <div
           key={event._id}
-          className="flex flex-row text-black mb-6 px-5 py-2.5 rounded-2xl shadow-md"
-          style={{
-            background:
-              "linear-gradient(11deg, rgba(255, 103, 43, 1) 0%, rgba(251, 173, 16, 1) 100%)",
-          }}
+          className="w-[100%] h-[97px] flex flex-row text-black mb-6 px-5 py-2.5 bg-[#292346] rounded-2xl shadow-md shadow-[0px_4px_5px_#191922]"
         >
-          <div className="w-1/4 mr-6 border-r border-black">
-            <span className="text-4xl">{event.dateD}</span>
-            <br />
-            <span className="text-xl">{event.dateM}</span>
+          <div className="w-[90px] flex flex-col justify-center items-center w-[70px] mr-6 border-r border-black p-1">
+            <span className="text-[#ccff69] text-4xl tracking-[-3px] mr-5">{event.dateD}</span>
+            <span className="text-[#ccff69] text-xl mr-5 ml-1 tracking-[2px]">{event.dateM}</span>
           </div>
-          <div className="flex flex-col items-center w-3/5">
-            <span className={`uppercase my-1.5 ${ubuntu.className}`}>
+          <div className="flex flex-col items-center w-[360px] ml-[-20px] justify-center">
+            <span
+              className={`mb-2 px-2 py-1 tracking-[1.5px] text-[12px] bg-[black] text-[#ccff69] rounded-[3px] text-[#ccff69] uppercase shadow-[0px_4px_5px_#191922] `}
+            >
               <Link href={`/events/${event._id}`}>{event.name}</Link>
             </span>
-            <span className="text-sm italic">{event.time}</span>
+            <span className="italic text-[white] text-xs tracking-[1px]">{event.location}</span>
             {/* Display the image if available */}
-            {event.imageURL && (
+            {/* {event.imageURL && (
               <img
                 src={event.imageURL}
                 alt={event.name}
                 className="mt-2 w-full h-auto object-cover rounded-md"
               />
-            )}
+            )} */}
           </div>
         </div>
       );
@@ -75,14 +72,14 @@ export default function AllEventsList() {
   }
 
   return (
-    <div className="w-80 shadow-none mt-5 rounded-3xl p-5 bg-gray-800">
-      <span className="block text-xs tracking-widest uppercase ml-2.5 mt-1 mb-4 text-white">
+    <div className="w-full mt-2 shadow-none rounded-3xl p-5 pl-10">
+      <span className="block text-xs tracking-widest uppercase ml-2.5 mb-4 text-white">
         Upcoming Events
       </span>
 
       {!artistUpcomingEvents ? <div>Loading...</div> : eventList(artistUpcomingEvents)}
 
-      <span className="block text-xs tracking-widest uppercase ml-2.5 mt-1 mb-4 text-white">
+      <span className="block text-xs tracking-widest uppercase ml-2.5 mb-4 text-white">
         Past Events
       </span>
       {!artistPastEvents ? <div>Loading...</div> : eventList(artistPastEvents)}
