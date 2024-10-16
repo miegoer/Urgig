@@ -65,12 +65,12 @@ const SelectGenre = ({ setGenres, genres }: SelectGenreProps) => {
           genres.map((genre) => (
             <span
               key={genre}
-              className="z-10 flex flex-wrap inline-flex text-s bg-[black] text-[#ffa01e] rounded-[20px] py-1 px-3 mr-2.5 mb-2.5 tracking-[1px]"
+              className="z-10 flex flex-wrap inline-flex text-s bg-[black] text-[#ccff69] rounded-[20px] py-1 px-3 mr-2.5 mb-2.5 tracking-[1px]"
             >
               {genre}
               <button
                 onClick={() => handleDelete(genre)}
-                className="ml-2 text-[#ffa01e] hover:text-red-500"
+                className="ml-2 text-[#ccff69] hover:text-red-500"
               >
                 &#10005;
               </button>

@@ -50,7 +50,7 @@ export default function FindTalent({
 
       <div
         style={{ gridColumn: "3 / span 8", gridRow: "2 / span 5 " }}
-        className={`h-[600px] mt-[10px] overflow-y-auto w-[700px]
+        className={`h-[600px] mt-[10px] overflow-y-auto w-[900px]
                     [&::-webkit-scrollbar]:w-0
                     [&::-webkit-scrollbar-track]:rounded-full
                     [&::-webkit-scrollbar-track]:bg-black-100

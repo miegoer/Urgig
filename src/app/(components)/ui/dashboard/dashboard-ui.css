@@ -1,18 +1,25 @@
 
 #box-1 {
-    background: rgb(157,78,244);
-    background: linear-gradient(340deg, rgba(157,78,244,1) 0%, rgba(255,31,91,1) 100%);
+    background: rgb(131,5,218);
+    background: linear-gradient(140deg, rgba(131,5,218,1) 0%, rgba(68,7,110,1) 100%);
+    font-weight: bold;
 }
 
 #box-2 {
-    background: rgb(119,101,227);
-    background: linear-gradient(11deg, rgba(119,101,227,1) 0%, rgba(43,60,205,1) 100%);
-    color: white;
+    /* background: rgb(250,136,31);
+    background: linear-gradient(210deg, rgba(250,136,31,1) 0%, rgba(43,18,217,1) 100%); */
+    background: rgb(81,5,218);
+    background: linear-gradient(203deg, rgba(81,5,218,1) 0%, rgba(49,0,130,1) 100%);
+    font-weight: bold;
 }
 
 #box-3 {
-    background: rgb(255,170,26);
-    background: linear-gradient(350deg, rgba(255,170,26,1) 0%, rgba(255,75,113,1) 100%);
+    /* background: rgb(250,154,31);
+    background: linear-gradient(203deg, rgba(250,154,31,1) 0%, rgba(154,35,0,1) 100%); */
+    background: rgb(213,251,115);
+    color: #303fcb;
+    background: linear-gradient(203deg, rgba(213,251,115,1) 0%, rgba(115,197,33,1) 100%);
+    font-weight: bold;
 }
 
 .message-box-unread {
@@ -25,7 +32,6 @@
 
 .message-box-read {
     background: rgb(40,40,40);
-    background: linear-gradient(5deg, rgba(40,40,40,1) 0%, rgba(80,80,80,1) 100%);
+    background: linear-gradient(5deg, rgb(28, 28, 30) 0%, rgb(43, 40, 59) 100%);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    overflow: auto;
 }

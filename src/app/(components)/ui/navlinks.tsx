@@ -2,12 +2,10 @@
 
 import Link from "next/link";
 import clsx from "clsx";
-const Notifications = "/notifications-bell.png";
-const Messages = "/messages-icon.png";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-const Search = "/search-icon.png";
 import React, { useEffect } from "react";
+import './navLinks.css'
 
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/dropdown";
 import { useTalkSession } from "@/app/(context)/TalkSessionContext";
@@ -47,9 +45,9 @@ export default function NavLinks() {
               key={link.name}
               href={link.href}
               className={clsx(
-                "text-[#b7c4ff] p-3 uppercase text-[11px] mx-[20px] my-[6px] tracking-[3px] transition-all duration-200",
+                "navText text-[#b7c4ff] py-3 px-5 uppercase text-[11px] mx-[20px] my-[6px] tracking-[3px]  transition-all duration-300",
                 { "text-[#ccff69]": pathname === link.href },
-                "hover:bg-[#3525de] hover:rounded-[5px]"
+                "hover:rounded-[8px]"
               )}
             >
               {link.name}
@@ -60,11 +58,11 @@ export default function NavLinks() {
         <DropdownTrigger>
           <span
             className={clsx(
-              "text-[#b7c4ff] p-3 uppercase text-[11px] mx-[20px] my-[6px] tracking-[3px] transition-all duration-200 cursor-pointer",
+              "navText text-[#b7c4ff] uppercase text-[11px] py-3 px-5 mx-[20px] my-[6px] tracking-[3px] transition-all duration-200 cursor-pointer",
               {
-                "text-[#ccff69]": pathname === "/myprofile" || pathname === "/editprofile",
+                "text-[white]": pathname === "/myprofile" || pathname === "/editprofile",
               },
-              "hover:bg-[#3525de] hover:rounded-[5px]"
+              "hover:rounded-[8px]"
             )}
           >
             Profile
@@ -73,7 +71,7 @@ export default function NavLinks() {
         <DropdownMenu aria-label="Static Actions">
           <DropdownItem
             key="View"
-            className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] shadow-[0px_4px_5px_#191922] transition-all duration-200"
+            className="text-center bg-[#211d36] p-3 hover:bg-[#3525de] shadow-[0px_4px_5px_#191922] transition-all duration-200"
           >
             <Link
               key="viewprofile"
@@ -89,7 +87,7 @@ export default function NavLinks() {
           </DropdownItem>
           <DropdownItem
             key="Edit"
-            className="text-center bg-[#20202A] p-3 hover:bg-[#3525de] rounded-[0px_0px_20px_20px] shadow-[0px_4px_5px_#191922] transition-all duration-200 "
+            className="text-center bg-[#211d36] p-3 hover:bg-[#3525de] rounded-[0px_0px_20px_20px] shadow-[0px_4px_5px_#191922] transition-all duration-200 "
           >
             <Link
               key="editprofile"
@@ -105,7 +103,7 @@ export default function NavLinks() {
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>
-      <Image
+      {/* <Image
         src={Notifications}
         alt="notifications bell"
         height={20}
@@ -119,15 +117,15 @@ export default function NavLinks() {
         style={{
           background: "linear-gradient(11deg, rgba(52, 52, 52, 1) 0%, rgba(100, 100, 100, 1) 100%)",
         }}
-      />
-      <Image
+      /> */}
+      {/* <Image
         src={Search}
         height={20}
         width={20}
         id="search-icon"
         alt="search icon"
         className="h-[16px] w-[16px] ml-[-12px] mr-8"
-      />
+      /> */}
       <NavAdminMenu />
     </>
   );
