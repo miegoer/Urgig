@@ -35,7 +35,7 @@ export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
 
     const params = useParams();
 
-    const { userId, session, inboxRef, setInboxRef }  = useTalkSession();
+    const { userId }  = useTalkSession();
 
     const initialState:Booking = {
         name: '',
@@ -63,35 +63,7 @@ export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
             const fetchYou = await fetch(`/api/users/${bookingData.bookingArtistId}`);
             const you = await fetchYou.json();
             console.log("you ", you);
-            // const meUser = new Talk.User({
-            //     id: userId!,
-            //     name: me.firstName + " " + me.lastName,
-            //     email: me.email,
-            //     photoUrl: "https://talkjs.com/new-web/avatar-7.jpg",
-            //     welcomeMessage: "Hi!",
-            // })
-            // const youUser = new Talk.User({
-            //     id: bookingData.bookingArtistId,
-            //     name: you.firstName + " " + you.lastName,
-            //     email: you.email,
-            //     photoUrl: "https://talkjs.com/new-web/avatar-7.jpg",
-            //     welcomeMessage: "Hi!",
-            // })
-            // if (session) {
-            //     const conversation = session?.getOrCreateConversation(
-            //         Talk.oneOnOneId(meUser, youUser)
-            //     );
-            //     conversation!.subject = `${bookingData.name} - ${bookingData.location}`;
-            //     conversation!.setParticipant(meUser);
-            //     conversation!.setParticipant(youUser);
-            //     conversation?.sendMessage(`Hi ${you.firstName}! I'm interested in your booking for ${bookingData.name}!`);
-
-            //     if (inboxRef) {
-                    
-            //     }
-            // } else {
-            //     console.log("no session");
-            // }
+  
             await fetch(`https://api.talkjs.com/v1/${process.env.NEXT_PUBLIC_TALKJS_APP_ID}/users/${you._id}`, {
                 method: "PUT",
                 headers: {
@@ -100,11 +72,11 @@ export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
                 },
                 body: JSON.stringify({
                     name: `${you.name}`,
-                    photoUrl: "https://talkjs.com/new-web/avatar-7.jpg",
+                    photoUrl: you.profileDetails.profilePicture || `https://avatar.iran.liara.run/public/boy?username=${you.name}`,
                     welcomeMessage: "Hi!"
                 })
             });
-            await fetch(`https://api.talkjs.com/v1/${process.env.NEXT_PUBLIC_TALKJS_APP_ID}/conversations/${bookingData.bookingArtistId}${userId}`, {
+            await fetch(`https://api.talkjs.com/v1/${process.env.NEXT_PUBLIC_TALKJS_APP_ID}/conversations/${bookingData.bookingArtistId}${you.name}`, {
                 method: "PUT",
                 headers: {
                 'Authorization': `Bearer ${process.env.NEXT_PUBLIC_TALKJS_API_KEY}`,
@@ -112,11 +84,11 @@ export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
                 },
                 body: JSON.stringify({
                     participants:[userId, bookingData.bookingArtistId],
-                    subject: `${bookingData.name} - ${bookingData.location}`,
+                    subject: `${bookingData.name} - ${bookingData.bookingArtistId}`,
                     welcomeMessage: "Hi!"
                 })
             });
-            await fetch(`https://api.talkjs.com/v1/${process.env.NEXT_PUBLIC_TALKJS_APP_ID}/conversations/${bookingData.bookingArtistId}${userId}/messages`, {
+            await fetch(`https://api.talkjs.com/v1/${process.env.NEXT_PUBLIC_TALKJS_APP_ID}/conversations/${bookingData.bookingArtistId}${you.name}/messages`, {
                 method: "POST",
                 headers: {
                 'Authorization': `Bearer ${process.env.NEXT_PUBLIC_TALKJS_API_KEY}`,
@@ -231,13 +203,13 @@ export const BookNow: React.FC<BookNowProps> = ({ setOpenBooking }) => {
     const handleSubmit = async () => {
         // Will need to embed the setDetails in Sets and travelExpenses
         try {
-            // await fetch('/api/bookings', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify(bookingData),
-            // })
+            await fetch('/api/bookings', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(bookingData),
+            })
             console.log(bookingData)
             startChat();
             setOpenBooking(false);
