@@ -1,0 +1,6 @@
+
+.navText:hover {
+    color: #ccff69;
+    box-shadow: 0 0 8px #ccff69;
+    text-shadow: 0 0 5px #ccff69;
+}

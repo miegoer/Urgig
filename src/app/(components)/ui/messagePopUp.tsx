@@ -28,7 +28,7 @@ const TalkInboxPopup: React.FC = () => {
 const popupStyles: React.CSSProperties = {
   position: 'absolute',
   top: '50%',
-  right: '10px',
+  left: '50%',
   transform: 'translate(-50%, -50%)',
   zIndex: 1000,
   padding: '20px',
