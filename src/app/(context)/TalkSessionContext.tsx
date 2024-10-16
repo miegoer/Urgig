@@ -26,38 +26,40 @@ export const TalkSessionProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const [session, setSession] = useState<Talk.Session | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
   const [userType, setUserType] = useState<string | null>(null);
+  const [userData, setUserData] = useState<any>(null);
   const { user, isLoaded } = useUser();
 
   useEffect(() => {
     if (isLoaded && user) {
+      const getUser = async () => {
+        try {
+          const response = await fetch(`/api/users/${user.id}`);
+          const userData = await response.json();
+          console.log(userData);
+          setUserData(userData);
+          setUserType(userData.typeOfAccount);
+          Talk.ready.then(() => {
+            const mainUser = new Talk.User({
+              id: user?.id ?? "",
+              name: user?.firstName + " " + user?.lastName,
+              email: user?.emailAddresses[0].emailAddress,
+              photoUrl: `${userData.profileDetails.profilePicture || `https://avatar.iran.liara.run/public/boy?username=${userData.name}`}`,
+              welcomeMessage: "Hi!",
+            });
+    
+            const talkSession = new Talk.Session({
+              appId: process.env.NEXT_PUBLIC_TALKJS_APP_ID!,
+              me: mainUser,
+            });
+    
+            setSession(talkSession);
+          });
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      getUser();
       setUserId(user.id);
-      Talk.ready.then(() => {
-        const mainUser = new Talk.User({
-          id: user?.id ?? "",
-          name: user?.firstName + " " + user?.lastName,
-          email: user?.emailAddresses[0].emailAddress,
-          photoUrl: "https://talkjs.com/new-web/avatar-7.jpg",
-          welcomeMessage: "Hi!",
-        });
-
-        const talkSession = new Talk.Session({
-          appId: process.env.NEXT_PUBLIC_TALKJS_APP_ID!,
-          me: mainUser,
-        });
-
-        setSession(talkSession);
-
-        const getUser = async () => {
-          try {
-            const response = await fetch(`/api/users/${user.id}`);
-            const userData = await response.json();
-            setUserType(userData.typeOfAccount);
-          } catch (error) {
-            console.error(error);
-          }
-        };
-        getUser();
-      });
     }
   }, [isLoaded]);
 
