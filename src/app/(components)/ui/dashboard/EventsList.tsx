@@ -16,7 +16,7 @@ const ubuntu = Ubuntu({
 });
 
 export default function EventsList() {
-  const pageOwnerUser = usePageOwnerUser();
+  const { pageOwnerUser } = usePageOwnerUser();
   const { session, userId } = useTalkSession();
   const [artistUpcomingEvents, setUpcomingArtistEvents] = useState<ArtistEvent[]>([]);
   const [artistPastEvents, setPastArtistEvents] = useState<ArtistEvent[]>([]);
@@ -75,18 +75,22 @@ export default function EventsList() {
     });
   };
 
+  if (!pageOwnerUser) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="w-80 shadow-none mt-5 rounded-3xl p-5 bg-gray-800">
       <span className="block text-xs tracking-widest uppercase ml-2.5 mt-1 mb-4 text-white">
         Upcoming Events
       </span>
 
-      {eventList(artistUpcomingEvents)}
+      {!artistUpcomingEvents ? <div>Loading...</div> : eventList(artistUpcomingEvents)}
 
       <span className="block text-xs tracking-widest uppercase ml-2.5 mt-1 mb-4 text-white">
         Past Events
       </span>
-      {eventList(artistPastEvents)}
+      {!artistPastEvents ? <div>Loading...</div> : eventList(artistPastEvents)}
     </div>
   );
 }

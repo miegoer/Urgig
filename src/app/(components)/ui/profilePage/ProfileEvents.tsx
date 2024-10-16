@@ -1,6 +1,5 @@
 "use client";
-import { User } from "@/types/user";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import EventsList from "../dashboard/EventsList";
 //
 //

@@ -1,4 +1,5 @@
-import { User } from "@/types/user";
+"use client";
+import { usePageOwnerUser } from "@/app/(context)/PageOwnerUserContext";
 import { Ubuntu } from "next/font/google";
 import React from "react";
 
@@ -7,11 +8,13 @@ const ubuntu = Ubuntu({
   subsets: ["latin"],
 });
 //
-interface Props {
-  pageOwnerUser: User;
-}
 //
-export default function SecondCol({ pageOwnerUser }: Props) {
+export default function SecondCol() {
+  const { pageOwnerUser } = usePageOwnerUser();
+
+  if (!pageOwnerUser) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <div

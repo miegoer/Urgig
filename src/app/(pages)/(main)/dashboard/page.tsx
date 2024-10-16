@@ -6,6 +6,7 @@ import UserInfo from "@/app/(components)/ui/dashboard/userinfo";
 import EventsList from "@/app/(components)/ui/dashboard/EventsList";
 import { Button } from "@mui/material";
 import { fillOutDB } from "../../../../../zz_dbbkp/fillOutDB";
+import { PageOwnerUserProvider } from "@/app/(context)/PageOwnerUserContext";
 
 export default function Page({ children }: { children: React.ReactNode }) {
   return (
@@ -17,7 +18,9 @@ export default function Page({ children }: { children: React.ReactNode }) {
       <div className="col-[col-start_2_/_span_10] row-[6_/_span_4] h-[405px] flex flex-row w-[110%]">
         <Notifications />
         <Messages />
-        <EventsList />
+        <PageOwnerUserProvider>
+          <EventsList />
+        </PageOwnerUserProvider>
       </div>
       <Button onClick={fillOutDB}>DB OP's, DON'T CLINK!!!</Button>
     </>

@@ -6,7 +6,6 @@ import { Ubuntu } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
-import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const StartChat = "/startchat-icon.png";
@@ -24,20 +23,7 @@ const ubuntu = Ubuntu({
 
 //
 export default function FirstCol() {
-  const pageOwnerUser = usePageOwnerUser();
-  const [pageOwner, setPageOwner] = useState<User | null>(null);
-  const pathname = usePathname();
-  const { id } = useParams();
-
-  useEffect(() => {
-    const checkUser = async () => {
-      if (!pageOwnerUser) return;
-
-      if (isPublic(pathname) && id) setPageOwner(await getUser(id as string));
-      else setPageOwner(pageOwnerUser);
-    };
-    checkUser();
-  }, [pageOwnerUser]);
+  const { pageOwnerUser } = usePageOwnerUser();
 
   //TODO: refactor to minimise repetitive, create function to find placement of icons depending on how many social accounts linked.
   const imageIcon = (imgSrc: string, positionClasses: string, socialURL: string | null = null) => {
@@ -62,11 +48,15 @@ export default function FirstCol() {
     );
   };
 
+  if (!pageOwnerUser) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
-      {pageOwner?.profileDetails?.imageURL && (
+      {pageOwnerUser?.profileDetails?.imageURL && (
         <Image
-          src={pageOwner.profileDetails.imageURL}
+          src={pageOwnerUser.profileDetails.imageURL}
           width={660}
           height={530}
           alt="mock profile photo"
@@ -75,10 +65,10 @@ export default function FirstCol() {
       )}
       <div className="h-[80px] px-5 flex flex-col top-[82%] inline-flex z-5 absolute bg-[rgba(0,0,0,0.7)]">
         <div className="z-10 py-2.5 rounded-[3px] tracking-[1.5px] text-[white] ${ubuntu.className} text-2xl">
-          {pageOwner ? pageOwner.name : ""}
+          {pageOwnerUser ? pageOwnerUser.name : ""}
         </div>
         <span className="text-sm italic -mt-2 text-center ${ubuntu.className}">
-          {pageOwner ? pageOwner.location : ""}
+          {pageOwnerUser ? pageOwnerUser.location : ""}
         </span>
       </div>
       <div>
@@ -87,22 +77,22 @@ export default function FirstCol() {
         {imageIcon(
           Spotify,
           "top-[220px] left-[96%]",
-          pageOwner?.profileDetails?.socialLinks?.spotify
+          pageOwnerUser?.profileDetails?.socialLinks?.spotify
         )}
         {imageIcon(
           Instagram,
           "top-[330px] left-[98%]",
-          pageOwner?.profileDetails?.socialLinks?.instagram
+          pageOwnerUser?.profileDetails?.socialLinks?.instagram
         )}
         {imageIcon(
           Youtube,
           "top-[440px] left-[95%]",
-          pageOwner?.profileDetails?.socialLinks?.youtube
+          pageOwnerUser?.profileDetails?.socialLinks?.youtube
         )}
         {imageIcon(
           Tiktok,
           "top-[545px] left-[82%]",
-          pageOwner?.profileDetails?.socialLinks?.tiktok
+          pageOwnerUser?.profileDetails?.socialLinks?.tiktok
         )}
       </div>
     </>

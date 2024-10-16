@@ -1,11 +1,10 @@
 "use client";
 
-import { useTalkSession } from "@/app/(context)/TalkSessionContext";
-import { getUser, isPublic } from "@/app/utils/userUtils";
+import { isPublic } from "@/app/utils/userUtils";
 import { User } from "@/types/user";
 import clsx from "clsx";
 import Link from "next/link";
-import { useParams, usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { BookNow } from "@/app/(components)/ui/a/booknow";
 //
@@ -19,7 +18,7 @@ import { usePageOwnerUser } from "@/app/(context)/PageOwnerUserContext";
 
 //
 export default function ThirdCol() {
-  const pageOwnerUser = usePageOwnerUser();
+  const { pageOwnerUser } = usePageOwnerUser();
   const [pageUser, setPageUser] = useState<User | null>(null);
   const [openBooking, setOpenBooking] = useState(false);
   const pathname = usePathname();
@@ -45,6 +44,10 @@ export default function ThirdCol() {
     };
     checkUser();
   }, [pageOwnerUser, pathname]);
+
+  if (!pageOwnerUser) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
