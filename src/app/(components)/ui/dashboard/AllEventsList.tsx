@@ -1,6 +1,5 @@
 "use client";
 import { usePageOwnerUser } from "@/app/(context)/PageOwnerUserContext";
-import { useTalkSession } from "@/app/(context)/TalkSessionContext";
 import { fetchAndTransformEvents } from "@/app/utils/eventsUtils";
 import { ArtistEvent } from "@/types/interfaces.ts/artistEvent";
 import { Ubuntu } from "next/font/google";
@@ -12,7 +11,7 @@ const ubuntu = Ubuntu({
   subsets: ["latin"],
 });
 
-export default function EventsList() {
+export default function AllEventsList() {
   const { pageOwnerUser } = usePageOwnerUser();
   const [artistUpcomingEvents, setUpcomingArtistEvents] = useState<ArtistEvent[]>([]);
   const [artistPastEvents, setPastArtistEvents] = useState<ArtistEvent[]>([]);

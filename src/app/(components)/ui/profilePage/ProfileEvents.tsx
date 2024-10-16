@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import EventsList from "../dashboard/AllEventsList";
+import AllEventsList from "../dashboard/AllEventsList";
 //
 //
 export default function ProfileEvents() {
@@ -13,7 +13,7 @@ export default function ProfileEvents() {
       </div>
       <div className="ml-[90px] text-center border-t-[white] border-t w-[300px]"></div>
       <div className="flex justify-center">
-        <EventsList />
+        <AllEventsList />
       </div>
     </div>
   );
