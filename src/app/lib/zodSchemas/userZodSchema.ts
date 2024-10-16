@@ -2,7 +2,7 @@ import { z } from "zod";
 
 // Define related ZodSchemas like ProfileDetails, Settings, etc.
 export const ProfileDetailsZodSchema = z.object({
-  profilePicture: z.string().optional(),
+  imageURL: z.string().optional(),
   aboutMe: z.string().optional(),
   selectedVideo: z.string().optional(),
   socialLinks: z

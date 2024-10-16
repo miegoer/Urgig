@@ -265,7 +265,7 @@ export default function CreateEvent() {
               {step > 1 && (
                 <button
                   type="button"
-                  className="w-[150px] h-12 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                  className="submit"
                   onClick={prevStep}
                 >
                   Back
@@ -275,7 +275,7 @@ export default function CreateEvent() {
               {step < 7 && (
                 <button
                   type="button"
-                  className="w-[150px] h-12 bg-blue-500 text-white rounded self-end ml-auto hover:bg-blue-600 transition"
+                  className="submit"
                   onClick={nextStep}
                 >
                   Next
@@ -285,7 +285,7 @@ export default function CreateEvent() {
               {step === 7 && (
                 <button
                   type="submit"
-                  className="w-[150px] h-12 bg-blue-500 text-white rounded self-end ml-auto hover:bg-blue-600 transition"
+                  className="submit"
                 >
                   Finish
                 </button>

@@ -67,7 +67,7 @@ export default function FirstCol({ sessionUser }: Props) {
     <>
       {pageUser?.profileDetails?.profilePicture && (
         <Image
-          src={pageUser.profileDetails.profilePicture}
+          src={pageUser.profileDetails.imageURL}
           width={660}
           height={530}
           alt="mock profile photo"

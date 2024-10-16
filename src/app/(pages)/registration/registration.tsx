@@ -3,18 +3,20 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth, useUser } from '@clerk/nextjs'; // Get Clerk token
 import './registration.css';
+import ImageUpload from '@/app/(components)/ui/dashboard/ImageUpload';
+import SelectGenre from '@/app/(components)/ui/dashboard/selectGenre';
 
 export default function Registration() {
-  // getting stuff from the token
+  // Getting user data from Clerk
   const { userId } = useAuth();
   const { user } = useUser();
   const userEmail = user?.primaryEmailAddress?.emailAddress;
   const firstName = user?.firstName || '';
   const lastName = user?.lastName || '';
-  // const userRole = user?.publicMetadata?.role || '';
 
   const router = useRouter();
 
+  // Initial form state
   const [form, setForm] = useState({
     typeOfAccount: '',
     firstName: firstName,
@@ -24,10 +26,13 @@ export default function Registration() {
     companyName: '',
     phoneNumber: '',
     location: '',
-    aboutYou: '',
+    aboutMe: '',
+    genre: [] as string[],
+    imageURL: undefined as string | undefined,
   });
 
-  const [validity, setvalidity] = useState({
+  // Validity state for form fields
+  const [validity, setValidity] = useState({
     firstName: true,
     lastName: true,
     dateOfBirth: true,
@@ -38,22 +43,32 @@ export default function Registration() {
   });
 
   const [pt1Submitted, setPt1Submitted] = useState(false);
-
   const [isLoading, setIsLoading] = useState(true);
   const [isRegistered, setIsRegistered] = useState(false);
-
+  const [imageURL, setImageURL] = useState<string | undefined>(undefined);
+  const [genres, setGenres] = useState<string[]>([]);
+  const [isSent, setIsSent] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isAccountCreated, setIsAccountCreated] = useState(false);
 
-  // ceck if the user is registered
+  // Update form state when imageURL or genres change
+  useEffect(() => {
+    setForm((prevForm) => ({
+      ...prevForm,
+      imageURL: imageURL || undefined,
+      genre: genres,
+    }));
+  }, [imageURL, genres]);
+
+  // Check if the user is already registered
   useEffect(() => {
     const checkUserExists = async () => {
       const res = await fetch(`/api/users/${userId}`);
       if (res.status === 200) {
         setIsRegistered(true);
-        router.push('/dashboard'); // redirect to dashboard if registered
+        router.push('/dashboard'); // Redirect to dashboard if registered
       } else {
-        setIsLoading(false); // if nto loading false
+        setIsLoading(false); // Loading completed
       }
     };
 
@@ -74,12 +89,12 @@ export default function Registration() {
 
   const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    const isValid = /^(?!.*[<>;'\"()\[\]{}\\&|])\d+$/.test(value);
+    const isValid = /^\d+$/.test(value);
     setForm({ ...form, phoneNumber: value });
-    setvalidity({ ...validity, phoneNumber: isValid });
+    setValidity({ ...validity, phoneNumber: isValid });
   };
 
-  // firstName and lastName from Clerk if available (google sso)
+  // Update firstName and lastName from Clerk if available
   useEffect(() => {
     if (user) {
       setForm((prevForm) => ({
@@ -95,9 +110,9 @@ export default function Registration() {
     input: string
   ) => {
     const value = event.target.value;
-    const isValid = /^(?!.*[<>;'\"()\[\]{}\\&|])[a-zA-Z]+$/.test(value);
+    const isValid = /^[a-zA-Z]+$/.test(value);
     setForm({ ...form, [input]: value });
-    setvalidity({ ...validity, [input]: isValid });
+    setValidity({ ...validity, [input]: isValid });
   };
 
   const handleGenericChange = (
@@ -105,21 +120,20 @@ export default function Registration() {
     input: string
   ) => {
     const value = event.target.value;
-    const isValid = /^(?!.*[<>;'\"()\[\]{}\\&|])/.test(value);
+    const isValid = value.trim() !== '';
     setForm({ ...form, [input]: value });
-    setvalidity({ ...validity, [input]: isValid });
+    setValidity({ ...validity, [input]: isValid });
   };
 
   const handleDateInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputDate = new Date(event.target.value);
     const today = new Date();
-    const isDateInRange =
-      /^(?!.*[<>;'\"()\[\]{}\\&|])\d{4}-\d{2}-\d{2}$/.test(
-        event.target.value
-      ) && !isNaN(inputDate.getTime());
-    let isValid = isDateInRange && inputDate <= today;
+    const isDateValid =
+      /^\d{4}-\d{2}-\d{2}$/.test(event.target.value) &&
+      !isNaN(inputDate.getTime()) &&
+      inputDate <= today;
     setForm({ ...form, dateOfBirth: event.target.value });
-    setvalidity({ ...validity, dateOfBirth: isValid });
+    setValidity({ ...validity, dateOfBirth: isDateValid });
   };
 
   const handleRoleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -127,14 +141,14 @@ export default function Registration() {
     setForm((prevForm) => ({ ...prevForm, typeOfAccount: selectedType }));
 
     if (selectedType === 'Artist') {
-      setvalidity((prevValidity) => ({
+      setValidity((prevValidity) => ({
         ...prevValidity,
         stageName: false,
         companyName: true,
       }));
     } else if (selectedType === 'Promoter') {
       setForm((prevForm) => ({ ...prevForm, stageName: '' }));
-      setvalidity((prevValidity) => ({
+      setValidity((prevValidity) => ({
         ...prevValidity,
         stageName: true,
         companyName: false,
@@ -143,6 +157,7 @@ export default function Registration() {
   };
 
   const formPt2 = (event: React.FormEvent) => {
+    event.preventDefault();
     setPt1Submitted(true);
   };
 
@@ -154,6 +169,7 @@ export default function Registration() {
       setIsSubmitting(false);
       return;
     }
+
     if (
       validity.firstName &&
       validity.lastName &&
@@ -175,12 +191,14 @@ export default function Registration() {
           location: form.location,
           stageName: form.stageName,
           companyName: form.companyName,
-          aboutYou: form.aboutYou,
-          _id: userId, // using Clerk userId
+          aboutMe: form.aboutMe,
+          _id: userId, // Using Clerk userId
           typeOfAccount: form.typeOfAccount.toLowerCase(), // artist or promoter
-          email: userEmail, // get Clerk email from token
+          email: userEmail, // Get Clerk email from token
           profileDetails: {
-            aboutMe: form.aboutYou,
+            aboutMe: form.aboutMe,
+            imageURL: form.imageURL,
+            genre: form.genre,
           },
         }),
       });
@@ -204,10 +222,13 @@ export default function Registration() {
         companyName: '',
         phoneNumber: '',
         location: '',
-        aboutYou: '',
+        aboutMe: '',
+        genre: [],
+        imageURL: undefined,
         typeOfAccount: '',
       });
-      setvalidity({
+
+      setValidity({
         firstName: true,
         lastName: true,
         dateOfBirth: true,
@@ -221,18 +242,16 @@ export default function Registration() {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>; // show loading
+    return <div>Loading...</div>; // Show loading indicator
   }
 
   if (isRegistered) {
-    return null;
+    return null; // User is already registered
   }
-
-  // console.log('User role from token:', userRole);
 
   return (
     <div className="inputList">
-      <h1 className={`mb-4 text-xl md:text-2xl`}>Registration</h1>
+      <h1 className="mb-4 text-xl md:text-2xl">Registration</h1>
       {!pt1Submitted && (
         <form className="flex flex-col" onSubmit={formPt2}>
           <input
@@ -244,7 +263,7 @@ export default function Registration() {
             required
           />
           {!validity.firstName && (
-            <p className="text-red-500 mt-[5px]">Invalid first name.</p>
+            <p className="text-red-500 mt-1">Invalid first name.</p>
           )}
           <input
             type="text"
@@ -255,7 +274,7 @@ export default function Registration() {
             required
           />
           {!validity.lastName && (
-            <p className="text-red-500 mt-[5px]">Invalid last name.</p>
+            <p className="text-red-500 mt-1">Invalid last name.</p>
           )}
           <input
             type="text"
@@ -268,18 +287,18 @@ export default function Registration() {
             required
           />
           {!validity.dateOfBirth && (
-            <p className="text-red-500 mt-[5px]">Invalid date.</p>
+            <p className="text-red-500 mt-1">Invalid date.</p>
           )}
           <input
             type="tel"
             placeholder="Phone Number"
             className="input"
             value={form.phoneNumber}
-            onChange={(e) => handlePhoneChange(e)}
+            onChange={handlePhoneChange}
             required
           />
           {!validity.phoneNumber && (
-            <p className="text-red-500 mt-[5px]">
+            <p className="text-red-500 mt-1">
               Invalid phone number format.
             </p>
           )}
@@ -292,19 +311,18 @@ export default function Registration() {
             required
           />
           {!validity.location && (
-            <p className="text-red-500 mt-[5px]">Invalid location.</p>
+            <p className="text-red-500 mt-1">Invalid location.</p>
           )}
-
           <select
             className="input"
             value={form.typeOfAccount}
             onChange={handleRoleChange}
+            required
           >
             <option value="">Select Account Type</option>
             <option value="Artist">Artist</option>
             <option value="Promoter">Promoter</option>
           </select>
-
           {form.typeOfAccount === 'Artist' && (
             <input
               type="text"
@@ -315,7 +333,6 @@ export default function Registration() {
               required
             />
           )}
-
           {form.typeOfAccount === 'Promoter' && (
             <input
               type="text"
@@ -326,28 +343,36 @@ export default function Registration() {
               required
             />
           )}
-
           {!validity.stageName && form.typeOfAccount === 'Artist' && (
-            <p className="text-red-500 mt-[5px]">Invalid stage name.</p>
+            <p className="text-red-500 mt-1">Invalid stage name.</p>
           )}
-
           {!validity.companyName && form.typeOfAccount === 'Promoter' && (
-            <p className="text-red-500 mt-[5px]">Invalid companyName name.</p>
+            <p className="text-red-500 mt-1">Invalid company name.</p>
           )}
-
-          <button className="submit" type="submit">Submit</button>
+          <button className="submit" type="submit">
+            Next
+          </button>
         </form>
       )}
       {pt1Submitted && (
         <form className="flex flex-col" onSubmit={handleSubmit}>
+          <ImageUpload setImageURL={setImageURL} />
+          <SelectGenre
+            setGenres={(genres) => setGenres(genres)}
+            genres={form.genre}
+            isSent={isSent}
+            className="text-black"
+          />
           <textarea
-            placeholder="About you"
+            placeholder="About me"
             className="input"
-            value={form.aboutYou}
-            onChange={(e) => handleGenericChange(e, 'aboutYou')}
+            value={form.aboutMe}
+            onChange={(e) => handleGenericChange(e, 'aboutMe')}
             required
           />
-          <button className='submit' type="submit">Submit</button>
+          <button className="submit" type="submit">
+            Submit
+          </button>
         </form>
       )}
     </div>
