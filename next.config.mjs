@@ -2,7 +2,7 @@
 const nextConfig = {
 
     images: {
-        domains: ['firebasestorage.googleapis.com']
+        domains: ["example.com",'firebasestorage.googleapis.com']
     }
     
 };

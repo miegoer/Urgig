@@ -1,7 +1,6 @@
 import EventElement from "./dashboard/eventElement";
 import { Event } from "../../../types/event";
-import Link from 'next/link';
-
+import Link from "next/link";
 
 type eventListProps = {
   events: Event[];
@@ -20,10 +19,10 @@ export default function EventList({ events }: eventListProps) {
             <button className="w-[120px] h-10 bg-[#ccff69] text-[#252531] mr-2 rounded-md shadow-sm hover:bg-[#aaff50] transition duration-300 self-center">
               Apply for Gigs
             </button>
-            <Link href={`event/${event._id}`}>
-            <button className="w-[120px] h-10 bg-blue-500 text-[#252531] rounded-md shadow-sm hover:bg-[#507fff] transition duration-300 self-center">
-              View the Event
-            </button>
+            <Link href={`events/${event._id}`}>
+              <button className="w-[120px] h-10 bg-blue-500 text-[#252531] rounded-md shadow-sm hover:bg-[#507fff] transition duration-300 self-center">
+                View the Event
+              </button>
             </Link>
           </div>
         </div>
@@ -31,4 +30,3 @@ export default function EventList({ events }: eventListProps) {
     </div>
   );
 }
-

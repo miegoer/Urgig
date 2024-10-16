@@ -1,8 +1,6 @@
-// components/ImageUpload.tsx
 import React, { useState } from "react";
-import { storage, db, auth } from "@/app/api/(3rdParty)/firebase/firebase";
+import { storage } from "@/app/api/(3rdParty)/firebase/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { doc, updateDoc } from "firebase/firestore";
 
 interface ImageUploadProps {
   setImageURL: (url: string) => void;
@@ -45,7 +43,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ setImageURL }) => {
         alert(error);
       },
       () => {
-        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log("File available at", downloadURL);
           setImageURL(downloadURL);
           console.log("Image URL:", downloadURL);
@@ -55,10 +53,44 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ setImageURL }) => {
   };
 
   return (
-    <div>
-      <input type="file" onChange={handleFileChange} accept="image/*" />
-      <button onClick={handleUpload}>Upload</button>
-      {progressPercent > 0 && <progress value={progressPercent} max="100" />}
+    <div className="flex flex-col items-center">
+      {/* Choose File Button */}
+      <label
+        htmlFor="fileUpload"
+        className="bg-[#252531] text-white text-sm rounded-full px-4 py-2 cursor-pointer hover:bg-[#3F403F] transition-colors"
+      >
+        Choose File
+      </label>
+      <input
+        id="fileUpload"
+        type="file"
+        onChange={handleFileChange}
+        accept="image/*"
+        className="hidden"
+      />
+      {/* Upload Button */}
+      <button
+        type="button"
+        onClick={handleUpload}
+        className="mt-3 bg-[#252531] text-white text-sm rounded-full px-4 py-2 hover:bg-[#3F403F] transition-colors"
+      >
+        Upload
+      </button>
+      {/* Progress Bar */}
+      {progressPercent > 0 && (
+        <div className="relative w-full mt-4">
+          <div
+            className="absolute top-0 left-0 h-6 text-xs font-semibold text-white rounded-full flex justify-center items-center"
+            style={{
+              width: `${progressPercent}%`,
+              backgroundColor: progressPercent === 100 ? "#4CAF50" : "#3F403F", // Green when complete
+            }}
+          >
+            {progressPercent === 100 && "Uploaded!"}
+          </div>
+          <div className="w-full h-6 bg-gray-300 rounded-full"></div>
+        </div>
+      )}
     </div>
   );
 };
