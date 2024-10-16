@@ -43,7 +43,6 @@ export default function EventsList({ handleCount}: EventsListProps) {
           await fetchAndTransformEvents(currentId as string);
         setUpcomingArtistEvents(upcomingEvents);
         setPastArtistEvents(pastEvents);
-        console.log(upcomingEvents)
         handleCount(upcomingEvents.length);
       } catch (error) {
         console.error("Error fetching events:", error);
@@ -60,7 +59,6 @@ export default function EventsList({ handleCount}: EventsListProps) {
         }
         const upcomingBookings: Booking[] = await fetchBookings(currentId as string);
         setBookings(upcomingBookings)
-        console.log(upcomingBookings)
       } catch (error) {
         console.error("Error fetching bookings:", error);
       }
