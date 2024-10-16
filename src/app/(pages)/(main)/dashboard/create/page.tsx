@@ -11,7 +11,6 @@ export default function CreateEvent() {
   const router = useRouter();
 
   const initialState: Event = {
-    _id:"",
     name: "",
     location: "",
     date: new Date(),
@@ -19,20 +18,21 @@ export default function CreateEvent() {
     description: "",
     duration: 1,
     maxCapacity: 100,
-    imageURL: "",
-    link: undefined,
+    imageURL: undefined,
     promoterId: "",
   };
 
-  const [eventData, setEventData] = useState(initialState);
+  const [eventData, setEventData] = useState<Event>(initialState);
   const [genres, setGenres] = useState<string[]>([]);
   const [isSent, setIsSent] = useState<boolean>(false);
   const [isWrong, setIsWrong] = useState<boolean>(false);
   const [isCreated, setIsCreated] = useState<boolean>(false);
-  const [imageURL, setImageURL] = useState<string>("");
-  const [step, setStep] = useState(1); // Step state
+  const [imageURL, setImageURL] = useState<string | undefined>(undefined);
+  const [step, setStep] = useState(1);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
 
     setEventData((prevData) => ({
@@ -46,7 +46,7 @@ export default function CreateEvent() {
       ...prevData,
       genre: genres,
       promoterId: userId as string,
-      imageURL: imageURL,
+      imageURL: imageURL || undefined,
     }));
   }, [genres, userId, imageURL]);
 
@@ -54,6 +54,17 @@ export default function CreateEvent() {
     e.preventDefault();
     setIsSent(!isSent);
 
+    // Ensure the link starts with "https://"
+    let formattedLink = eventData.link;
+    if (formattedLink && !formattedLink.startsWith("https://")) {
+      formattedLink = `https://${formattedLink}`;
+      setEventData((prevData) => ({
+        ...prevData,
+        link: formattedLink,
+      }));
+    }
+
+    // Redirects to the created event when ''finish'' is pressed
     try {
       const response = await fetch("/api/events", {
         method: "POST",
@@ -65,17 +76,22 @@ export default function CreateEvent() {
           duration: Number(eventData.duration),
           maxCapacity: Number(eventData.maxCapacity),
           imageURL: eventData.imageURL,
+          link: formattedLink, // Use the formatted link
         }),
       });
 
       if (response.ok) {
+        const createdEvent = await response.json();
+        const newEventId = createdEvent._id;
+
         setEventData(initialState);
         setGenres([]);
-        setImageURL("");
+        setImageURL(undefined);
         setIsCreated(true);
+
         setTimeout(() => {
-          router.push("/dashboard");
-        }, 500);
+          router.push(`/events/${newEventId}`);
+        }, 50);
       } else {
         setIsWrong(true);
       }
@@ -86,12 +102,15 @@ export default function CreateEvent() {
 
   const nextStep = () => {
     if (validateCurrentStep()) setStep(step + 1);
+    else setIsWrong(true);
   };
 
-  const prevStep = () => setStep(step - 1);
+  const prevStep = () => {
+    setIsWrong(false);
+    setStep(step - 1);
+  };
 
   const validateCurrentStep = () => {
-    // Clear previous errors
     setIsWrong(false);
 
     switch (step) {
@@ -101,13 +120,20 @@ export default function CreateEvent() {
         return eventData.location !== "";
       case 3:
         return eventData.date !== null;
+      case 4:
+        return eventData.link !== "";
+      case 5:
+        return genres.length > 0;
       case 6:
         return eventData.description !== "";
+      case 7:
+        return imageURL !== undefined && imageURL !== "";
       default:
         return true;
     }
   };
 
+  // Goes to the next step when pressing 'enter'
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -171,14 +197,25 @@ export default function CreateEvent() {
                   className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full"
                   onKeyDown={handleKeyDown}
                 />
+                {isWrong && <p className="text-red-500">Please enter a valid date</p>}
               </div>
             )}
 
-            {/* Step 4: Event Image */}
+            {/* Step 4: Link */}
             {step === 4 && (
               <div>
-                <label>Event Image:</label>
-                <ImageUpload setImageURL={setImageURL} />
+                <label htmlFor="createEventFormLink">Link:</label>
+                <input
+                  value={eventData.link}
+                  name="link"
+                  onChange={handleChange}
+                  type="text"
+                  id="createEventFormLink"
+                  required
+                  className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full"
+                  onKeyDown={handleKeyDown}
+                />
+                {isWrong && <p className="text-red-500">Please enter a valid link</p>}
               </div>
             )}
 
@@ -186,6 +223,7 @@ export default function CreateEvent() {
             {step === 5 && (
               <div className="mt-4">
                 <SelectGenre setGenres={setGenres} genres={genres} isSent={isSent} />
+                {isWrong && <p className="text-red-500">Please select at least one genre</p>}
               </div>
             )}
 
@@ -202,11 +240,26 @@ export default function CreateEvent() {
                   className="mb-2 outline-none bg-[#252531] border-b-[1px] border-white w-full"
                   onKeyDown={handleKeyDown}
                 />
-                {isWrong && <p className="text-red-500">Please enter a valid description</p>}
+                {isWrong && (
+                  <p className="text-red-500">Please enter a valid description</p>
+                )}
               </div>
             )}
 
-            {isCreated && <p className="text-green-500">Your new event was created successfully!</p>}
+            {/* Step 7: Event Image */}
+            {step === 7 && (
+              <div>
+                <label>Event Image:</label>
+                <ImageUpload setImageURL={setImageURL} />
+                {isWrong && <p className="text-red-500">Please upload a valid image</p>}
+              </div>
+            )}
+
+            {isCreated && (
+              <p className="text-green-500">
+                Your new event was created successfully!
+              </p>
+            )}
 
             <div className="flex justify-between mt-8">
               {step > 1 && (
@@ -219,7 +272,7 @@ export default function CreateEvent() {
                 </button>
               )}
 
-              {step < 6 && (
+              {step < 7 && (
                 <button
                   type="button"
                   className="w-[150px] h-12 bg-blue-500 text-white rounded self-end ml-auto hover:bg-blue-600 transition"
@@ -229,7 +282,7 @@ export default function CreateEvent() {
                 </button>
               )}
 
-              {step === 6 && (
+              {step === 7 && (
                 <button
                   type="submit"
                   className="w-[150px] h-12 bg-blue-500 text-white rounded self-end ml-auto hover:bg-blue-600 transition"

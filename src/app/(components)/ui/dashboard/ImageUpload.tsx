@@ -70,6 +70,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ setImageURL }) => {
       />
       {/* Upload Button */}
       <button
+        type="button"
         onClick={handleUpload}
         className="mt-3 bg-[#252531] text-white text-sm rounded-full px-4 py-2 hover:bg-[#3F403F] transition-colors"
       >
