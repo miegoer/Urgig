@@ -19,7 +19,7 @@ interface Props {
   pageOwnerUser: User | null;
 }
 //
-export default function ThirdCol({ sessionUser }: Props) {
+export default function ThirdCol({ pageOwnerUser }: Props) {
   const [pageUser, setPageUser] = useState<User | null>(null);
   const [openBooking, setOpenBooking] = useState(false);
   const pathname = usePathname();
