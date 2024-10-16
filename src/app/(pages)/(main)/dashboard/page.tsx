@@ -58,7 +58,10 @@ export default function Page({ children }: { children: React.ReactNode }) {
       <div className="col-[col-start_2_/_span_10] row-[6_/_span_4] h-[405px] flex flex-row w-[110%]">
         <Notifications />
         <EventsList handleCount={handleCount}/>
-        <NearbyInfo location={userInfo.location} isLoading={isLoading}/>
+        {/* {userInfo?.location ? (
+          <NearbyInfo location={userInfo.location} isLoading={isLoading} />
+            ) : (
+          <p>Loading location...</p>)} */}
       </div>
       <Button onClick={fillOutDB}>DB OP's, DON'T CLINK!!!</Button>
     </>

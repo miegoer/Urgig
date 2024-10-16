@@ -10,7 +10,7 @@ const mockGigList = [
   { name: 'Gig 2', location: 'London, UK' }
 ]
 
-export default function NearbyInfo({location, isLoading} : {location:string, isLoading:boolean}) {
+export default function NearbyInfo({location, isLoading} : {location:string | undefined, isLoading:boolean}) {
 
   const { userId, userType } = useTalkSession();
   let receivedType: string;
