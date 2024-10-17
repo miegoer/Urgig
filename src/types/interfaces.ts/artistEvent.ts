@@ -5,5 +5,5 @@ export interface ArtistEvent {
   name: string;
   location: string;
   time: string;
-  imageURL?: string;
+  profilePicture?: string;
 }
