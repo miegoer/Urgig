@@ -29,6 +29,7 @@ const SelectGenre = ({ setGenres, genres }: SelectGenreProps) => {
         onInputChange={(event, newInputValue) => {
           setInputValue(newInputValue); // Control the search input value
         }}
+  
         onChange={(event, newValue) => {
           const newGenres = newValue.filter((genre) => !genres.includes(genre));
           setGenres([...genres, ...newGenres]); // Append new genres
@@ -39,7 +40,7 @@ const SelectGenre = ({ setGenres, genres }: SelectGenreProps) => {
             {...params}
             placeholder="Search genres..."
             variant="outlined"
-            className="rounded-[20px] text-[black] text-center py-[5px] px-[10px] text-sm w-full" // Match the size of location search bar
+            className="rounded-[20px] text-[black] text-center py-[5px] text-sm w-full" // Match the size of location search bar
             InputProps={{
               ...params.InputProps,
               className: "rounded-[20px] text-center py-[5px] px-[10px] text-sm", // Match styling of location input
@@ -50,11 +51,11 @@ const SelectGenre = ({ setGenres, genres }: SelectGenreProps) => {
                 height: '2.5rem', // Adjust height to match
               },
             }}
-            InputLabelProps={{
-              style: {
+            InputLabelProps={{style: {
                 color: '#73716F', // Light gray placeholder color
               },
-            }}
+            }
+          }
           />
         )}
       />
