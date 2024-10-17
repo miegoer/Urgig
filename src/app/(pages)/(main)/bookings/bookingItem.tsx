@@ -7,7 +7,6 @@ import { User } from '@/types/user';
 const BookingItem: React.FC<{booking: Booking, userType: string}> = ({booking, userType}) => {
   const [promoter, setPromoter] = useState<User>();
   const accountType = userType;
-  console.log(booking);
 
   useEffect(() => {
     const getPromoter = async () => {
@@ -66,7 +65,7 @@ const BookingItem: React.FC<{booking: Booking, userType: string}> = ({booking, u
  return (
   <div className="shadow-[0px_4px_5px_#191922] h-[200px] rounded-[20px] bg-[#252531] mb-[20px] p-3 parent" style={{margin: "25px"}}>
     <div className='div1'>
-      <h1>{booking.name}</h1>
+      <Link href={`/events/${booking.bookingEventId}`}>{booking.name}</Link>
         <div>
           Event Genre:
           {booking.genre.map((genre) => (
