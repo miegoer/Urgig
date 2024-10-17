@@ -43,15 +43,18 @@ export const TalkSessionProvider: React.FC<{ children: React.ReactNode }> = ({ c
               id: user?.id ?? "",
               name: user?.firstName + " " + user?.lastName,
               email: user?.emailAddresses[0].emailAddress,
-              photoUrl: `${userData.profileDetails.profilePicture || `https://avatar.iran.liara.run/public/boy?username=${userData.name}`}`,
+              photoUrl: `${
+                userData.profileDetails.profilePicture ||
+                `https://avatar.iran.liara.run/public/boy?username=${userData.name}`
+              }`,
               welcomeMessage: "Hi!",
             });
-    
+
             const talkSession = new Talk.Session({
               appId: process.env.NEXT_PUBLIC_TALKJS_APP_ID!,
               me: mainUser,
             });
-    
+
             setSession(talkSession);
           });
         } catch (error) {
@@ -59,6 +62,7 @@ export const TalkSessionProvider: React.FC<{ children: React.ReactNode }> = ({ c
         }
       };
       getUser();
+      // setUserId("670830401234567890abcdef");
       setUserId(user.id);
     }
   }, [isLoaded]);

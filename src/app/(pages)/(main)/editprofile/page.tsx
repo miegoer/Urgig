@@ -13,6 +13,7 @@ import makeAnimated from "react-select/animated";
 import SelectGenre from "@/app/(components)/ui/dashboard/selectGenre";
 import ImageUpload from "../../../(components)/ui/dashboard/ImageUpload"; // Import the ImageUpload component
 import { useAuth, useUser } from "@clerk/nextjs"; // Clerk for ID
+import { useTalkSession } from "@/app/(context)/TalkSessionContext";
 
 const animatedComponents = makeAnimated();
 
