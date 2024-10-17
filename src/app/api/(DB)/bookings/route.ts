@@ -46,17 +46,17 @@ export async function GET(request: NextRequest) {
 
     // let query = {};
 
-    // // If searchQuery is provided, convert to ObjectId and filter bookings
+    // If searchQuery is provided, convert to ObjectId and filter bookings
     // if (searchQuery) {
     //   let userIdObjectId;
-    //   try {
-    //     userIdObjectId = new Types.ObjectId(searchQuery); // Convert string to ObjectId
-    //   } catch (error) {
-    //     // If conversion fails, return an error response
-    //     return NextResponse.json({ error: "Invalid user ID format" }, { status: 400 });
-    //   }
+      // try {
+      //   userIdObjectId = new Types.ObjectId(searchQuery); // Convert string to ObjectId
+      // } catch (error) {
+      //   // If conversion fails, return an error response
+      //   return NextResponse.json({ error: "Invalid user ID format" }, { status: 400 });
+      // }
 
-    //   // Build query for bookings
+      // Build query for bookings
     //   query = {
     //     $or: [
     //       { bookingArtistId: userIdObjectId }, // Match bookingArtistId as ObjectId
@@ -80,6 +80,7 @@ export async function GET(request: NextRequest) {
 
     // Return the bookings with only the selected fields
     return NextResponse.json(bookings, { status: 200 });
+      
   } catch (error) {
     console.error("Error fetching bookings:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });

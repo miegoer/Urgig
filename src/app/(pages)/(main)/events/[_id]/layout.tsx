@@ -39,7 +39,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     genre: [] as string[],
     duration: 1,
     maxCapacity: 100,
-    imageURL: undefined,
+    profilePicture: undefined,
     link: undefined,
     promoterId: "",
   });

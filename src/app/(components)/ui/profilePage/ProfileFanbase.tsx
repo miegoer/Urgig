@@ -1,11 +1,15 @@
-import { User } from "@/types/user";
+"use client";
+import { usePageOwnerUser } from "@/app/(context)/PageOwnerUserContext";
 import React from "react";
 //
-interface Props {
-  user: User;
-}
 //
-export default function ProfileFanbase({ user }: Props) {
+export default function ProfileFanbase() {
+  const { pageOwnerUser } = usePageOwnerUser();
+
+  if (!pageOwnerUser) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <div

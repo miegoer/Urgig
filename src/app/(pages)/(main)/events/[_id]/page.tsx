@@ -31,7 +31,7 @@ export default function EventProfile() {
     genre: [] as string[],
     duration: 1,
     maxCapacity: 100,
-    imageURL: undefined,
+    profilePicture: undefined,
     link: undefined,
     promoterId: "",
     bookingIds:[]
