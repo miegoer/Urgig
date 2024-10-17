@@ -1,17 +1,22 @@
-import { User } from "@/types/user";
+"use client";
+import { usePageOwnerUser } from "@/app/(context)/PageOwnerUserContext";
 import React from "react";
 //
-interface Props {
-  user: User;
-}
+
 //
-export default function ProfileMedia({ user }: Props) {
+export default function ProfileMedia() {
+  const { pageOwnerUser } = usePageOwnerUser();
+
+  if (!pageOwnerUser) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <div
         className={`z-10 w-[100%] mt-1 p-8 rounded-[2px] text-center tracking-[1.5px] text-[white] text-sm`}
       >
-        All nice vids and images go here...
+        All nice vids and images from {pageOwnerUser.name} go here.
       </div>
       <div className="ml-[90px] text-center border-t-[white] border-t w-[300px]"></div>
     </div>

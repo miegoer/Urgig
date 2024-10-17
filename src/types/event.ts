@@ -3,7 +3,7 @@ export type Event = {
   name: string;
   promoterId: string;
   date: Date;
-  imageURL?: string;
+  profilePicture?: string;
   location: string;
   genre: string[]; //preselected values
   duration: number; //in days
