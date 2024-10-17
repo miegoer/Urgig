@@ -50,7 +50,7 @@ const sideNavLinks: sideNavLink[] = [
     alt: "Settings Icon",
     showFor: "both",
   },
-]; // Icons in the Dashboard's SideNav. Not yet linked to pages.
+];
 
 export default function SideNav() {
   const { userId, userType } = useTalkSession();

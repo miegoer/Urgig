@@ -1,4 +1,5 @@
 import dbConnect from "@/app/lib/mongoDB/dbConnect";
+import { Types } from "mongoose";
 import { UserModel } from "@/app/lib/mongoDB/models/userModel";
 import { NextResponse } from "next/server";
 

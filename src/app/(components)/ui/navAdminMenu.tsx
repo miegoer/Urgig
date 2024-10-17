@@ -1,7 +1,7 @@
 "use client";
 import { useTalkSession } from "@/app/(context)/TalkSessionContext";
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -11,7 +11,6 @@ export default function NavAdminMenu() {
   const { setUserId, setUserType, userId } = useTalkSession();
 
   const pathname = usePathname(); // Use usePathname instead of useRouter
-  const searchParams = useSearchParams(); // Get the search (query) params
 
   // Ensure the component is mounted before using the router
   useEffect(() => {

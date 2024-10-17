@@ -17,7 +17,7 @@ export type User = {
 };
 
 export type ProfileDetails = {
-  imageURL?: string; // URL to any cloud/webdisk API
+  profilePicture?: string; // URL to any cloud/webdisk API
   aboutMe?: string;
   selectedVideo?: string; //URL to ... youtube?
   socialLinks?: SocialLinks;

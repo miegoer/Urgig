@@ -31,9 +31,10 @@ export default function EventProfile() {
     genre: [] as string[],
     duration: 1,
     maxCapacity: 100,
-    imageURL: undefined,
+    profilePicture: undefined,
     link: undefined,
     promoterId: "",
+    bookingIds:[]
   });
 
   useEffect(() => {
@@ -75,7 +76,7 @@ export default function EventProfile() {
             <tbody>
               <tr>
                 <td>Artists</td>
-                <td>32</td>
+                <td>{event.bookingIds.length ? event.bookingIds.length  : 0}</td>
               </tr>
               <tr>
                 <td>Event Duration</td>
