@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 import { useTalkSession } from "@/app/(context)/TalkSessionContext";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Event } from "@/types/event";
 
 import Image from "next/image";
@@ -72,107 +72,109 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   ];
 
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(12, 1fr)",
-        gridTemplateRows: "auto 1fr",
-      }}
-    >
       <div
-        style={{ gridColumn: "1 / span 3", gridRow: "2 / span 10" }}
-        className="h-[630px] w-[500px] relative"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(12, 1fr)",
+          gridTemplateRows: "auto 1fr",
+        }}
       >
-        <Image
-          src={festHeroIMG}
-          width={760}
-          height={530}
-          alt="mock profile photo"
-          className="h-[100%] w-[67%] shadow-[0_4px_8px_0_rgba(0,0,0,0.2),0_6px_20px_0_rgba(0,0,0,0.19)] -ml-5 object-cover"
-        />
-        <div className="bg-gradient-to-l from-black/50 to-black/90  h-[80px] px-5 flex flex-col top-[82%] z-5 absolute ">
-          <div
-            className={`z-10 py-2.5 rounded-[3px] tracking-[1.5px] text-[white] ${ubuntu.className} text-2xl`}
-          >
-            {event.name}
+        <div
+          style={{ gridColumn: "1 / span 3", gridRow: "2 / span 10" }}
+          className="h-[630px] w-[500px] relative"
+        >
+          <Image
+            src={festHeroIMG}
+            width={760}
+            height={530}
+            alt="mock profile photo"
+            className="h-[100%] w-[67%] shadow-[0_4px_8px_0_rgba(0,0,0,0.2),0_6px_20px_0_rgba(0,0,0,0.19)] -ml-5 object-cover"
+          />
+          <div className="bg-gradient-to-l from-black/50 to-black/90  h-[80px] px-5 flex flex-col top-[82%] z-5 absolute ">
+            <div
+              className={`z-10 py-2.5 rounded-[3px] tracking-[1.5px] text-[white] ${ubuntu.className} text-2xl`}
+            >
+              {event.name}
+            </div>
+            <span className="text-sm italic -mt-2 text-center ${ubuntu.className}">
+              {event.location}
+            </span>
           </div>
-          <span className="text-sm italic -mt-2 text-center ${ubuntu.className}">
-            {event.location}
-          </span>
+          <Image
+            src={StartChat}
+            width={28}
+            height={28}
+            alt="Chat button"
+            className="w-[28px] h-[28px] absolute top-[40px] left-[65%] hover:scale-[1.2] transition-all duration-200"
+          />
+          <Image
+            src={Connect}
+            width={28}
+            height={28}
+            alt="Connect button"
+            className="w-[28px] h-[28px] absolute top-[120px] left-[65%] hover:scale-[1.2] transition-all duration-200"
+          />
+          <Image
+            src={Youtube}
+            width={28}
+            height={28}
+            alt="Spotify button"
+            className="w-[28px] h-[28px] absolute top-[220px] left-[65%] hover:scale-[1.2] transition-all duration-200"
+          />
+          <Image
+            src={Instagram}
+            width={28}
+            height={28}
+            alt="Instagram button"
+            className="w-[28px] h-[28px] absolute top-[330px] left-[65%] hover:scale-[1.2] transition-all duration-200"
+          />
         </div>
-        <Image
-          src={StartChat}
-          width={28}
-          height={28}
-          alt="Chat button"
-          className="w-[28px] h-[28px] absolute top-[40px] left-[65%] hover:scale-[1.2] transition-all duration-200"
-        />
-        <Image
-          src={Connect}
-          width={28}
-          height={28}
-          alt="Connect button"
-          className="w-[28px] h-[28px] absolute top-[120px] left-[65%] hover:scale-[1.2] transition-all duration-200"
-        />
-        <Image
-          src={Youtube}
-          width={28}
-          height={28}
-          alt="Spotify button"
-          className="w-[28px] h-[28px] absolute top-[220px] left-[65%] hover:scale-[1.2] transition-all duration-200"
-        />
-        <Image
-          src={Instagram}
-          width={28}
-          height={28}
-          alt="Instagram button"
-          className="w-[28px] h-[28px] absolute top-[330px] left-[65%] hover:scale-[1.2] transition-all duration-200"
-        />
+        <div
+          style={{ gridColumn: "3 / span 4", gridRow: "1 / span 4" }}
+          className="h-[660px] w-[480px]"
+        >
+          {children}
+        </div>
+        <div
+          style={{ gridColumn: "8 / span 3", gridRow: "2 / span 8" }}
+          className="w-[160px] ml-[70px]"
+        >
+          {event.promoterId === userId
+            ? profileLinks.map((link) => (
+                <Link href={link.href} key={link.name}>
+                  <div
+                    className={clsx(
+                      "w-[100%] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-xs border border-solid border-[white] uppercase transition-all duration-200",
+                      {
+                        "bg-[white] text-[#20202d] font-bold ":
+                          pathname === link.href,
+                        "text-[white]": pathname !== link.href,
+                      },
+                      "hover:bg-[white] hover:text-[black] hover:scale-110"
+                    )}
+                  >
+                    {link.name}
+                  </div>
+                </Link>
+              ))
+            : profileLinks.slice(0, -1).map((link) => (
+                <Link href={link.href} key={link.name}>
+                  <div
+                    className={clsx(
+                      "w-[100%] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-xs border border-solid border-[white] uppercase transition-all duration-200",
+                      {
+                        "bg-[white] text-[#20202d] font-bold ":
+                          pathname === link.href,
+                        "text-[white]": pathname !== link.href,
+                      },
+                      "hover:bg-[white] hover:text-[black] hover:scale-110"
+                    )}
+                  >
+                    {link.name}
+                  </div>
+                </Link>
+              ))}
+        </div>
       </div>
-      <div
-        style={{ gridColumn: "3 / span 4", gridRow: "1 / span 4" }}
-        className="h-[660px] w-[480px]"
-      >
-        {children}
-      </div>
-      <div
-        style={{ gridColumn: "8 / span 3", gridRow: "2 / span 8" }}
-        className="w-[160px] ml-[70px]"
-      >
-        {event.promoterId === userId
-          ? profileLinks.map((link) => (
-              <Link href={link.href} key={link.name}>
-                <div
-                  className={clsx(
-                    "w-[100%] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-xs border border-solid border-[white] uppercase transition-all duration-200",
-                    {
-                      "bg-[white] text-[#20202d] font-bold ": pathname === link.href,
-                      "text-[white]": pathname !== link.href,
-                    },
-                    "hover:bg-[white] hover:text-[black] hover:scale-110"
-                  )}
-                >
-                  {link.name}
-                </div>
-              </Link>
-            ))
-          : profileLinks.slice(0, -1).map((link) => (
-              <Link href={link.href} key={link.name}>
-                <div
-                  className={clsx(
-                    "w-[100%] my-[60px] p-4 rounded-[2px] text-center tracking-[3px] text-xs border border-solid border-[white] uppercase transition-all duration-200",
-                    {
-                      "bg-[white] text-[#20202d] font-bold ": pathname === link.href,
-                      "text-[white]": pathname !== link.href,
-                    },
-                    "hover:bg-[white] hover:text-[black] hover:scale-110"
-                  )}
-                >
-                  {link.name}
-                </div>
-              </Link>
-            ))}
-      </div>
-    </div>
   );
 }

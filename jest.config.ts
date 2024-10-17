@@ -6,12 +6,16 @@
 import type { Config } from "jest";
 import nextJest from "next/jest.js";
 
+
+
+
 const createJestConfig = nextJest({
   // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
   dir: "./",
 });
 
 const config: Config = {
+  setupFilesAfterEnv: ['./jest.setupTests.ts'],
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -110,6 +114,11 @@ const config: Config = {
 
   // A preset that is used as a base for Jest's configuration
   preset: "ts-jest",
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
+
+
 
   // Run tests from one or more projects
   // projects: undefined,
