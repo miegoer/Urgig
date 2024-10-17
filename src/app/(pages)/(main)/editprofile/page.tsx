@@ -1,30 +1,33 @@
-'use client';
+"use client";
 
-import { useState, useEffect, ChangeEvent } from 'react';
-import mockUsers from '@/mockData/user';
-import Image from 'next/image';
-import Spotify from '/public/spotify-icon.png';
-import TikTok from '/public/tiktok-icon.png';
-import Instagram from '/public/ig-icon.png';
-import Youtube from '/public/youtube-icon.png';
-import NoImage from '/public/no-image.svg';
-import Select from 'react-select';
-import makeAnimated from 'react-select/animated';
-import SelectGenre from '@/app/(components)/ui/dashboard/selectGenre';
-import ImageUpload from '../../../(components)/ui/dashboard/ImageUpload'; // Import the ImageUpload component
-import { useAuth, useUser } from '@clerk/nextjs'; // Clerk for ID
+import { useState, useEffect, ChangeEvent } from "react";
+import mockUsers from "@/mockData/user";
+import Image from "next/image";
+import Spotify from "/public/spotify-icon.png";
+import TikTok from "/public/tiktok-icon.png";
+import Instagram from "/public/ig-icon.png";
+import Youtube from "/public/youtube-icon.png";
+import NoImage from "/public/no-image.svg";
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
+import SelectGenre from "@/app/(components)/ui/dashboard/selectGenre";
+import ImageUpload from "../../../(components)/ui/dashboard/ImageUpload"; // Import the ImageUpload component
+import { useAuth, useUser } from "@clerk/nextjs"; // Clerk for ID
+import { useTalkSession } from "@/app/(context)/TalkSessionContext";
 
 const animatedComponents = makeAnimated();
 
 export default function EditProfile() {
-  const { userId } = useAuth();
+
+
+  const { userId } = useTalkSession(); //useAuth();
   const { user } = useUser();
   const [genres, setGenres] = useState<string[]>([]);
   const [isSent, setIsSent] = useState<boolean>(false);
-  const [artistName, setArtistName] = useState('');
-  const [artistLocation, setArtistLocation] = useState('');
-  const [artistBio, setArtistBio] = useState('');
-  const [imageURL, setImageURL] = useState<string>('');
+  const [artistName, setArtistName] = useState("");
+  const [artistLocation, setArtistLocation] = useState("");
+  const [artistBio, setArtistBio] = useState("");
+  const [profilePicture, setprofilePicture] = useState<string>("");
 
   // get user profile on load
   useEffect(() => {
@@ -38,10 +41,10 @@ export default function EditProfile() {
         setArtistName(userData.name);
         setArtistLocation(userData.location);
         setArtistBio(userData.profileDetails.aboutMe);
-        setImageURL(userData.profileDetails.profilePicture);
+        setprofilePicture(userData.profileDetails.profilePicture);
         setGenres(userData.profileDetails.genre || []);
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error("Error fetching user data:", error);
       }
     };
     fetchUserData();
@@ -49,10 +52,10 @@ export default function EditProfile() {
 
   // display either from DB, google profile image (clerk) or no-image in that order
   const getProfileImage = () => {
-    if (imageURL) {
-      return imageURL;
-    } else if (user?.imageUrl) {
-      return user.imageUrl;
+    if (profilePicture) {
+      return profilePicture;
+    } else if (user?.profilePicture) {
+      return user.profilePicture;
     } else {
       return NoImage;
     }
@@ -70,15 +73,15 @@ export default function EditProfile() {
     setArtistBio(event.target.value);
   };
 
-  const handleImageChange = (newImageURL: string) => {
-    setImageURL(newImageURL);
+  const handleImageChange = (newprofilePicture: string) => {
+    setprofilePicture(newprofilePicture);
   };
 
   // updtae profile
   const handleSaveChanges = async () => {
     try {
       if (!userId) {
-        alert('User not authenticated');
+        alert("User not authenticated");
         return;
       }
 
@@ -87,15 +90,15 @@ export default function EditProfile() {
         location: artistLocation,
         profileDetails: {
           aboutMe: artistBio,
-          profilePicture: imageURL,
+          profilePicture: profilePicture,
           genre: genres,
         },
       };
 
       const response = await fetch(`/api/users/${userId}`, {
-        method: 'PATCH',
+        method: "PATCH",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(profileData),
       });
@@ -107,13 +110,13 @@ export default function EditProfile() {
         setArtistName(updatedData.name);
         setArtistLocation(updatedData.location);
         setArtistBio(updatedData.profileDetails.aboutMe);
-        setImageURL(updatedData.profileDetails.profilePicture);
+        setprofilePicture(updatedData.profileDetails.profilePicture);
         setGenres(updatedData.profileDetails.genre || []);
       } else {
-        throw new Error('Failed to update profile');
+        throw new Error("Failed to update profile");
       }
     } catch (error) {
-      console.error('Error updating profile:', error);
+      console.error("Error updating profile:", error);
     }
   };
 
@@ -123,8 +126,7 @@ export default function EditProfile() {
         <div
           className="shadow-[0px_4px_5px_#191922] mx-[30px] my-0 py-[18px] px-2.5 rounded-[20px] text-center"
           style={{
-            background:
-              'linear-gradient(355deg, rgba(32,33,54,1) 0%, rgba(52,41,98,1) 100%)',
+            background: "linear-gradient(355deg, rgba(32,33,54,1) 0%, rgba(52,41,98,1) 100%)",
           }}
         >
           <span className="block text-[11px] text-[#ccff69] tracking-[1px] uppercase mt-[7px] mb-[10px]">
@@ -161,7 +163,7 @@ export default function EditProfile() {
               height={110}
             />
 
-            <ImageUpload setImageURL={handleImageChange} />
+            <ImageUpload setprofilePicture={handleImageChange} />
           </div>
         </div>
       </div>
@@ -191,10 +193,7 @@ export default function EditProfile() {
             />
           </div>
         </div>
-        <button
-          className="mt-5 p-2 rounded bg-[#ccff69] text-[black]"
-          onClick={handleSaveChanges}
-        >
+        <button className="mt-5 p-2 rounded bg-[#ccff69] text-[black]" onClick={handleSaveChanges}>
           Save Changes
         </button>
       </div>
@@ -202,27 +201,14 @@ export default function EditProfile() {
         <div
           className="shadow-[0px_4px_5px_#191922] my-0 py-[18px] px-2.5 rounded-[20px] text-center"
           style={{
-            background:
-              'linear-gradient(355deg, rgba(32,33,54,1) 0%, rgba(52,41,98,1) 100%)',
+            background: "linear-gradient(355deg, rgba(32,33,54,1) 0%, rgba(52,41,98,1) 100%)",
           }}
         >
           <span className="block text-[11px] text-[#ccff69] tracking-[1px] uppercase mt-[7px] mb-[30px]">
             Social
           </span>
-          <Image
-            src={Spotify}
-            alt="Spotify Icon"
-            height={40}
-            width={40}
-            className="m-auto"
-          />
-          <Image
-            src={TikTok}
-            alt="TikTok Icon"
-            height={43}
-            width={43}
-            className="m-auto mt-10"
-          />
+          <Image src={Spotify} alt="Spotify Icon" height={40} width={40} className="m-auto" />
+          <Image src={TikTok} alt="TikTok Icon" height={43} width={43} className="m-auto mt-10" />
           <Image
             src={Instagram}
             alt="Instagram Icon"

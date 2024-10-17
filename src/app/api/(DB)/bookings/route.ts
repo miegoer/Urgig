@@ -1,4 +1,5 @@
 import dbConnect from "@/app/lib/mongoDB/dbConnect";
+import { Types } from "mongoose"; 
 import { BookingModel } from "@/app/lib/mongoDB/models/bookingModel";
 import { BookingZodSchema } from "@/app/lib/zodSchemas/bookingZodSchema";
 import { NextRequest, NextResponse } from "next/server";
@@ -42,6 +43,27 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const searchQuery = searchParams.get("userId") || ""; // Get the 'userId' query parameter, default to an empty string
+
+    // let query = {};
+
+    // If searchQuery is provided, convert to ObjectId and filter bookings
+    // if (searchQuery) {
+    //   let userIdObjectId;
+      // try {
+      //   userIdObjectId = new Types.ObjectId(searchQuery); // Convert string to ObjectId
+      // } catch (error) {
+      //   // If conversion fails, return an error response
+      //   return NextResponse.json({ error: "Invalid user ID format" }, { status: 400 });
+      // }
+
+      // Build query for bookings
+    //   query = {
+    //     $or: [
+    //       { bookingArtistId: userIdObjectId }, // Match bookingArtistId as ObjectId
+    //       { bookingPromoterId: userIdObjectId }, // Match bookingPromoterId as ObjectId
+    //     ],
+    //   };
+    // }
     
     // Filter bookings by user id if provided
     const query = searchQuery
@@ -58,6 +80,7 @@ export async function GET(request: NextRequest) {
 
     // Return the bookings with only the selected fields
     return NextResponse.json(bookings, { status: 200 });
+      
   } catch (error) {
     console.error("Error fetching bookings:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });

@@ -3,10 +3,10 @@ import { storage } from "@/app/api/(3rdParty)/firebase/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 interface ImageUploadProps {
-  setImageURL: (url: string) => void;
+  setprofilePicture: (url: string) => void;
 }
 
-const ImageUpload: React.FC<ImageUploadProps> = ({ setImageURL }) => {
+const ImageUpload: React.FC<ImageUploadProps> = ({ setprofilePicture }) => {
   const [file, setFile] = useState<File | null>(null);
   const [progressPercent, setProgressPercent] = useState(0);
 
@@ -45,7 +45,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ setImageURL }) => {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log("File available at", downloadURL);
-          setImageURL(downloadURL);
+          setprofilePicture(downloadURL);
           console.log("Image URL:", downloadURL);
         });
       }
