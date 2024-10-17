@@ -63,7 +63,7 @@ export const TalkSessionProvider: React.FC<{ children: React.ReactNode }> = ({ c
       };
       getUser();
       // setUserId("670830401234567890abcdef");
-      setUserId(userId);
+      setUserId(user.id);
     }
   }, [isLoaded]);
 
