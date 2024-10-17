@@ -18,9 +18,7 @@ import { useTalkSession } from "@/app/(context)/TalkSessionContext";
 const animatedComponents = makeAnimated();
 
 export default function EditProfile() {
-
-
-  const { userId } = useTalkSession(); //useAuth();
+  const { userId } = useAuth();
   const { user } = useUser();
   const [genres, setGenres] = useState<string[]>([]);
   const [isSent, setIsSent] = useState<boolean>(false);
