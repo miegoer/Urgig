@@ -15,6 +15,16 @@ export const ProfileDetailsZodSchema = z.object({
       tiktok: z.string().url().optional(),
     })
     .optional(),
+  fanBase: z
+    .object({
+      twitter: z.number().optional(),
+      facebook: z.number().optional(),
+      youtube: z.number().optional(),
+      instagram: z.number().optional(),
+      spotify: z.number().optional(),
+      tiktok: z.number().optional(),
+    })
+    .optional(),
   unAvailableDates: z
     .array(
       z

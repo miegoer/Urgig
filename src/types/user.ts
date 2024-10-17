@@ -21,6 +21,7 @@ export type ProfileDetails = {
   aboutMe?: string;
   selectedVideo?: string; //URL to ... youtube?
   socialLinks?: SocialLinks;
+  fanBase?: FanBase;
   unAvailableDates?: Date[]; //for now
   bannerPicture?: string;
   genre: string[]; // preselected ones, defined hardcoded into UI! Make a separate file at least...
@@ -33,6 +34,15 @@ export type SocialLinks = {
   instagram?: string; //https://www.instagram.com/
   spotify?: string; // https://open.spotify.com/artist/
   tiktok?: string; // https://www.tiktok.com/@
+};
+
+export type FanBase = {
+  twitter?: number; //url - we can check if it strats with "https://twitter" or "https://x.com"... and validate it with Zod
+  facebook?: number; //https://www.facebook.com/
+  youtube?: number; //https://www.youtube.com/@
+  instagram?: number; //https://www.instagram.com/
+  spotify?: number; // https://open.spotify.com/artist/
+  tiktok?: number; // https://www.tiktok.com/@
 };
 
 export type Settings = {

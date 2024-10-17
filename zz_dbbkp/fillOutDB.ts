@@ -4,6 +4,7 @@ import { eventsDB } from "./events";
 import { usersDB } from "./users";
 import { POST } from "@/app/api/(DB)/bookings/route";
 import { Event } from "@/types/event";
+import { User } from "@/types/user";
 
 const fillOutEachCollectionDB = async (typeDB: any, api: string) => {
   typeDB.map(async (type: any) => {
@@ -45,12 +46,41 @@ const updateEvent_artistsBookingIds = async (bookingId: string, eventId: string)
   // });
 };
 
+const addFanBaseToProfiles = async () => {
+  const response = await fetch(`/api/users`);
+  const usersFromDB: User[] = await response.json();
+
+  const updateUserProfile = async (user: User) => {
+    const fanBase = getRandomNumberOfCompleteFanBase();
+
+    const profileDetails = user.profileDetails ? { ...user.profileDetails, fanBase } : { fanBase };
+    console.log(profileDetails);
+
+    const response = await fetch(`/api/users/${user._id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ profileDetails }),
+    });
+
+    console.log(await response.json());
+  };
+
+  usersFromDB.forEach(async (user: User) => {
+    if (user.profileDetails) {
+      await updateUserProfile(user);
+    }
+  });
+};
+
 export const fillOutDB = () => {
   // fillOutEachCollectionDB(eventsDB, "events");
   // fillOutEachCollectionDB(bookingsDB, "bookings");
-  fillOutEachCollectionDB(AidanBookings, "bookings");
+  //fillOutEachCollectionDB(AidanBookings, "bookings");
   //fillOutEachCollectionDB(usersDB, "users");
   //connectBookingWithEvents();
+  addFanBaseToProfiles();
 };
 
 const AidanBookings = [
@@ -82,3 +112,18 @@ const AidanBookings = [
     travelExpenses: 300,
   },
 ];
+
+function getRandomNumberOfCompleteFanBase() {
+  return {
+    twitter: getRandomNumberOfFanBase(),
+    facebook: getRandomNumberOfFanBase(),
+    youtube: getRandomNumberOfFanBase(),
+    instagram: getRandomNumberOfFanBase(),
+    spotify: getRandomNumberOfFanBase(),
+    tiktok: getRandomNumberOfFanBase(),
+  };
+}
+
+function getRandomNumberOfFanBase() {
+  return Math.floor(Math.random() * 100000 + 20000);
+}
