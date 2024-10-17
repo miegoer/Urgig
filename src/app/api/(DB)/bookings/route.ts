@@ -44,42 +44,43 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const searchQuery = searchParams.get("userId") || ""; // Get the 'userId' query parameter, default to an empty string
 
-    let query = {};
+    // let query = {};
 
     // If searchQuery is provided, convert to ObjectId and filter bookings
-    if (searchQuery) {
-      let userIdObjectId;
-      try {
-        userIdObjectId = new Types.ObjectId(searchQuery); // Convert string to ObjectId
-      } catch (error) {
-        // If conversion fails, return an error response
-        return NextResponse.json({ error: "Invalid user ID format" }, { status: 400 });
-      }
+    // if (searchQuery) {
+    //   let userIdObjectId;
+      // try {
+      //   userIdObjectId = new Types.ObjectId(searchQuery); // Convert string to ObjectId
+      // } catch (error) {
+      //   // If conversion fails, return an error response
+      //   return NextResponse.json({ error: "Invalid user ID format" }, { status: 400 });
+      // }
 
       // Build query for bookings
-      query = {
-        $or: [
-          { bookingArtistId: userIdObjectId }, // Match bookingArtistId as ObjectId
-          { bookingPromoterId: userIdObjectId }, // Match bookingPromoterId as ObjectId
-        ],
-      };
-    }
+    //   query = {
+    //     $or: [
+    //       { bookingArtistId: userIdObjectId }, // Match bookingArtistId as ObjectId
+    //       { bookingPromoterId: userIdObjectId }, // Match bookingPromoterId as ObjectId
+    //     ],
+    //   };
+    // }
     
-    // // Filter bookings by user id if provided
-    // const query = searchQuery
-    //   ? {
-    //       $or: [
-    //         { bookingArtistId: { $regex: searchQuery, $options: "i" } }, // Case-insensitive search in bookingArtist_id
-    //         { bookingPromoterId: { $regex: searchQuery, $options: "i" } }, // Case-insensitive search in event_id
-    //       ],
-    //     }
-    //   : {}; // If no search query, return all bookings
+    // Filter bookings by user id if provided
+    const query = searchQuery
+      ? {
+          $or: [
+            { bookingArtistId: { $regex: searchQuery, $options: "i" } }, // Case-insensitive search in bookingArtist_id
+            { bookingPromoterId: { $regex: searchQuery, $options: "i" } }, // Case-insensitive search in event_id
+          ],
+        }
+      : {}; // If no search query, return all bookings
 
     // Fetch all bookings
     const bookings = await BookingModel.find(query);
 
     // Return the bookings with only the selected fields
     return NextResponse.json(bookings, { status: 200 });
+      
   } catch (error) {
     console.error("Error fetching bookings:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });

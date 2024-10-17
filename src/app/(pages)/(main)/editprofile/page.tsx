@@ -13,11 +13,14 @@ import makeAnimated from "react-select/animated";
 import SelectGenre from "@/app/(components)/ui/dashboard/selectGenre";
 import ImageUpload from "../../../(components)/ui/dashboard/ImageUpload"; // Import the ImageUpload component
 import { useAuth, useUser } from "@clerk/nextjs"; // Clerk for ID
+import { useTalkSession } from "@/app/(context)/TalkSessionContext";
 
 const animatedComponents = makeAnimated();
 
 export default function EditProfile() {
-  const { userId } = useAuth();
+
+
+  const { userId } = useTalkSession(); //useAuth();
   const { user } = useUser();
   const [genres, setGenres] = useState<string[]>([]);
   const [isSent, setIsSent] = useState<boolean>(false);
