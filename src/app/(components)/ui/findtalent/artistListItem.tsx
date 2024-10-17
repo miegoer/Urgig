@@ -26,20 +26,28 @@ const ubuntu = Ubuntu({
 
 export default function ArtistListItem({ artist }: ArtistListItemProps) {
   const [events, setEvents] = useState<Event[]>([]);
-  const [nextEvent, setNextEvent] = useState<Event | null>()
+  const [nextEvent, setNextEvent] = useState<Event | null>();
   // const [artistPastEvents, setPastArtistEvents] = useState<ArtistEvent[]>([]);
 
-  const formatDate = (date:Date) => {
+  const formatDate = (date: Date) => {
     const dateChange = new Date(date);
-    const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric'};
-    const formattedDate = dateChange.toLocaleDateString('en-GB', options);
+    const options: Intl.DateTimeFormatOptions = {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    };
+    const formattedDate = dateChange.toLocaleDateString("en-GB", options);
     return formattedDate;
-  }
+  };
 
-  const getSoonestEvent = (array:[]) => {
+  const getSoonestEvent = (array: []) => {
     const currentDate = new Date();
-    const upcomingEvents = array.filter(event => new Date(event.date) > currentDate);
-    upcomingEvents.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    const upcomingEvents = array.filter(
+      (event) => new Date(event.date) > currentDate
+    );
+    upcomingEvents.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    );
     return upcomingEvents.length > 0 ? upcomingEvents[0] : null;
   };
 
@@ -92,16 +100,23 @@ export default function ArtistListItem({ artist }: ArtistListItemProps) {
         </div>
 
         <div className="flex flex-col p-2 w-[280px] mr-[10px] text-center">
-            <span className="rounded-[5px] p-1 inline-block flex-wrap text-[14px] tracking-[2px] uppercase mt-[14px] text-[#ccff69] mb-[8px] text-center">{artist.name}</span>
-            <div className="flex flex-wrap p-2 tracking-[1px] text-[#928dd3] justify-center items-center text-xs">
+          <span className="rounded-[5px] p-1 inline-block flex-wrap text-[14px] tracking-[2px] uppercase mt-[14px] text-[#ccff69] mb-[8px] text-center">
+            {artist.name}
+          </span>
+          <div className="flex flex-wrap p-2 tracking-[1px] text-[#928dd3] justify-center items-center text-xs">
             {artist.location}
-            </div>
           </div>
+        </div>
 
-        <div className="flex flex-col items-center text-center justify-center w-[280px]" style={{borderLeft: '1px solid black'}}>
-        {events && nextEvent ? (
+        <div
+          className="flex flex-col items-center text-center justify-center w-[280px]"
+          style={{ borderLeft: "1px solid black" }}
+        >
+          {events && nextEvent ? (
             <Link href={`/events/${nextEvent._id}`}>
-              <span className={`text-[13px] text-[#f79c0e] w-[230px] text-nowrap tracking-[1.5px] mb-[8px] text-center ${ubuntu.className}`}>
+              <span
+                className={`text-[13px] text-[#f79c0e] w-[230px] text-nowrap tracking-[1.5px] mb-[8px] text-center ${ubuntu.className}`}
+              >
                 {nextEvent.name}
               </span>
               <span className="italic block text-xs tracking-[1px] mt-[6px] text-center">
@@ -120,7 +135,9 @@ export default function ArtistListItem({ artist }: ArtistListItemProps) {
           ))} */}
         </div>
         <div //events number
-          className="flex flex-col w-[80px] items-center py-3 px-[15px] justify-center" style={{borderLeft: '1px solid black'}}>
+          className="flex flex-col w-[80px] items-center py-3 px-[15px] justify-center"
+          style={{ borderLeft: "1px solid black" }}
+        >
           <span className="block text-[15px] tracking-[1.5px] uppercase ">
             {artist.events!.length}
           </span>
@@ -129,9 +146,16 @@ export default function ArtistListItem({ artist }: ArtistListItemProps) {
           </span>
         </div>
 
-        <div className="flex flex-row flex-wrap w-[210px] text-center justify-around py-2 px-5 items-center overflow-y-auto" style={{borderLeft: '1px solid black'}}>
+        <div
+          className="flex flex-row flex-wrap w-[210px] text-center justify-around py-2 px-5 items-center overflow-y-auto
+          [&::-webkit-scrollbar]:w-0
+              [&::-webkit-scrollbar-track]:rounded-full
+              [&::-webkit-scrollbar-track]:bg-black-100
+              [&::-webkit-scrollbar-thumb]:rounded-full"
+          style={{ borderLeft: "1px solid black" }}
+        >
           {artist.profileDetails?.genre.map((genre, index) => (
-            <span className="inline px-2 py-1 mx-[10px] text-[10px] bg-[black] text-[#ccff69] rounded-[8px] text-[#ccff69] tracking-[1px] uppercase">
+            <span className="inline px-2 py-1 mx-[10px] text-[10px] bg-[black] rounded-[8px] text-[#ccff69] tracking-[1px] uppercase">
               {genre}
             </span>
           ))}

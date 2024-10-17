@@ -6,10 +6,18 @@ import Image from "next/image";
 const Tip = "/tip-notification.png";
 
 const notificationsMock = [
-  { text: "Bob Meowington just sent you a booking request", time: "10m", type: "request" },
+  {
+    text: "Bob Meowington just sent you a booking request",
+    time: "10m",
+    type: "request",
+  },
   { text: "Fluffer the Booker just left you a tip", time: "1h", type: "tip" },
   { text: "Fluffer the Booker just paid you", time: "1h", type: "payment" },
-  { text: "Paws the Pub Owner just left you a review", time: "4h", type: "review" },
+  {
+    text: "Paws the Pub Owner just left you a review",
+    time: "4h",
+    type: "review",
+  },
   { text: "Paws the Pub Owner just paid you", time: "5h", type: "payment" },
 ];
 
@@ -17,7 +25,13 @@ const notifications = notificationsMock;
 
 export default function Notifications() {
   return (
-    <div className="w-[330px] shadow-[0px_0px_0px_#272525] ml-[30px] mr-[30px] mt-5 mb-0 p-5 rounded-[20px] bg-[#292346] overflow-auto">
+    <div
+      className="w-[330px] shadow-[0px_0px_0px_#272525] ml-[30px] mr-[30px] mt-5 mb-0 p-5 rounded-[20px] bg-[#292346] overflow-auto 
+              [&::-webkit-scrollbar]:w-0
+              [&::-webkit-scrollbar-track]:rounded-full
+              [&::-webkit-scrollbar-track]:bg-black-100
+              [&::-webkit-scrollbar-thumb]:rounded-full"
+    >
       <span className="block text-[11px] tracking-[1px] uppercase ml-2.5 mr-0 mt-[3px] mb-[18px]">
         Notifications
       </span>
