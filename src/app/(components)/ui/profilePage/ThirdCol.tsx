@@ -51,7 +51,7 @@ export default function ThirdCol() {
 
   return (
     <>
-      {isPublic(pathname) && (
+      {isPublic(pathname) && pageOwnerUser.typeOfAccount === "artist" && (
         <div>
           <div style={{ gridColumn: "8 / span 3", gridRow: "2 / span 8" }} className="w-[160px]">
             <button
