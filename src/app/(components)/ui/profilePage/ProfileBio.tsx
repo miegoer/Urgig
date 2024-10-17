@@ -21,7 +21,7 @@ export default function SecondCol() {
         id="about"
         className={`z-10 relative w-[100%] mt-1 p-8 rounded-[2px] text-center tracking-[1.5px] text-[white] text-sm`}
       >
-        <span className="inline-flex text-[11px] tracking-[1px] uppercase mr-0 mt-[1px] px-4 mb-[18px] rounded-[3px] text-[black] bg-[white]">
+        <span className="inline-flex text-[11px] tracking-[1px] uppercase mr-0 mt-[15px] px-4 mb-[18px] rounded-[3px] text-[black] bg-[white]">
           About
         </span>
         {pageOwnerUser?.profileDetails?.aboutMe && (
@@ -40,19 +40,19 @@ export default function SecondCol() {
           <tbody>
             <tr>
               <td>Members</td>
-              <td>1</td>
+              <td className="p-1.5">1</td>
             </tr>
             <tr>
               <td>Unplugged</td>
-              <td>No</td>
+              <td className="p-1.5">No</td>
             </tr>
             <tr>
               <td>Covers</td>
-              <td>Yes</td>
+              <td className="p-1.5">Yes</td>
             </tr>
             <tr>
               <td>Originals</td>
-              <td>Yes</td>
+              <td className="p-1.5">Yes</td>
             </tr>
           </tbody>
         </table>

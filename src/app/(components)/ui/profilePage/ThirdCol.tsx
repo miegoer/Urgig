@@ -25,7 +25,6 @@ export default function ThirdCol() {
 
   const [profileLinks, setProfileLinks] = useState<profileLink[]>([
     { name: "Bio", href: `` },
-    { name: "Fan Base", href: `fanbase` },
     { name: "Events", href: `events` },
     { name: "Media", href: `media` },
   ]);
@@ -37,7 +36,6 @@ export default function ThirdCol() {
 
       setProfileLinks([
         { name: "Bio", href: `${baseRoute}` },
-        { name: "Fan Base", href: `${baseRoute}/fanbase` },
         { name: "Events", href: `${baseRoute}/events` },
         { name: "Media", href: `${baseRoute}/media` },
       ]);
@@ -50,7 +48,7 @@ export default function ThirdCol() {
   }
 
   return (
-    <>
+    <div className="mt-[50px]">
       {isPublic(pathname) && pageOwnerUser.typeOfAccount === "artist" && (
         <div>
           <div style={{ gridColumn: "8 / span 3", gridRow: "2 / span 8" }} className="w-[160px]">
@@ -85,7 +83,7 @@ export default function ThirdCol() {
           <BookNow setOpenBooking={setOpenBooking} />
         </div>
       )}
-    </>
+    </div>
   );
 }
 

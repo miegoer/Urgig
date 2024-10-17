@@ -28,14 +28,14 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
             <div
               id="2ndcol"
               style={{ gridColumn: "4 / span 4", gridRow: "1 / span 4" }}
-              className="h-[660px] w-[480px]"
+              className="h-[660px] w-[500px] ml-[50px]"
             >
               {children}
             </div>
             <div
               id="3rdcol"
-              style={{ gridColumn: "8 / span 3", gridRow: "2 / span 8" }}
-              className="z-10 w-[160px] ml-[70px]"
+              style={{ gridColumn: "9 / span 3", gridRow: "2 / span 8" }}
+              className="z-10 w-[160px]"
             >
               <ThirdCol />
             </div>
